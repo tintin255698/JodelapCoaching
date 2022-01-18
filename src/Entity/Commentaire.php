@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\CommentRepository;
+use App\Repository\CommentaireRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -41,6 +41,11 @@ class Commentaire
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $bool;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -78,6 +83,18 @@ class Commentaire
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getBool(): ?bool
+    {
+        return $this->bool;
+    }
+
+    public function setBool(bool $bool): self
+    {
+        $this->bool = $bool;
 
         return $this;
     }

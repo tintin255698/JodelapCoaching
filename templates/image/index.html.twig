@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ImageController!{% endblock %}
+
+{% block body %}
+
+    {% if video > 0 %}
+    {% for videos in video %}
+
+<h1>Les vidéos</h1>
+        <video controls width="250">
+            <source src="{{vich_uploader_asset(videos, 'imageFile') }}">
+        </video>
+    {% endfor %}
+{% endif %}
+
+    {% if image > 0 %}
+        {% for images in image %}
+
+            <h1>Les images</h1>
+            <img src="{{vich_uploader_asset(images, 'imageFile') }}" alt="">
+        {% endfor %}
+    {% endif %}
+
+
+
+{% endblock %}

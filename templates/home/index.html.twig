@@ -3,8 +3,6 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<?php get_header(); ?>
-
 <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
 
 
@@ -86,23 +84,17 @@
 </div>
 
 <div class="container-fluid">
-    <div class="row">
+    <div class="row no-gutters">
 
+        {%  for images in image %}
     <div class="col-lg-3 col-md-4">
         <div class="gallery-item">
-            <a href="{{ asset('img/photo7.jpg') }}" class="venobox" data-gall="gallery-item">
-                <img src="{{ asset('img/photo7.jpg') }}" class="img-fluid">
+            <a href="{{ vich_uploader_asset(images, 'imageFile') }}" class="venobox" data-maxwidth="800px"  data-gall="gallery-item">
+                <img src="{{ vich_uploader_asset(images, 'imageFile')}}" class="img-fluid transition">
             </a>
         </div>
     </div>
-        <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-                <a href="{{ asset('img/photo2.jpg') }}" class="venobox" data-gall="gallery-item">
-                    <img src="{{ asset('img/photo2.jpg') }}" class="img-fluid">
-                </a>
-            </div>
-        </div>
-    </div>
+        {%  endfor %}
 
 
 
