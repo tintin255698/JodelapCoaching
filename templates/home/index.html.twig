@@ -84,7 +84,7 @@
 </div>
 
 <div class="container-fluid">
-    <div class="row no-gutters">
+    <div class="row">
 
         {%  for images in image %}
     <div class="col-lg-3 col-md-4">
@@ -97,30 +97,52 @@
         {%  endfor %}
 
 
+        <div id="testimonials" class="testimonials">
+            <div class="container">
 
-    <div id="testimonials" class="testimonials mt-5">
-        <div class="container">
-            <div class="owl-carousel testimonials-carousel">
-                <div class="testimonial-item">
-                    <p>Vivien JOLY</p>
-                    <br>
+                <div class="owl-carousel testimonials-carousel">
 
-                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>sdggffgfgfggffgdfggfdgffgdgfgfdgfdgfgd<i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                    <br>
-                    <span class="note">
-5
+                        <div class="testimonial-item">
+                            <p>Vivien JOLY</p>
+                            <br>
+                            <br>
+                            <i class="bx bxs-quote-alt-left quote-icon-left"></i>sdggffgfgfggffgdfggfdgffgdgfgfdgfdgfgd  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                            <br>
+                            <span class="note">
                                 <i class='bx bxs-star bx-tada' ></i>
-
 
                                 <i class='bx bx-star bx-tada' ></i>
 
 </span>
+                        </div>
+
                 </div>
+
             </div>
-
-
         </div>
-    </div><!-- End Testimonials Section -->
+
+
+        <div class="sponsor mt-5">
+
+            <a href="https://www.enve.com">
+                <img src="{{ asset('img/sponsor/enve.jpg') }}" alt="Enve" class="size">
+            </a>
+            <a href="https://moniteurcycliste.com">
+                <img src="{{ asset('img/sponsor/mcf.png') }}" alt="Moniteur Cyliste Français - MCF" class="size">
+            </a>
+            <a href="https://mohawkscycles.fr/fr/">
+                <img src="{{ asset('img/sponsor/mohawks.jpg') }}" alt="Mohawk's cycles" class="size">
+            </a>
+            <a href="https://www.pivotcycles.com/en/">
+                <img src="{{ asset('img/sponsor/pivot.png') }}" alt="Pivot cycle" class="size">
+            </a>
+            <a href="https://www.runnicycles.fr">
+                <img src="{{ asset('img/sponsor/runnycycle.png') }}" alt="RunnyCycles" class="size">
+            </a>
+        </div>
+
+
+
 
 
 
@@ -129,41 +151,35 @@
 
 </div>
 
-
-
-
-
-
-
-
-
-<img src="{{ asset('img/sponsor.PNG') }}"  class="img-fluid displayed mt-5" alt="Sponsor">
-
-
-
-
-
-
-
-
-
     <script>
         new VenoBox({
             selector: '.venobox',
-            numeration: true,
             infinigall: true,
-            share: true,
-            spinner: 'bounce'
+            spinner: 'bounce',
+            navigation:true
         });
 
-        $(".owl-carousel").owlCarousel({
-            animateOut: 'slideOutDown',
-            animateIn: 'flipInX',
-            items:1,
-            margin:30,
-            stagePadding:30,
-            smartSpeed:450
-        });
+        $('.owl-carousel').owlCarousel({
+            loop:true,
+            margin:10,
+            autoplay: true,
+            responsiveClass:true,
+            responsive:{
+                0:{
+                    items:1,
+                    nav:true
+                },
+                600:{
+                    items:2,
+                    nav:false
+                },
+                1000:{
+                    items:3,
+                    nav:true,
+                    loop:false
+                }
+            }
+        })
 
 
     </script>
