@@ -1,26 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ImageController!{% endblock %}
+{% block title %}Galerie{% endblock %}
 
 {% block body %}
+<div class="container-fluid">
+
+    <div class="row">
+
+
+        {% if image > 0 %}
+            <h1 class="text-center">Mes photos</h1>
+
+            {%  for images in image %}
+                <div class="col-lg-3 col-md-4">
+                    <div class="gallery-item">
+                        <a href="{{ vich_uploader_asset(images, 'imageFile') }}" class="venobox" data-maxwidth="800px"  data-gall="gallery-item">
+                            <img src="{{ vich_uploader_asset(images, 'imageFile')}}" alt="galerie VTT MCF" style="border-radius: 10px" class="img-fluid transition">
+                        </a>
+
+                    </div>
+                </div>
+            {%  endfor %}
+
+        {% endif %}
+
 
     {% if video > 0 %}
+        <h1 class="text-center mb-5 mt-5">Mes vidéos</h1>
     {% for videos in video %}
-
-<h1>Les vidéos</h1>
-        <video controls width="250">
+        <div class="col-lg-3 col-md-4" style="background-image: url('../../img/LOGO.png') ">
+            <div class="gallery-item">
+        <video style="border-radius: 10px" class="mx-auto d-block transition" controls width="250">
             <source src="{{vich_uploader_asset(videos, 'imageFile') }}">
         </video>
+
+
+
+
+            </div>
+        </div>
     {% endfor %}
 {% endif %}
 
-    {% if image > 0 %}
-        {% for images in image %}
 
-            <h1>Les images</h1>
-            <img src="{{vich_uploader_asset(images, 'imageFile') }}" alt="">
-        {% endfor %}
-    {% endif %}
+
+
+</div>
+    </div>
+
+
+
+<script>
+    new VenoBox({
+        selector: '.venobox',
+        infinigall: true,
+        spinner: 'bounce',
+        navigation:true
+    });
+</script>
+
+
 
 
 

@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ImageController extends AbstractController
 {
     /**
-     * @Route("/image", name="image")
+     * @Route("/galerie", name="galerie")
      */
     public function index(ImageRepository $imageRepository): Response
     {

@@ -1,0 +1,14 @@
+
+<img src="{{ asset('img/capture1.PNG') }}">
+
+<h1>Salut,</h1>
+
+<p>
+    Pour valider ton inscription, tu dois cliquer sur le lien ci-dessous : <br><br>
+    <a href="{{ signedUrl }}">Validation de mon compte Jodelap Coaching</a>.
+    Ce lien expirera dans : {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+</p>
+
+<p>
+    Merci bien,
+</p>

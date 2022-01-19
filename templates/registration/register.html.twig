@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+    <h1 class="text-center" style="margin-top: 5%; margin-bottom: 2%">S'inscrire sur le site Jodelap Coaching</h1>
+
+<div class="container inscription">
+
+
+
+
+    {{ form_start(registrationForm) }}
+    <div class="form-row mt-5 ">
+        <div class="col-lg-6 col-md-6 form-group mt-5" style="width:55%">
+            {{ form_widget(registrationForm.FirstName)}}
+        </div>
+        <div class="col-lg-6 col-md-6 form-group mt-5 " style="width:55%">
+            {{ form_widget(registrationForm.LastName)}}
+        </div>
+    </div>
+    <div class="form-row mt-3">
+        <div class="col-lg-6 col-md-6 form-group mt-5" style="width:55%">
+            {{ form_widget(registrationForm.telephone)}}
+        </div>
+        <div class="col-lg-6 col-md-6  form-group mt-5" style="width:55%">
+            {{ form_widget(registrationForm.Email)}}
+        </div>
+    </div>
+    <div class="form-row mt-3" >
+        <div class="col-lg-6 col-md-6  form-group mt-5" style="width:55%">
+            {{ form_widget(registrationForm.plainPassword.pass)}}
+        </div>
+        <div class="col-lg-6 col-md-6 form-group mt-5" style="width:55%">
+            {{ form_widget(registrationForm.plainPassword.confirm)}}
+        </div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-light mt-5">S'inscrire</button>
+    </div>
+    {{ form_end(registrationForm) }}
+
+
+
+</div>
+
+{% endblock %}
+

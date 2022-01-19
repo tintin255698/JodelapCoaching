@@ -1,32 +1,27 @@
-.menubar, #menu {
-    width:100%;
-    background-color: black ;
-    border-radius: 10px;
-}
 
-#menu {
-    text-align:center;
-    padding:2%;
-    margin:0;
+@font-face {
+    font-family: poule;
+    src: url(../../font/Mochiy.ttf);
 }
 
 
-li {
-    display : inline-block;
-    width : 33%;
-    color: white;
+@font-face {
+    font-family: navet;
+    src: url(../../font/Lato-Light.ttf);
 }
 
-ul {
-    list-style-type : none;
-
+@font-face {
+    font-family: roboto;
+    src: url(../../font/Roboto-Regular.ttf);
 }
 
-li a {
-    color: aliceblue;
-    font-family: 'Roboto', sans-serif; !important;
-    font-size: large;
+@font-face {
+    font-family: op;
+    src: url(../../police/OpenSans.ttf);
 }
+
+
+
 
 img.displayed {
     display: block;
@@ -178,4 +173,96 @@ h4{
     .testimonials .testimonial-item p {
         width: 80%;
     }
+}
+
+.inscription{
+
+    background-image: url('../../img/photo7.JPG');
+    background-size: cover;
+    padding-bottom: 3%;
+    padding-top: 0.5%;
+}
+
+.connexion{
+    background-image: url('../../img/capture1.PNG');
+    background-size: cover;
+    padding-bottom: 2%;
+    margin-top: 5%;
+}
+
+label {
+    color: white;
+    font-size: large;
+    font-weight: bold;
+
+}
+
+input:hover {
+    background-color: black;
+}
+
+
+nav.navbar.navbar-expand-lg{
+    background-color: #333; /* Black background color */
+    position: fixed; /* Make it stick/fixed */
+    top: -50px; /* Hide the navbar 50 px outside of the top view */
+    width: 100%; /* Full width */
+    transition: top 0.3s; /* Transition effect when sliding down (and up) */
+    z-index: 1;
+}
+
+a.nav-link.active{
+    display: block;
+    color: white;
+    padding: 15px;
+    text-decoration: none;
+    font-size: larger;
+    font-family:  'navet', sans-serif;
+    font-weight: bold;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+a.nav-link.active:hover{
+    background-color: white;
+    color: black !important;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'open', sans-serif
+}
+
+.chien{
+    font-family: 'poule', sans-serif;
+}
+
+p{
+    font-family: 'roboto', sans-serif;
+}
+
+.roboto {
+    text-align: justify;
+    font-size: large;
+}
+
+button.btn.btn-danger{
+    font-family:  'navet', sans-serif;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.count{
+    font-family:  'navet', sans-serif; !important;
+    font-size: x-large;
+    font-weight: bolder;
+    color: white;
+}
+
+.alert{
+    background-color: black;
+    border-radius: 20px;
+}
+
+.top{
+    margin-top: 10%;
 }

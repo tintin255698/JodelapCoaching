@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Avis{% endblock %}
+
+{% block body %}
+
+            <div class="container">
+
+                <div class="text-right top">
+                    <p><a href="{{ path ('add_avis') }}" class="btn">Donner votre avis</a></p>
+                </div>
+                    <div class="mt-5">
+                        <h1 class="text-center mb-5">Vos avis !</h1>
+                    </div>
+
+                    {% if repo|length > 0 %}
+
+                        <div class="alert ">
+                            <p class="alert-heading">
+                                <div class="row">
+                                    <div class="col count">
+                                        Moyenne donnée par {{count}} clients
+                        </div>
+                                    <div class="col count">
+                                        {% for moyennes in moyenne %}
+                                            <span class="note">
+        {% for i in 1..5 %}
+            {% if i <= moyennes.note %}
+                <i class='bx bxs-star bx-flashing' ></i>
+            {% else  %}
+                <i class='bx bx-star bx-flashing' ></i>
+            {% endif %}
+        {% endfor %}
+</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </p>
+                        </div>
+                        {% for repos in repo %}
+
+                            <div class="bg-light rounded mt-5 mb-5 py-3 px-3">
+                                <strong>{{ repos.user.FirstName }} {{ repos.user.LastName }}</strong> a dit :
+                                <blockquote>
+                                    {{ repos.contenu }}
+                                </blockquote>
+                                <strong>Note qu'il/elle a donnée</strong> :
+                                <span class="note">
+        {% for i in 1..5 %}
+            {% if i <= repos.note %}
+                <i class='bx bxs-star bx-spin' ></i>
+            {% else  %}
+                <i class='bx bx-star bx-spin' ></i>
+            {% endif %}
+        {% endfor %}
+</span>
+                            </div>
+                        {% endfor%}
+                    {% else %}
+                        <h2 class="titre pb-3">En attente de commentaires</h2>
+                    {% endif %}
+                    <div class="text-right">
+                        <h3>{{ knp_pagination_render(repo) }}</h3>
+                    </div>
+                </div>
+
+{% endblock %}

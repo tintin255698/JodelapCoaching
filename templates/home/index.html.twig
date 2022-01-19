@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Acceuil{% endblock %}
 
 {% block body %}
 <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
-
 
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -18,35 +17,28 @@
                 <img src="{{ asset('img/photo3.jpg') }}" class="d-block w-100" alt="...">
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
 
+    </div>
 
 <div class="container">
 
-    <h3 class="mt-5 animate__animated animate__fadeInUp">Jonathan Revillot-Tirot</h3>
-        <h2 class="mb-5 animate__animated animate__fadeInUp">Besancon (25), France</h2>
+    <h2 class="mt-5 animate__animated animate__fadeInUp">Jonathan Revillot-Tirot</h2>
+
+        <h3 class="mb-5 animate__animated animate__fadeInUp">Besancon (25), France</h3>
 
         <div class="row">
             <div class="col-md">
-            <p style="text-align:justify">Pour moi, le VTT est avant tout un moyen de prendre du plaisir, rencontrer de nouvelles personnes, voyager, explorer, repousser mes limites et me challenger.
+            <p class="roboto">Pour moi, le VTT est avant tout un moyen de prendre du plaisir, rencontrer de nouvelles personnes, voyager, explorer, repousser mes limites et me challenger.
                 Après avoir dompté ma Motocross pendant plus de 10 ans, je me suis dirigé vers la compétition au guidon de mon VTT.</p>
 
-            <p style="text-align:justify">Je cours au niveau national en VTT de descente. Vous pouvez me croiser sur différents événements comme au Crankworx World tour ou au départ de la Mégavalanche à l'Alpes d'Huez.
+            <p class="roboto">Je cours au niveau national en VTT de descente. Vous pouvez me croiser sur différents événements comme au Crankworx World tour ou au départ de la Mégavalanche à l'Alpes d'Huez.
                 Le VTT m'a appris énormément de choses. Sur la concentration, l’entraînement, la nutrition mais surtout, continuer de repousser mes limites tout en m'amusant.
             </p>
-           <p> J'ai beaucoup appris et continue d'apprendre, c'est la beauté de ce sport. </p>
+           <p class="roboto">J'ai beaucoup appris et continue d'apprendre, c'est la beauté de ce sport. </p>
 
-            <p style="text-align:justify">Diplômé d'état mention VTT, je suis là pour partager ma passion et rendre le processus d'apprentissage le plus agréable possible.
+            <p class="roboto">Diplômé d'état mention VTT, je suis là pour partager ma passion et rendre le processus d'apprentissage le plus agréable possible.
 
-                Je suis disponible à Besançon dans le Doubs de septembre à juin. En saison d'été j'encadre dans les Alpes, à Morzine avec l'équipe de chez RideAbility. </p>
+                Je suis disponible à Besançon dans le Doubs de septembre à juin. En saison d'été j'encadre dans les Alpes, à Morzine, avec l'équipe de chez RideAbility. </p>
 
 
             <p><strong>Venez rouler avec nous!</strong></p>
@@ -57,7 +49,7 @@
 
         </div>
         <div class="col-md">
-            <img src="{{ asset('img/photo7.jpg') }}"  class="img-fluid displayed" style="border:solid; border-radius:80%" alt="Ride Ability">
+            <img src="{{ asset('img/photo4.jpg') }}"  class="img-fluid displayed" style="border-radius:80%" alt="Ride Ability">
         </div>
 </div>
 
@@ -83,44 +75,43 @@
 
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid ">
     <div class="row">
 
         {%  for images in image %}
-    <div class="col-lg-3 col-md-4">
+    <div class="col-lg-3 col-md-4 mt-3">
         <div class="gallery-item">
             <a href="{{ vich_uploader_asset(images, 'imageFile') }}" class="venobox" data-maxwidth="800px"  data-gall="gallery-item">
-                <img src="{{ vich_uploader_asset(images, 'imageFile')}}" class="img-fluid transition">
+                <img src="{{ vich_uploader_asset(images, 'imageFile')}}" alt="galerie VTT MCF" class="img-fluid transition">
             </a>
         </div>
     </div>
         {%  endfor %}
 
 
-        <div id="testimonials" class="testimonials">
+        <div id="testimonials" class="testimonials mt-3">
             <div class="container">
 
                 <div class="owl-carousel testimonials-carousel">
-
+{% for commentaires in commentaire %}
                         <div class="testimonial-item">
-                            <p>Vivien JOLY</p>
-                            <br>
-                            <br>
-                            <i class="bx bxs-quote-alt-left quote-icon-left"></i>sdggffgfgfggffgdfggfdgffgdgfgfdgfdgfgd  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                            <br>
+                            <p class="chien">{{ commentaires.FirstName }} {{ commentaires.LastName }}</p>
+                            <p><i class="bx bxs-quote-alt-left quote-icon-left"></i>{{ commentaires.contenu }}<i class="bx bxs-quote-alt-right quote-icon-right"></i></p>
                             <span class="note">
+                                {% for i in 1..5 %}
+                                {% if i <=  commentaires.note  %}
                                 <i class='bx bxs-star bx-tada' ></i>
-
+{% else  %}
                                 <i class='bx bx-star bx-tada' ></i>
-
+                                {% endif %}
+                                {% endfor %}
 </span>
                         </div>
-
+{% endfor %}
                 </div>
 
             </div>
         </div>
-
 
         <div class="sponsor mt-5">
 
@@ -141,14 +132,11 @@
             </a>
         </div>
 
-
-
-
-
-
-
-
-
+        <div class="col-sm-12">
+            <div class="form-group">
+        </div>
+    </div>
+    </div>
 </div>
 
     <script>
@@ -161,7 +149,8 @@
 
         $('.owl-carousel').owlCarousel({
             loop:true,
-            margin:10,
+            dots: true,
+            margin:3,
             autoplay: true,
             responsiveClass:true,
             responsive:{
@@ -171,21 +160,15 @@
                 },
                 600:{
                     items:2,
-                    nav:false
+                    nav:true
                 },
                 1000:{
                     items:3,
                     nav:true,
-                    loop:false
+                    loop:true
                 }
             }
         })
-
-
     </script>
-
-
-
-
 
 {% endblock %}
