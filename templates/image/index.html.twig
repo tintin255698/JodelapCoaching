@@ -5,11 +5,16 @@
 {% block body %}
 <div class="container-fluid">
 
+
+    <a href="{{ path('home') }}">
+        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
+    </a>
+
     <div class="row">
 
 
         {% if image > 0 %}
-            <h1 class="text-center">Mes photos</h1>
+            <h1 class="text-center top2">Mes photos</h1>
 
             {%  for images in image %}
                 <div class="col-lg-3 col-md-4">
@@ -26,7 +31,7 @@
 
 
     {% if video > 0 %}
-        <h1 class="text-center mb-5 mt-5">Mes vidéos</h1>
+        <h1 class="text-center top2">Mes vidéos</h1>
     {% for videos in video %}
         <div class="col-lg-3 col-md-4" style="background-image: url('../../img/LOGO.png') ">
             <div class="gallery-item">

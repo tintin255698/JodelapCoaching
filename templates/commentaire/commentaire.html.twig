@@ -1,1 +1,12 @@
-{{ form(form) }}
+{% extends 'base.html.twig' %}
+
+{% block title %}Laisser un avis{% endblock %}
+
+{% block body %}
+
+ <div class="container">
+
+     <h1 class="top2 text-center">Ajouter votre avis !</h1>
+         {{ form(form) }}
+ </div>
+{% endblock %}

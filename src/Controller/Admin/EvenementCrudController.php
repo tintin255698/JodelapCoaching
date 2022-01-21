@@ -27,9 +27,11 @@ class EvenementCrudController extends AbstractCrudController
             TextField::new('titre', 'Nom de la scéance'),
             TextEditorField::new('descriptif', 'Description'),
             TextField::new('niveau', 'Niveau'),
-            TextField::new('lieu', 'Localisation'),
-            DateTimeField::new('datetime', 'Début de la session'),
-            TimeField::new('finSession', 'Fin de la session'),
+            TextField::new('lieu', 'Rue'),
+            TextField::new('ville', 'Ville'),
+            DateTimeField::new('datetime', 'Date et heure du début de la session'),
+            TimeField::new('finSession', 'Heure fin de la session'),
+            DateField::new('finResa', 'Date fin de la réservation'),
             MoneyField::new('prix')->setCurrency('EUR'),
             ImageField::new('image')->setBasePath('public/uploads/evenement')
                 ->setUploadDir('public/uploads/evenement')

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EvenementRepository;
+use DateInterval;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -50,7 +52,7 @@ class Evenement
     private $niveau;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true )
      */
     private $lieu;
 
@@ -58,6 +60,17 @@ class Evenement
      * @ORM\Column(type="time")
      */
     private $finSession;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $finResa;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $ville;
+
 
     public function getId(): ?int
     {
@@ -160,5 +173,28 @@ class Evenement
         return $this;
     }
 
+    public function getFinResa(): ?\DateTimeInterface
+    {
+        return $this->finResa;
+    }
+
+    public function setFinResa(\DateTimeInterface $finResa): self
+    {
+        $this->finResa = $finResa;
+
+        return $this;
+    }
+
+    public function getVille(): ?string
+    {
+        return $this->ville;
+    }
+
+    public function setVille(string $ville): self
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
 
 }
