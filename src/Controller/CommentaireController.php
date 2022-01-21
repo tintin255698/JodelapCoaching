@@ -18,13 +18,12 @@ class CommentaireController extends AbstractController
     public function __construct(EntityManagerInterface $entityManager)
     {
         return $this->entityManager = $entityManager;
-
     }
 
     /**
-     * @Route("/ajouter/avis", name="add_avis")
+     * @Route("/avis/ajouter", name="avis_ajouter")
      */
-    public function commentaire(Request $request)
+    public function commentaireAdd (Request $request)
     {
         $user = $this->getUser();
 
@@ -40,12 +39,12 @@ class CommentaireController extends AbstractController
             $this->entityManager->persist($commentaire);
             $this->entityManager->flush();
             $this->addFlash('success', 'Nous vous remercions pour votre commentaire.');
-           // return $this->redirectToRoute('commentaire');
+            return $this->redirectToRoute('commentaire');
         }
 
-        return $this->render('commentaire/commentaire.html.twig', array(
-            'form' => $form->createView(),
-        ));
+        return $this->render('commentaire/commentaire.html.twig', [
+            'form' =>$form->createView()
+        ]);
     }
 
     /**
@@ -53,24 +52,39 @@ class CommentaireController extends AbstractController
      */
     public function commentaireVoir (PaginatorInterface $paginator, Request $request, CommentRepository $commentRepository)
     {
+
+        $user = $this->getUser();
+
+        $commentaire = new Commentaire();
+
+        $form = $this->createForm(CommentaireType::class, $commentaire);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $commentaire->setUser($user);
+            $commentaire->setBool(0);
+            $this->entityManager->persist($commentaire);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Nous vous remercions pour votre commentaire.');
+        }
+
         $commentaire = $commentRepository->findby(['bool' => 1]);
 
         $count = count($commentaire);
 
-
         $moyenne = $commentRepository->moyenne();
-
 
         $repo = $paginator->paginate(
             $commentaire,
             $request->query->getInt('page',1),
             10
         );
-
         return $this->render('commentaire/index.html.twig', [
             'repo' => $repo,
             'count'=> $count,
-            'moyenne' => $moyenne
+            'moyenne' => $moyenne,
+            'form' =>$form->createView()
             ]);
     }
 }

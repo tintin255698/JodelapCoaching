@@ -16,9 +16,9 @@ class CommentaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('note',IntegerType::class, ['label' => 'Note', 'attr'=>['placeholder'=>'Votre note entre 0 à 5'] ])
+            ->add('note',IntegerType::class, ['label' => 'Note', 'attr'=>['placeholder'=>'Votre note entre 0 (Mauvais) à 5 (Excellent)'] ])
             ->add('contenu', TextType::class, ['label' => 'Commentaire', 'attr'=>['placeholder'=>'Votre Commentaire'] ])
-            ->add('Valider', SubmitType::class)
+            ->add('Valider', SubmitType::class, ['label' => 'Ajouter votre avis'] )
         ;
     }
 
