@@ -35,7 +35,7 @@ class EvenementController extends AbstractController
     /**
      * @Route("/evenement/{id}", name="evenement_detail")
      */
-    public function detail($id,EvenementRepository $evenementRepository): Response
+    public function detail($id, EvenementRepository $evenementRepository): Response
     {
         $now = new DateTime('now');
 
@@ -45,10 +45,10 @@ class EvenementController extends AbstractController
         $city = $evenementDetails->getVille();
         $address = $street . ', ' . $city;
 
-        $referer = 'https://nominatim.openstreetmap.org/search?q='.urlencode($address).'&format=jsonv2&addressdetails=1&limit=1';
+        $referer = 'https://nominatim.openstreetmap.org/search?q=' . urlencode($address) . '&format=jsonv2&addressdetails=1&limit=1';
         $opts = array(
-            'http'=>array(
-                'header'=>array("Referer: $referer\r\n")
+            'http' => array(
+                'header' => array("Referer: $referer\r\n")
             )
         );
         $context = stream_context_create($opts);
@@ -70,24 +70,21 @@ class EvenementController extends AbstractController
     /**
      * @Route("/evenement/add/{id}", name="evenement_add")
      */
-    public function commentaireAdd ($id, Request $request)
+    public function evenementAdd($id, Request $request)
     {
+        $session = $request->getSession();
 
-            $session = $request->getSession();
-            $panier =$session->get('evenement',[]);
-            $panier[$id] = [
-                'quantity' => 1,
-            ];
+        $panier = $session->get('evenement', []);
 
-            $session->set('evenement', $panier);
+        if(!empty($panier[$id])){
+            $panier[$id] ++ ;
+        } else {
+            $panier[$id] = 1;
+        }
+        $session->set('evenement', $panier);
 
-            dd($session->get('panier'));
-
-        return $this->render('coaching/coaching.html.twig', [
-            'form' =>$form->createView()
-        ]);
+        return $this->redirectToRoute('panier');
     }
-
 
 }
 

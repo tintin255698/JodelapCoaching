@@ -39,16 +39,19 @@
                                     {{ form_widget(form.Valider)}}
 
                                 </div>
-                                    {{ form_end(form) }}
-                                {% else %}
-                                    <div class="modal-body">
-                                        <p>Vous devez être connecté pour donner votre avis !</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                        <a href="{{ path('app_login') }}"> <button type="button" class="btn btn-dark">Se connecter</button></a>
-                                    </div>
-                                {% endif %}
+                                {{ form_end(form) }}
+                            {% else %}
+                                <div class="modal-body">
+                                    <p>Vous devez être connecté pour donner votre avis !</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler
+                                    </button>
+                                    <a href="{{ path('app_login') }}">
+                                        <button type="button" class="btn btn-dark">Se connecter</button>
+                                    </a>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -59,52 +62,53 @@
 
                 {% if repo|length > 0 %}
 
-                        <div class="alert ">
-                            <p class="alert-heading">
-                                <div class="row">
-                                    <div class="col count">
-                                        <p>Moyenne donnée par {{count}} clients</p>
-                        </div>
-                                    <div class="col count">
-                                        {% for moyennes in moyenne %}
-                                            <span class="note">
+                    <div class="alert ">
+                        <p class="alert-heading">
+                        <div class="row">
+                            <div class="col count">
+                                <p>Moyenne donnée par {{ count }} clients</p>
+                            </div>
+                            <div class="col count">
+                                {% for moyennes in moyenne %}
+                                    <span class="note">
         {% for i in 1..5 %}
             {% if i <= moyennes.note %}
-                <i class='bx bxs-star bx-flashing' ></i>
-            {% else  %}
-                <i class='bx bx-star bx-flashing' ></i>
+                <i class='bx bxs-star bx-flashing'></i>
+            {% else %}
+                <i class='bx bx-star bx-flashing'></i>
             {% endif %}
         {% endfor %}
 </span>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            </p>
+                                {% endfor %}
+                            </div>
                         </div>
-                        {% for repos in repo %}
+                        </p>
+                    </div>
+                    {% for repos in repo %}
 
-                            <div class="bg-light rounded mt-5 mb-5 py-3 px-3">
-                                <p><strong>{{ repos.user.FirstName }} {{ repos.user.LastName }}</strong> a dit :</p>
-                                <blockquote>
-                                    <p> <i class="bx bxs-quote-alt-left quote-icon-left"></i>{{ repos.contenu }}<i class="bx bxs-quote-alt-right quote-icon-right"></i> </p>
-                                </blockquote>
-                                <p><strong>Note qu'il/elle a donnée :</strong></p>
-                                <span class="note">
+                        <div class="bg-light rounded mt-5 mb-5 py-3 px-3">
+                            <p><strong>{{ repos.user.FirstName }} {{ repos.user.LastName }}</strong> a dit :</p>
+                            <blockquote>
+                                <p><i class="bx bxs-quote-alt-left quote-icon-left"></i>{{ repos.contenu }}<i
+                                            class="bx bxs-quote-alt-right quote-icon-right"></i></p>
+                            </blockquote>
+                            <p><strong>Note qu'il/elle a donnée :</strong></p>
+                            <span class="note">
         {% for i in 1..5 %}
             {% if i <= repos.note %}
-                <i class='bx bxs-star bx-spin' ></i>
-            {% else  %}
-                <i class='bx bx-star bx-spin' ></i>
+                <i class='bx bxs-star bx-spin'></i>
+            {% else %}
+                <i class='bx bx-star bx-spin'></i>
             {% endif %}
         {% endfor %}
 </span>
-                            </div>
-                        {% endfor%}
-                    {% else %}
-                        <h2 class="titre pb-3">En attente de commentaires</h2>
-                    {% endif %}
-                    <div class="text-right">
-                        <h3>{{ knp_pagination_render(repo) }}</h3>
-                    </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h2 class="titre pb-3">En attente de commentaires</h2>
+                {% endif %}
+                <div class="text-right">
+                    <h3>{{ knp_pagination_render(repo) }}</h3>
                 </div>
+            </div>
 {% endblock %}

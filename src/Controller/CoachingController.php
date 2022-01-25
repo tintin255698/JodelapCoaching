@@ -2,11 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Commentaire;
-use App\Form\CommentaireType;
+
 use App\Form\PersonneType;
 use App\Repository\CoachingTarifRepository;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,15 +39,16 @@ class CoachingController extends AbstractController
             $personne = $form['personne']->getData();
 
             $session = $request->getSession();
-            $panier =$session->get('panier',[]);
+            $panier =$session->get('coaching',[]);
+
             $panier[$id] = [
                 'quantity' => 1,
                 'personne' => $personne
             ];
 
-            $session->set('panier', $panier);
+            $session->set('coaching', $panier);
 
-            dd($session->get('panier'));
+            return $this->redirectToRoute('panier');
         }
         return $this->render('coaching/coaching.html.twig', [
             'form' =>$form->createView()
