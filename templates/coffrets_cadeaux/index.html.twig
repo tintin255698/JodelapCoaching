@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Coaching{% endblock %}
+
+{% block body %}
+
+<a href="{{ path('home') }}">
+    <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-5 mb-5" alt="Logo">
+</a>
+
+<h1 class="text-center" style="font-weight: bolder">Coffrets cadeaux</h1>
+    {% if app.user %}
+
+    {% else %}
+        <h3 class="text-center">(Vous devez être <a href="{{ path('app_login') }}">connecté</a> ou vous <a href="{{ path('app_register') }}">enregistrer</a> pour réserver)/h5>
+    {% endif %}
+
+<h2 class="text-center border mt-5" style="font-weight: bold">OUVERT A TOUS LES PROFILS</h2>
+
+<h3 class="text-center mt-5" style="font-weight: bold">Faites plaisir à ceux que vous aimez avec une leçon sur mesure !</h3>
+
+
+<div class="container">
+    <p class="mt-5 mb-3 text-center">En privé ou avec un ami, 2H, Demi-journée, journée complète ou même sur plusieurs jours !
+        Session technique, randonnée découverte ou accompagnement en compétition... <br>
+        Tout est modulable, pour être sûr de faire plaisir !  </p>
+
+    <h3 class="mt-5">Tous les coffrets comprennent :</h3>
+    <ul class="mt-3">
+        <li>
+            <p>Un ou plusieurs cours personnalisés</p>
+        </li>
+        <li>
+            <p>Un coffret cadeaux envoyé par voie postale </p>
+        </li>
+    </ul>
+
+    <div class="container text-center mt-5">
+
+        <p><strong>Horaires</strong> : 9h - 12h / 13h30 - 16h30 </p>
+        <p>Basé dans le <strong>Doubs (25)</strong> de septembre à juin
+            et à <strong>Morzine (74)</strong> en juillet-août chez RideAbility</p>
+    </div>
+
+</div>
+
+<div class="container-fluid bg-gradient p-5">
+    <div class="row m-auto text-center w-75">
+{% for coffrets in coffret %}
+            <div class="col-lg-4 princing-item red">
+                <div class="pricing">
+                    <img src="uploads/coffret/{{ coffrets.image }}"  class="img-fluid displayed" alt="Logo">
+                </div>
+                <div class="card-body bg-white shadow">
+                    <ul class="list-unstyled mb-5 position-relative">
+                        <li>Prix : {{ coffrets.prix/100 }}€</li>
+                        <li>Description : {{ coffrets.produit }}</li>
+                    </ul>
+                    {% if app.user %}
+                    <a href=""><button type="button" class="btn btn-lg btn-block  btn-secondary ">Réserver</button></a>
+                    {% endif %}
+                </div>
+            </div>
+{% endfor %}
+    </div>
+</div>
+
+<div class="container-fluid">
+    <section id="contact" class="contact">
+
+            {% endblock %}
