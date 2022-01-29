@@ -22,9 +22,9 @@
                     <div class="d-flex justify-content-center align-items-center h-100">
                         <div class="text-white text-center ">
                             <h1 class="animate__animated animate__bounceInDown">Moniteur VTT - Débutants - Intermédiaires - Confirmés </h1>
-                            <a class="btn btn-outline-light btn-lg m-2 animate__animated animate__backInRight" href="{{ path('evenement') }}"
-                               role="button" rel="nofollow" target="_blank">Évènements</a>
-                            <a class="btn btn-outline-light btn-lg m-2 animate__animated animate__backInLeft" href="{{ path('coaching') }}"
+                            <a class="btn btn-dark btn-rounded btn-lg m-2 animate__animated animate__backInRight" href="{{ path('evenement') }}"
+                               role="button" rel="nofollow" target="_blank">Mes évènements</a>
+                            <a class="btn btn-dark btn-rounded btn-lg m-2 animate__animated animate__backInLeft" href="{{ path('coaching') }}"
                                target="_blank" role="button">Coaching</a>
                         </div>
                     </div>
@@ -37,9 +37,9 @@
                     <div class="d-flex justify-content-center align-items-center h-100">
                         <div class="text-white text-center">
                             <h1  class="mb-3 animate__animated animate__flipInX ">Ouvert à tous et à toutes, j'adapte les séances selon votre niveau</h1>
-                            <a class="btn btn-outline-light btn-lg m-2 animate__animated animate__lightSpeedInRight" href="{{ path('evenement') }}"
-                               role="button" rel="nofollow" target="_blank">Évènements</a>
-                            <a class="btn btn-outline-light btn-lg m-2 animate__animated animate__lightSpeedInLeft" href="{{ path('coaching') }}"
+                            <a class="btn btn-dark btn-rounded btn-lg m-2 animate__animated animate__lightSpeedInRight" href="{{ path('evenement') }}"
+                               role="button" rel="nofollow" target="_blank">Mes évènements</a>
+                            <a class="btn btn-dark btn-rounded btn-lg m-2 animate__animated animate__lightSpeedInLeft" href="{{ path('coaching') }}"
                                target="_blank" role="button">Coaching</a>
                         </div>
                     </div>
@@ -52,9 +52,9 @@
                 <div class="d-flex justify-content-center align-items-center h-100">
                     <div class="text-white text-center">
                         <h1 class="mb-3 animate__animated animate__zoomIn" >Coaching sur Morzine (juillet et août) et Besançon (restant de l'année)</h1>
-                        <a class="btn btn-outline-light btn-lg m-2 animate__animated animate__rotateInDownRight" href="{{ path('evenement') }}"
-                           role="button" rel="nofollow" target="_blank">Évènements</a>
-                        <a class="btn btn-outline-light btn-lg m-2 animate__animated animate__rotateInDownLeft" href="{{ path('coaching') }}"
+                        <a class="btn btn-dark btn-rounded btn-lg m-2 animate__animated animate__rotateInDownRight" href="{{ path('evenement') }}"
+                           role="button" rel="nofollow" target="_blank">Mes évènements</a>
+                        <a class="btn btn-dark btn-rounded btn-lg m-2 animate__animated animate__rotateInDownLeft" href="{{ path('coaching') }}"
                            target="_blank" role="button">Coaching</a>
                     </div>
                 </div>
@@ -69,34 +69,30 @@
     <!-- Carousel wrapper -->
 
 
-    <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-5 mb-5" alt="Logo">
+    <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
 
-
-
-<div class="container">
-
-    <main class="mt-5 VTT">
+    <main class=" VTT">
         <div class="container">
             <!--Section: Content-->
-            <section class="JodelapCoaching">
+            <section class="JodelapCoaching mt-5">
                 <div class="row">
                     <div class="col-md-6 gx-5 mb-4">
                         <div class="bg-image hover-overlay ripple shadow-2-strong rounded-5 mt-5" data-mdb-ripple-color="light">
-                            <img src="{{ asset('img/photo4.jpg') }}" class="img-fluid" />
-                            <a href="#!">
+                            <img src="{{ asset('img/photo4.jpg') }}" alt="Jodelap Coching - Jonathan Revillot Tirot" class="img-fluid" />
+                            <a href="{{ path('galerie') }}">
                                 <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
                             </a>
                         </div>
-                        <p class="mt-5 text-center" >Venez rouler avec moi <i class='bx bx-wink-smile bx-tada' ></i> !!!</pcl>
+                        <p class="mt-5 text-center none" >Venez rouler avec moi <i class='bx bx-wink-smile bx-tada' ></i> !!!</p>
                     </div>
 
                     <div class="col-md-6 gx-5 mb-4" style="text-align: justify">
-                        <h1 class="mb-3" ><strong>Jonathan Revillot-Tirot</strong></h1>
+                        <h2 class="mb-3" ><strong>Jonathan Revillot-Tirot</strong></h2>
                         <p class="text-muted">
                             <i class="bx bxs-quote-alt-left quote-icon-left"></i> Pour moi, le VTT est avant tout un moyen de prendre du plaisir, rencontrer de nouvelles personnes, voyager, explorer, repousser mes limites et me challenger.
                             Après avoir dompté ma Motocross pendant plus de 10 ans, je me suis dirigé vers la compétition au guidon de mon VTT.    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                         </p>
-                        <p><strong>Coacher, un moyen pour moi de transmettre mon savoir !</strong></p>
+                        <p><strong>Coacher ? Un moyen pour moi de transmettre mon savoir !</strong></p>
                         <p class="text-muted">
                             <i class="bx bxs-quote-alt-left quote-icon-left"></i> Je cours au niveau national en VTT de descente. Vous pouvez me croiser sur différents événements comme au Crankworx World tour ou au départ de la Mégavalanche à l'Alpes d'Huez.
                             Le VTT m'a appris énormément de choses. Sur la concentration, l’entraînement, la nutrition mais surtout, continuer de repousser mes limites tout en m'amusant.
@@ -139,9 +135,6 @@
 
     </section>
     </main>
-</div>
-
-
 
 
 <div class="container-fluid ">
@@ -189,7 +182,7 @@
 
     <div class="container mt-5">
 
-        <p>En cas de questions <i class='bx bx-smile'></i></p>
+        <h3 class="text-center">En cas de questions <i class='bx bx-smile'></i></h3>
 
         <div class="mt-5">
             {{ form(form) }}
@@ -219,11 +212,7 @@
                 <img src="{{ asset('img/sponsor/ride.png') }}" alt="Ride Ability" class="size">
             </a>
 
-
-
-
         </div>
-
 
     <script>
         new VenoBox({

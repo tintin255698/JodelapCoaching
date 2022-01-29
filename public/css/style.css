@@ -21,9 +21,6 @@ img.displayed {
     margin: 0 0 15px 0;
 }
 
-
-
-
 #footer p {
 
     font-style: italic;
@@ -112,7 +109,6 @@ img.displayed {
 .testimonials .testimonial-item h4 {
     color: #ddd;
     margin: 0 0 15px 0;
-    font-family: "Comic Neue", sans-serif;
 }
 
 .testimonials .testimonial-item p {
@@ -173,8 +169,6 @@ a.nav-link.active{
     color: white;
     padding: 15px;
     text-decoration: none;
-
-    font-family:  'navet', sans-serif;
     font-weight: bold;
     margin-right: 5px;
     margin-left: 5px;
@@ -199,6 +193,15 @@ body {
     color: #444444;
 }
 
+p, button, li, a, label, select, input, i {
+    font-family: 'Poppins', sans-serif;
+}
+
+h1, h2, h3, h4, h5{
+    font-family: 'Permanent Marker', cursive;
+}
+
+
 label{
     font-weight: bolder;
 }
@@ -212,19 +215,9 @@ body{
     font-size: .90em;
 }
 
-
-
 .inline{
     display: inline;
 }
-
-td{
-
-    font-family: heebo, sans-serif;
-    font-weight: bold;
-
-}
-
 
 .change{
     color: white;
@@ -384,22 +377,4 @@ td{
     .none {
         display: none;
     }
-}
-
-section.coaching button{
-
-}
-
-section.coaching button:hover{
-background-color: gray;
-
-}
-
-section.formulaire button {
-
-}
-
-section.formulaire button:hover{
-    background-color: gray !important;
-
 }
