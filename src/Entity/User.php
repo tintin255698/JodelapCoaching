@@ -62,6 +62,16 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
     private $telephone;
 
 
+    public function __toString()
+    {
+        return $this->FirstName;
+    }
+
+
+
+
+
+
     public function getId(): ?int
     {
         return $this->id;

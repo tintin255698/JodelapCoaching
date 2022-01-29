@@ -2,8 +2,11 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\CoachingTarif;
+use App\Entity\Coffret;
 use App\Entity\Commentaire;
 use App\Entity\Evenement;
+use App\Entity\Header;
 use App\Entity\Image;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -33,10 +36,13 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Utilisateur', 'fa fa-user', User::class);
-        yield MenuItem::linkToCrud('Evenements', 'fa fa-calendar-week', Evenement::class);
-        yield MenuItem::linkToCrud('Commentaire', 'fa fa-comment', Commentaire::class);
-        yield MenuItem::linkToCrud('Image', 'fa fa-images', Image::class);
+        yield MenuItem::linkToDashboard('Accueil', 'fa fa-home');
+        yield MenuItem::linkToCrud('Utilisateurs', 'fa fa-user', User::class);
+        yield MenuItem::linkToCrud('Header', 'fas fa-heading', Header::class);
+        yield MenuItem::linkToCrud('Évènements', 'fa fa-calendar-week', Evenement::class);
+        yield MenuItem::linkToCrud('Coaching', 'fas fa-chart-area', CoachingTarif::class);
+        yield MenuItem::linkToCrud('Coffrets cadeaux', 'fas fa-gifts', Coffret::class);
+        yield MenuItem::linkToCrud('Galerie', 'fa fa-images', Image::class);
+        yield MenuItem::linkToCrud('avis', 'fa fa-comment', Commentaire::class);
     }
 }

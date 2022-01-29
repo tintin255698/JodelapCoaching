@@ -3,78 +3,52 @@
 {% block title %}Les évènements{% endblock %}
 
 {% block body %}
-<div class="container-fluid">
+    <section class="evenement">
+<div class="container-fluid" >
     <a href="{{ path('home') }}">
     <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
     </a>
-    <h1 class="mt-5 text-center" style="color: #851920;font-style: italic" >Événements du {{ debut|date("d/m/Y") }} au {{ fin|date("d/m/Y") }} </h1>
-
+    <h1 class="mt-5 text-center" >Mes Événements du {{ debut|date("d/m/Y") }} au {{ fin|date("d/m/Y") }} </h1>
     {% if evenement|length > 0 %}
+        <div class="container">
+            <div class="row">
+                {% for events in evenement %}
+                    <div class="col-4 mb-5">
+                        <h3><i class='bx bxs-calendar'></i> Le {{ events.dateTime|date("d/m/Y") }} </h3>
+                        <h3><i class='bx bx-time-five' ></i> De {{ events.dateTime|date("H:m") }} à {{ events.finSession|date("H:m") }} </h3>
+                        <h3><i class='bx bx-location-plus' ></i>
+                            {% if events.lieu %}
+                                A {{ events.ville }}-{{ events.lieu }}
+                            {% else %}A {{ events.ville }}
+                            {% endif %}
+                        </h3>
 
-<div class="row">
-<div class="table-responsive">
-    <table class="table text-center  table-striped table-dark table-hover mt-5">
-        <thead class="thead-dark ">
-        <tr>
-            <th scope="col"></th>
-            <th scope="col">Date du début de la session</th>
-            <th scope="col">Heure de fin</th>
-            <th scope="col">Programme</th>
-            <th scope="col">Niveau</th>
-            <th scope="col">Lieu</th>
-            <th scope="col">Prix</th>
-            <th scope="col">Détails sur le cours</th>
-            <th scope="col">Réserver</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for evenements in evenement %}
-        <tr>
-            <td><img src="uploads/evenement/{{ evenements.image }}" alt="image sessions" style="max-width: 100%;
-	height: auto;"></td>
-            <td style="text-align: center; vertical-align: middle">Le {{ evenements.dateTime|date("d/m/Y") }} à {{ evenements.dateTime|date("H:m") }}</td>
-            <td style="text-align: center; vertical-align: middle">Le {{ evenements.finSession|date("H:m") }}</td>
-            <td style="text-align: center; vertical-align: middle">{{ evenements.titre }}</td>
-            <td style="text-align: center; vertical-align: middle">{{ evenements.niveau }}</td>
-            <td style="text-align: center; vertical-align: middle">
-                {% if evenements.lieu %}
-                {{ evenements.ville }}-{{ evenements.lieu }}
-                {% else %}{{ evenements.ville }}
-                {% endif %}
-                </td>
-            <td style="text-align: center; vertical-align: middle">{{ evenements.prix /100}}€</td>
-            <td style="text-align: center; vertical-align: middle"><a href="{{ path('evenement_detail', {'id':evenements.id}) }}"><i class='bx bx-detail bx-tada bx-rotate-180 change' ></i></a></td>
-            <td style="text-align: center; vertical-align: middle">
-                {% if evenements.finResa|date("d/m/Y") > debut|date("d/m/Y") %}
-                <a href="{{ path('evenement_add', {'id' : evenements.id }) }}">
-                    <i class='bx bx-purchase-tag-alt bx-tada bx-rotate-180 change' ></i>
-                </a>
-                    {% else %}
-                    <p>Vous ne pouvez plus réserver</p>
-{% endif %}
-                        </td>
-        </tr>
-        {%  endfor %}
-        </tbody>
-    </table>
-</div>
-</div>
+                        <img src="uploads/evenement/{{ events.image }}" alt="image sessions" style="max-width: 80%;
+	height: auto;">
+                    </div>
+                    <div class="col-8">
+                        <h5>{{ events.titre }}</h5>
+                        <p>{{ events.descriptif|raw }}</p>
+                        <a href="{{ path('evenement_detail', {'id': events.id} )}}"><button class="btn btn-dark">Détails</button></a>
+                        <br>
+                    </div>
+                    <hr>
+                {% endfor %}
+            </div>
+        </div>
+
     {% else %}
-
-
         <h3 class="text-center mt-5">Il n'y a pas de sessions pour le moment <i class='bx bx-smile'></i></h3>
         <h4 class="mt-5 text-center">Toutefois, vous pouvez : <br></h4>
 
         <div class="row mt-5 mb-5 text-center">
             <div class="col-md">
-                <a href="http://localhost/wordpress/coaching">
+                <a href="{{ path('coaching') }}">
                     <button type="button" class="btn btn-danger mr-2">Réserver un cours de coaching particulier</button>
                 </a>
             </div>
-
-
             <div class="col-md text-center">
-                <a href="http://localhost/wordpress/evenements">
+                <a href="{{ path('evenement') }}">
                     <button type="button" class="btn btn-danger ml-2">Offrir une carte cadeau</button>
                 </a>
             </div>
@@ -84,7 +58,7 @@
     {% endif %}
 </div>
 
-
+    </section>
 
 
 

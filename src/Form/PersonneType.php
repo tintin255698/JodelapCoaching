@@ -4,6 +4,7 @@ namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,7 +13,8 @@ class PersonneType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('personne', IntegerType::class)
+            ->add('personne', IntegerType::class,['label' => 'Nombre de personnes', 'attr'=>['placeholder'=>"Merci d'inscrire le nombre de personnes qui feront la session de coaching avec vous"] ])
+            ->add('valider', SubmitType::class,['attr'=>['class'=>'btn btn-dark'] ])
         ;
     }
 

@@ -10,11 +10,15 @@
 
 
 
-    <h1 class="text-center" style="font-weight: bolder">Coaching</h1>
+    <h1 class="text-center">Coaching</h1>
+    {% if app.user %}
 
-<h2 class="text-center border mt-5" style="font-weight: bold">OUVERT A TOUS LES PROFILS</h2>
+    {% else %}
+        <h5 class="text-center">(Vous devez être <a href="{{ path('app_login') }}">connecté</a> ou vous <a href="{{ path('app_register') }}">enregistrer</a> pour réserver)</h5>
+    {% endif %}
+<h2 class="text-center border mt-5">OUVERT A TOUS LES PROFILS</h2>
 
-<h3 class="text-center mt-5" style="font-weight: bold">J'adapte la séance suivant votre niveau et vos attentes.</h3>
+<h3 class="text-center mt-5">J'adapte la séance suivant votre niveau et vos attentes.</h3>
 
 
     <div class="container">
@@ -24,7 +28,7 @@
 
 
         <div class="row m-auto text-center mt-5">
-            <div class="col-lg-3  border-end">
+            <div class="col-lg-3 border-start border-end">
                 <p><i class="bx bxs-quote-alt-left quote-icon-left"></i>Je suis débutant et j'aimerais apprendre les bases du cyclisme, l'équilibre, pédaler, contrôler mes trajectoires.<i class="bx bxs-quote-alt-right quote-icon-right"></i> </p>
             </div>
             <div class="col-lg-3  border-end">
@@ -39,17 +43,12 @@
 
         </div>
 
-
-
         <div class="container text-center mt-5">
 
             <p><strong>Horaires</strong> : 9h - 12h / 13h30 - 16h30 </p>
             <p>Basé dans le <strong>Doubs (25)</strong> de septembre à juin
                 et à <strong>Morzine (74)</strong> en juillet-août chez RideAbility</p>
         </div>
-
-
-
 
     </div>
 
@@ -60,7 +59,7 @@
                 <div class="pricing-divider ">
                     <h3 class="text-light">{{ coachings.heure }} HEURES</h3>
                     <h4 class="my-0 display-4 text-light font-weight-normal mb-3"><span class="h3">A partir de</span> {{ coachings.priceForTwo}} <span class="h5">€</span></h4>
-                    <svg class='pricing-divider-img' enable-background='new 0 0 300 100' height='100px' id='Layer_1' preserveAspectRatio='none' version='1.1' viewBox='0 0 300 100' width='300px' x='0px' xml:space='preserve' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg' y='0px'>
+                    <svg class='pricing-divider-img' height='100px' id='Layer_1' preserveAspectRatio='none' viewBox='0 0 300 100' width='300px' x='0px' xml:space='preserve'>
           <path class='deco-layer deco-layer--1' d='M30.913,43.944c0,0,42.911-34.464,87.51-14.191c77.31,35.14,113.304-1.952,146.638-4.729
 	c48.654-4.056,69.94,16.218,69.94,16.218v54.396H30.913V43.944z' fill='#FFFFFF' opacity='0.6'></path>
                         <path class='deco-layer deco-layer--2' d='M-35.667,44.628c0,0,42.91-34.463,87.51-14.191c77.31,35.141,113.304-1.952,146.639-4.729
@@ -76,56 +75,17 @@
                         <li><b>{{ coachings.priceForTwo }}€</b>pour <strong>deux</strong> personnes</li>
                         <li><b>+ {{ coachings.priceForThree }}€</b>pour <strong>chaque</strong> personne supplémentaire</li>
                     </ul>
-                    <button type="button" class="btn btn-lg btn-block  btn-custom "><a href="{{ path('coaching_add', {'id':coachings.id}) }}">Réserver</a></button>
+                    {% if app.user %}
+                    <a href="{{ path('coaching_add', {'id':coachings.id}) }}">  <button type="button" class="btn  btn-secondary  btn-lg btn-block  ">Réserver</button></a>
+                    {% endif %}
                 </div>
             </div>
 
 {% endfor %}
 
-
-
-
         </div>
     </div>
-
-
-
-
-
-
 <div class="container-fluid">
     <section id="contact" class="contact">
-
-
-        <div class="section-title">
-
-            <div class="mt-5">
-                <div class="info-wrap">
-                    <div class="row">
-                        <div class="col-lg-3 info border-end ">
-                            <h4>Matériel :</h4>
-                            <p>VTT <strong>Enduro </strong> ou <strong>Cross Country</strong>
-                                <br>100 mm de débattement minimum</p>
-                        </div>
-
-                        <div class="col-lg-3  info border-end">
-                            <h4>Protections obligatoires :</h4>
-                            <p>Casque jet ou full face, gants longs, genouillères</p>
-                        </div>
-
-                        <div class="col-lg-3  info border-end">
-                            <h4>Protections conseillées :</h4>
-                            <p>Dorsale, coudières </p>
-                        </div>
-                        <div class="col-lg-3  info ">
-                            <h4>Autres :</h4>
-                            <p>Eau, barres de céréales, veste de pluie,
-                                chambre à air et de quoi réparer votre vélo</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
 
 {% endblock %}

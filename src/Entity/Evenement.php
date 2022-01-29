@@ -71,6 +71,31 @@ class Evenement
      */
     private $ville;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $materiel;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $protectionObligatoire;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $protectionConseillees;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $autres;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lieuPrecis;
+
 
     public function getId(): ?int
     {
@@ -193,6 +218,66 @@ class Evenement
     public function setVille(string $ville): self
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getMateriel(): ?string
+    {
+        return $this->materiel;
+    }
+
+    public function setMateriel(string $materiel): self
+    {
+        $this->materiel = $materiel;
+
+        return $this;
+    }
+
+    public function getProtectionObligatoire(): ?string
+    {
+        return $this->protectionObligatoire;
+    }
+
+    public function setProtectionObligatoire(string $protectionObligatoire): self
+    {
+        $this->protectionObligatoire = $protectionObligatoire;
+
+        return $this;
+    }
+
+    public function getProtectionConseillees(): ?string
+    {
+        return $this->protectionConseillees;
+    }
+
+    public function setProtectionConseillees(string $protectionConseillees): self
+    {
+        $this->protectionConseillees = $protectionConseillees;
+
+        return $this;
+    }
+
+    public function getAutres(): ?string
+    {
+        return $this->autres;
+    }
+
+    public function setAutres(string $autres): self
+    {
+        $this->autres = $autres;
+
+        return $this;
+    }
+
+    public function getLieuPrecis(): ?string
+    {
+        return $this->lieuPrecis;
+    }
+
+    public function setLieuPrecis(string $lieuPrecis): self
+    {
+        $this->lieuPrecis = $lieuPrecis;
 
         return $this;
     }

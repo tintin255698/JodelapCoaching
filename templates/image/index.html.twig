@@ -4,20 +4,14 @@
 
 {% block body %}
 <div class="container-fluid">
-
-
     <a href="{{ path('home') }}">
         <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
     </a>
-
     <div class="row">
-
-
         {% if image > 0 %}
-            <h1 class="text-center top2">Mes photos</h1>
-
+            <h1 class="text-center top2 mt-5 mb-5" style="font-style: italic;font-size: xxx-large">Mes photos</h1>
             {%  for images in image %}
-                <div class="col-lg-3 col-md-4">
+                <div class="col-lg-3 col-4">
                     <div class="gallery-item">
                         <a href="{{ vich_uploader_asset(images, 'imageFile') }}" class="venobox" data-maxwidth="800px"  data-gall="gallery-item">
                             <img src="{{ vich_uploader_asset(images, 'imageFile')}}" alt="galerie VTT MCF" style="border-radius: 10px" class="img-fluid transition">
@@ -26,34 +20,21 @@
                     </div>
                 </div>
             {%  endfor %}
-
         {% endif %}
-
-
     {% if video > 0 %}
-        <h1 class="text-center top2">Mes vidéos</h1>
+        <h1 class="text-center top2 mt-5 mb-5" style="font-style: italic; font-size: xxx-large">Mes vidéos</h1>
     {% for videos in video %}
-        <div class="col-lg-3 col-md-4" style="background-image: url('../../img/LOGO.png') ">
+        <div class="col-lg-3 col" style="background-image: url('../../img/LOGO.png') ">
             <div class="gallery-item">
         <video style="border-radius: 10px" class="mx-auto d-block transition" controls width="250">
             <source src="{{vich_uploader_asset(videos, 'imageFile') }}">
         </video>
-
-
-
-
             </div>
         </div>
     {% endfor %}
 {% endif %}
-
-
-
-
 </div>
     </div>
-
-
 
 <script>
     new VenoBox({

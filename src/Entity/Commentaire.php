@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\CommentaireRepository;
+use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=CommentaireRepository::class)
+ * @ORM\Entity(repositoryClass=CommentRepository::class)
  */
 class Commentaire
 {
@@ -45,6 +45,7 @@ class Commentaire
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
 
     public function getId(): ?int
     {

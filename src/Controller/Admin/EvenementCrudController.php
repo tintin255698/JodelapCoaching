@@ -29,6 +29,7 @@ class EvenementCrudController extends AbstractCrudController
             TextField::new('niveau', 'Niveau'),
             TextField::new('lieu', 'Rue'),
             TextField::new('ville', 'Ville'),
+            TextField::new('lieuPrecis', 'Lieu précis (parking etc)'),
             DateTimeField::new('datetime', 'Date et heure du début de la session'),
             TimeField::new('finSession', 'Heure fin de la session'),
             DateField::new('finResa', 'Date fin de la réservation'),
@@ -37,6 +38,11 @@ class EvenementCrudController extends AbstractCrudController
                 ->setUploadDir('public/uploads/evenement')
                 ->setUploadedFileNamePattern('[randomhash].[extension]')
                 ->setRequired(false),
+            TextField::new('materiel', 'Matériels de la scéance'),
+            TextField::new('protectionObligatoire', 'Protection obligatoire'),
+            TextField::new('protectionConseillees', 'Protection conseillées'),
+            TextField::new('autres', 'Autres matériels'),
+
 
         ];
     }

@@ -12,9 +12,7 @@
             <div class="container">
 
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-dark top" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Ajouter un avis
-                </button>
+
 
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -57,12 +55,18 @@
                 </div>
 
                 <div class="mt-5">
-                    <h1 class="text-center mb-5">Vos avis !</h1>
+                    <h1 style="font-size: xxx-large;font-style: italic" class="text-center">Vos avis comptent !</h1>
                 </div>
+
+                {% if app.user %}
+                <button type="button" class="btn btn-dark top mb-5 btn-lg " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Ajouter un avis
+                </button>
+                {% endif %}
 
                 {% if repo|length > 0 %}
 
-                    <div class="alert ">
+                    <div class="alert mt-5 ">
                         <p class="alert-heading">
                         <div class="row">
                             <div class="col count">

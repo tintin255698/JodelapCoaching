@@ -1,6 +1,7 @@
 <?php
 namespace App\Form;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -13,14 +14,21 @@ class contactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom',TextType::class, [
+            ->add('email',EmailType::class, ['label' => 'Email', 'attr'=>['placeholder'=>'Votre email'] ])
+            ->add('sujet',ChoiceType::class, ['label' => 'Sujet',
+                'choices' => [
+                    'Évènements' => 'Évènements',
+                    'Coachings' => 'Coachings',
+                    'Coffrets cadeaux' => 'Coffrets cadeaux',
+                    'Autre'=> 'Autre'
+                ],
             ])
-            ->add('email',EmailType::class, [
+            ->add('message', TextareaType::class, ['label' => 'Message', 'attr'=>['placeholder'=>'Votre Message']])
+            ->add('Envoyer', SubmitType::class, ['label' => 'Envoyer le formulaire',
+                'attr' => [
+                    'class' => 'btn btn-dark mt-3'
+                ]
             ])
-            ->add('message', TextareaType::class, [
-                'attr' => ['rows' => 6],
-            ])
-            ->add('Envoyer', SubmitType::class)
         ;
     }
     public function configureOptions(OptionsResolver $resolver)

@@ -6,21 +6,24 @@
     <a href="{{ path('home') }}">
         <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-5 mb-5" alt="Logo">
     </a>
-
     <div class="container">
+        <h1 class="text-center">Session du {{ evenementDetail.dateTime|date("d/m/Y") }} à {{ evenementDetail.dateTime|date("H:m") }}</h1>
         <div class="row">
-            <div class="col-7">
-                <h1 class="blod">Session du {{ evenementDetail.dateTime|date("d/m/Y") }} à {{ evenementDetail.dateTime|date("H:m") }}</h1>
+            <div class="col-5">
+
+
+
                 <h2 class="mt-5">Niveau :</h2>
                 <p>{{ evenementDetail.niveau }}</p>
 
-                <h2 class="mt-5">Programme <smaller>{{ evenementDetail.titre }}</smaller> :</h2>
+                <h2 class="mt-5">Programme {{ evenementDetail.titre }} :</h2>
                 <p>{{ evenementDetail.descriptif|raw }}</p>
                 <br>
                 <h2 class="mt-3">Infos : </h2>
                 <ul>
                     <li>Début : {{ evenementDetail.dateTime|date("H:m") }} / Fin {{ evenementDetail.finSession|date("H:m") }}</li>
                     <li>Prix : {{ evenementDetail.prix /100 }}€</li>
+                    <li>Lieu précis : {{ evenementDetail.lieuPrecis }}</li>
                     <li>
                         {% if now|date("d/m/Y") < evenementDetail.finResa|date("d/m/Y") %}
                     <div class="box-rebours" style="display: flex">
@@ -38,64 +41,61 @@
                             <span class="minuteur" id="seconde_label">Secondes</span>
                         </div>
                         {% else %}
-                        <p>Vous ne pouvez plus réserver</p>
+                        <p>Vous ne pouvez plus réserver <i class='bx bx-sad' ></i></p>
                     {% endif %}
                     </li>
-
+                    <li>
+                        {% if now|date("d/m/Y") < evenementDetail.finResa|date("d/m/Y") and app.user %}
+                            <a href="{{ path('evenement_add', {'id' : evenementDetail.id }) }}"> <button class="btn btn-dark mt-5 text-right">Réserver</button></a>
+                        {% else %}
+                            <p class="mt-3"><i class='bx bx-info-circle' ></i>Vous devez être <a href="{{ path('app_login') }}">connecté</a> pour réserver</p>
+                        {% endif %}
+                    </li>
                 </ul>
-
             </div>
-            <div class="col-5">
-                <img src="{{ asset('/uploads/evenement/' ~ evenementDetail.image)}}"alt="image sessions" style="max-width: 100%;
-	height: auto; box-shadow: 5px 5px 5px black; border-radius: 5px" class="mt-4">
-                <button class="btn btn-dark mt-5 text-right">Réserver</button>
+
+            <div class="col-7">
+                <img src="{{ asset('/uploads/evenement/' ~ evenementDetail.image)}}"  alt="image sessions" style="max-width:80%;
+	height: auto; box-shadow: 5px 5px 5px black; border-radius: 5px" class="mt-5 img-fluid displayed ">
+
             </div>
         </div>
     </div>
-
     <div class="container-fluid">
         <section id="contact" class="contact">
-
-
             <div class="section-title">
-
-                <div class="mt-5">
-                    <div class="info-wrap">
+                <div class="mt-5 mb-5">
+                    <h3 class="text-center mb-5">Ce qu'il faut apporter pour la session</h3>
+                    <div class="info-wrap text-center">
                         <div class="row">
                             <div class="col-lg-3 info border-end ">
                                 <h4>Matériel:</h4>
-                                <p>VTT <strong>Enduro </strong> ou <strong>Cross Country</strong>
-                                <br>100 mm de débattement minimum</p>
+                                <p>{{ evenementDetail.materiel }}</p>
                             </div>
-
                             <div class="col-lg-3  info border-end">
                                 <h4>Protections obligatoires:</h4>
-                                <p>Casque jet ou full face, gants longs, genouillères</p>
+                                <p>{{ evenementDetail.protectionObligatoire }}</p>
                             </div>
 
                             <div class="col-lg-3  info border-end">
                                 <h4>Protections conseillées:</h4>
-                                <p>Dorsale, coudières </p>
+                                <p>{{ evenementDetail.protectionConseillees }}</p>
                         </div>
                             <div class="col-lg-3  info ">
                                 <h4>Autres</h4>
-                                <p>Eau, barres de céréales, veste de pluie,
-                                    chambre à air et de quoi réparer votre vélo</p>
+                                <p>{{ evenementDetail.autres }}</p>
                             </div>
                     </div>
                 </div>
             </div>
-
-
-
-    <div id="map" style="height: 300px;">
+    <div id="map" style="height: 500px;">
     </div>
 
     </div>
         <script type="text/javascript">
 
             var centerview=[{{ lat }},{{ long }}];
-            var map = L.map('map').setView([centerview[0], centerview[1]], 15.5);
+            var map = L.map('map').setView([centerview[0], centerview[1]], 15);
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
