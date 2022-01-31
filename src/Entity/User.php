@@ -61,6 +61,16 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
      */
     private $telephone;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ResaCoaching::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $resaCoachings;
+
+    public function __construct()
+    {
+        $this->resaCoachings = new ArrayCollection();
+    }
+
 
     public function __toString()
     {
@@ -217,6 +227,36 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
         }
 
         $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ResaCoaching[]
+     */
+    public function getResaCoachings(): Collection
+    {
+        return $this->resaCoachings;
+    }
+
+    public function addResaCoaching(ResaCoaching $resaCoaching): self
+    {
+        if (!$this->resaCoachings->contains($resaCoaching)) {
+            $this->resaCoachings[] = $resaCoaching;
+            $resaCoaching->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResaCoaching(ResaCoaching $resaCoaching): self
+    {
+        if ($this->resaCoachings->removeElement($resaCoaching)) {
+            // set the owning side to null (unless already changed)
+            if ($resaCoaching->getUser() === $this) {
+                $resaCoaching->setUser(null);
+            }
+        }
 
         return $this;
     }

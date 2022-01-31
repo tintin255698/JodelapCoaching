@@ -25,7 +25,9 @@
                     <li>Prix : {{ evenementDetail.prix /100 }}€</li>
                     <li>Lieu précis : {{ evenementDetail.lieuPrecis }}</li>
                     <li>
-                        {% if now|date("d/m/Y") < evenementDetail.finResa|date("d/m/Y") %}
+                        {% if evenementDetail.finResa > now %}
+
+
                     <div class="box-rebours" style="display: flex">
                    <p class="minuteur-top">Temps restant pour réserver :</p>
                             <div class="minuteur" id="jour">00</div>
@@ -44,20 +46,15 @@
                         <p>Vous ne pouvez plus réserver <i class='bx bx-sad' ></i></p>
                     {% endif %}
                     </li>
-                    <li>
-                        {% if now|date("d/m/Y") < evenementDetail.finResa|date("d/m/Y") and app.user %}
-                            <a href="{{ path('evenement_add', {'id' : evenementDetail.id }) }}"> <button class="btn btn-dark mt-5 text-right">Réserver</button></a>
-                        {% else %}
-                            <p class="mt-3"><i class='bx bx-info-circle' ></i>Vous devez être <a href="{{ path('app_login') }}">connecté</a> pour réserver</p>
-                        {% endif %}
-                    </li>
                 </ul>
             </div>
 
             <div class="col-7">
                 <img src="{{ asset('/uploads/evenement/' ~ evenementDetail.image)}}"  alt="image sessions" style="max-width:80%;
 	height: auto; box-shadow: 5px 5px 5px black; border-radius: 5px" class="mt-5 img-fluid displayed ">
-
+                {% if now < evenementDetail.finResa %}
+                <a href="{{ path('evenement_add', {'id' : evenementDetail.id }) }}"> <button class="btn btn-dark mt-5  text-right">Réserver</button></a>
+                 {% endif %}
             </div>
         </div>
     </div>

@@ -74,7 +74,7 @@
                             </div>
                             <div class="col count">
                                 {% for moyennes in moyenne %}
-                                    <span class="note">
+
         {% for i in 1..5 %}
             {% if i <= moyennes.note %}
                 <i class='bx bxs-star bx-flashing'></i>
@@ -82,7 +82,7 @@
                 <i class='bx bx-star bx-flashing'></i>
             {% endif %}
         {% endfor %}
-</span>
+
                                 {% endfor %}
                             </div>
                         </div>
@@ -96,8 +96,8 @@
                                 <p><i class="bx bxs-quote-alt-left quote-icon-left"></i>{{ repos.contenu }}<i
                                             class="bx bxs-quote-alt-right quote-icon-right"></i></p>
                             </blockquote>
-                            <p><strong>Note qu'il/elle a donnée :</strong></p>
-                            <span class="note">
+                            <p><strong>Note qu'il/elle a donnée :</strong>
+
         {% for i in 1..5 %}
             {% if i <= repos.note %}
                 <i class='bx bxs-star bx-spin'></i>
@@ -105,7 +105,7 @@
                 <i class='bx bx-star bx-spin'></i>
             {% endif %}
         {% endfor %}
-</span>
+                            </p>
                         </div>
                     {% endfor %}
                 {% else %}

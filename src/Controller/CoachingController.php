@@ -26,7 +26,7 @@ class CoachingController extends AbstractController
 
 
     /**
-     * @Route("/coaching/dd/{id}", name="coaching_add")
+     * @Route("/coaching/ajouter/{id}", name="coaching_add")
      */
     public function commentaireAdd ($id, Request $request)
     {

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CoachingTarifRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,16 @@ class CoachingTarif
      * @ORM\Column(type="integer")
      */
     private $priceUnity;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ResaCoaching::class, mappedBy="coaching", orphanRemoval=true)
+     */
+    private $resaCoachings;
+
+    public function __construct()
+    {
+        $this->resaCoachings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,6 +98,36 @@ class CoachingTarif
     public function setPriceUnity(int $priceUnity): self
     {
         $this->priceUnity = $priceUnity;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ResaCoaching[]
+     */
+    public function getResaCoachings(): Collection
+    {
+        return $this->resaCoachings;
+    }
+
+    public function addResaCoaching(ResaCoaching $resaCoaching): self
+    {
+        if (!$this->resaCoachings->contains($resaCoaching)) {
+            $this->resaCoachings[] = $resaCoaching;
+            $resaCoaching->setCoaching($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResaCoaching(ResaCoaching $resaCoaching): self
+    {
+        if ($this->resaCoachings->removeElement($resaCoaching)) {
+            // set the owning side to null (unless already changed)
+            if ($resaCoaching->getCoaching() === $this) {
+                $resaCoaching->setCoaching(null);
+            }
+        }
 
         return $this;
     }

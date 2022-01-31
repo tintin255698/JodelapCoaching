@@ -11,11 +11,7 @@
 
 
     <h1 class="text-center">Coaching</h1>
-    {% if app.user %}
 
-    {% else %}
-        <h5 class="text-center">(Vous devez être <a href="{{ path('app_login') }}">connecté</a> ou vous <a href="{{ path('app_register') }}">enregistrer</a> pour réserver)</h5>
-    {% endif %}
 <h2 class="text-center border mt-5">OUVERT A TOUS LES PROFILS</h2>
 
 <h3 class="text-center mt-5">J'adapte la séance suivant votre niveau et vos attentes.</h3>
@@ -75,9 +71,7 @@
                         <li><b>{{ coachings.priceForTwo }}€</b>pour <strong>deux</strong> personnes</li>
                         <li><b>+ {{ coachings.priceForThree }}€</b>pour <strong>chaque</strong> personne supplémentaire</li>
                     </ul>
-                    {% if app.user %}
-                    <a href="{{ path('coaching_add', {'id':coachings.id}) }}">  <button type="button" class="btn  btn-secondary  btn-lg btn-block  ">Réserver</button></a>
-                    {% endif %}
+                    <a href="{{ path('coaching_add', {'id':coachings.id}) }}">  <button type="button" class="btn  btn-dark  btn-lg btn-block  ">Réserver</button></a>
                 </div>
             </div>
 

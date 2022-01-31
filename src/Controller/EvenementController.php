@@ -6,6 +6,7 @@ use App\Form\PersonneType;
 use App\Repository\EvenementRepository;
 use DateInterval;
 use DateTime;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,30 +17,37 @@ class EvenementController extends AbstractController
     /**
      * @Route("/evenement", name="evenement")
      */
-    public function index(EvenementRepository $evenementRepository): Response
+    public function index(EvenementRepository $evenementRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $debutSemaine = new DateTime('now');
 
         $finSemaine = new DateTime('now');
-        $finSemaine->add(new DateInterval('P7D'));
+        $finSemaine->add(new DateInterval('P14D'));
 
         $evenement = $evenementRepository->findAll();
+
+        $repo = $paginator->paginate(
+            $evenement,
+            $request->query->getInt('page',1),
+            9);
 
         return $this->render('evenement/index.html.twig', [
             'fin' => $finSemaine,
             'debut' => $debutSemaine,
-            'evenement' => $evenement,
+            'evenement' => $repo,
         ]);
     }
 
     /**
-     * @Route("/evenement/{id}", name="evenement_detail")
+     * @Route("/evenement/{slug}", name="evenement_detail")
      */
-    public function detail($id, EvenementRepository $evenementRepository): Response
+    public function detail($slug, EvenementRepository $evenementRepository): Response
     {
         $now = new DateTime('now');
 
-        $evenementDetails = $evenementRepository->find($id);
+        $evenementDetails = $evenementRepository->findOneBy(['slug' => $slug]);
+
+
 
         $street = $evenementDetails->getLieu();
         $city = $evenementDetails->getVille();

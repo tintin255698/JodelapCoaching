@@ -1,20 +1,100 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PanierController!{% endblock %}
+{% block title %}Commande{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/vivie/jodelap/src/Controller/PanierController.php'|file_link(0) }}">src/Controller/PanierController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/vivie/jodelap/templates/panier/index.html.twig'|file_link(0) }}">templates/panier/index.html.twig</a></code></li>
-    </ul>
+    <a href="{{ path('home') }}">
+        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
+    </a>
+
+    <section class="container">
+    <h1 class="text-center">Récapitulatif de votre commande</h1>
+
+
+
+    {% if evenement | length > 0%}
+
+<h3>Vos évènements réservés</h3>
+
+<div class="table-responsive mt-5">
+    <table class="table table-hover text-center" style="width:100%">
+        <thead>
+        <tr>
+            <th>Session</th>
+            <th>Prix</th>
+            <th>Quantité</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for evenements in evenement %}
+            <tr>
+                <td>{{ evenements.product.titre }}</td>
+                <td>{{ evenements.product.prix/100 }}€</td>
+                <td>{{ evenements.quantity }}</td>
+                <td>{{ (evenements.product.prix/100) * evenements.quantity }}€</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total Évènements : </td>
+            <td>{{ totalEvenement/100 }}€</td>
+        </tr>
+        </tfoot>
+    </table>
 </div>
+
+
+    {% if coaching | length > 0%}
+
+        <h3>Votre séance de coaching</h3>
+
+        <div class="table-responsive mt-5">
+            <table class="table table-hover text-center" style="width:100%">
+                <thead>
+                <tr>
+                    <th>Nombre d'heures</th>
+                    <th>Prix</th>
+                    <th>Nombre de personnes</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for coachings in coaching %}
+                    <tr>
+                        <td>{{ coachings.product.heure }} heures</td>
+                        <td>{% if coachings.quantity.personne<=2 %}
+                            {{ coachings.product.priceForTwo }}€ pour 2 personnes
+                            {% else %}
+                            {{ coachings.product.priceForTwo }}€ pour 2 personnes + {{ coachings.product.priceForThree }}/personnes (dès la troisième)
+                            {% endif %}
+                        </td>
+                        <td>{{ coachings.quantity.personne }} personnes</td>
+                        <td>{{ totalCoaching }}€</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="3" class="text-right">Total coaching : </td>
+                    <td>{{ totalCoaching/100 }}€</td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+
+{% endif %}
+
+{% endif %}
+
+
+    <button class="btn btn-dark" type="submit">Valider</button>
+    </section>
+
 {% endblock %}
+

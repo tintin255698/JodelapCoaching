@@ -69,7 +69,7 @@ class CommentaireController extends AbstractController
             $this->addFlash('success', 'Nous vous remercions pour votre commentaire.');
         }
 
-        $commentaire = $commentRepository->findby(['bool' => 1]);
+        $commentaire = $commentRepository->findby(['bool' => 1], ['id'=>'DESC']);
 
         $count = count($commentaire);
 
