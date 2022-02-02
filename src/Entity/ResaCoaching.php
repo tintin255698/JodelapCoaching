@@ -25,7 +25,6 @@ class ResaCoaching
 
     /**
      * @ORM\ManyToOne(targetEntity=CoachingTarif::class, inversedBy="resaCoachings")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $coaching;
 
@@ -43,6 +42,21 @@ class ResaCoaching
      * @ORM\Column(type="integer")
      */
     private $nbPersonne;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $numeroDeCommande;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateResa;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Evenement::class, inversedBy="resaCoachings")
+     */
+    private $evenement;
 
     public function getId(): ?int
     {
@@ -105,6 +119,42 @@ class ResaCoaching
     public function setNbPersonne(int $nbPersonne): self
     {
         $this->nbPersonne = $nbPersonne;
+
+        return $this;
+    }
+
+    public function getNumeroDeCommande(): ?string
+    {
+        return $this->numeroDeCommande;
+    }
+
+    public function setNumeroDeCommande($numeroDeCommande): self
+    {
+        $this->numeroDeCommande = $numeroDeCommande;
+
+        return $this;
+    }
+
+    public function getDateResa(): ?\DateTimeInterface
+    {
+        return $this->dateResa;
+    }
+
+    public function setDateResa(\DateTimeInterface $dateResa): self
+    {
+        $this->dateResa = $dateResa;
+
+        return $this;
+    }
+
+    public function getEvenement(): ?Evenement
+    {
+        return $this->evenement;
+    }
+
+    public function setEvenement(?Evenement $evenement): self
+    {
+        $this->evenement = $evenement;
 
         return $this;
     }

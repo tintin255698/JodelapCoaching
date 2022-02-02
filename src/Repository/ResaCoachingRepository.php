@@ -19,22 +19,21 @@ class ResaCoachingRepository extends ServiceEntityRepository
         parent::__construct($registry, ResaCoaching::class);
     }
 
-    // /**
+   /**
     //  * @return ResaCoaching[] Returns an array of ResaCoaching objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function numeroCommande()
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('r.id')
+            ->orderBy('r.id', 'DESC')
+            ->setMaxResults(1)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?ResaCoaching

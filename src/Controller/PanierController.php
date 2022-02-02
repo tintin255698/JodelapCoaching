@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Entity\ResaCoaching;
 use App\Repository\CoachingTarifRepository;
 use App\Repository\EvenementRepository;
+use App\Repository\ResaCoachingRepository;
+
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,18 +21,20 @@ class PanierController extends AbstractController
     /**
      * @Route("/panier", name="panier")
      */
-    public function index(EntityManagerInterface $entityManager, MailerInterface $mailer,SessionInterface $session, EvenementRepository $evenementRepository, CoachingTarifRepository $coachingTarifRepository): Response
+    public function index(EntityManagerInterface $entityManager, ResaCoachingRepository $resaCoachingRepository, MailerInterface $mailer,SessionInterface $session, EvenementRepository $evenementRepository, CoachingTarifRepository $coachingTarifRepository): Response
     {
-        if(!$this->getUser()){
+       if (!$this->getUser()){
             $this->addFlash('info', "Vous devez être connecté pour accéder au récapitulatif de votre réservation");
             return  $this->redirectToRoute('app_login');
         } else {
-
+            //Récupère le panier
             $evenement = $session->get('evenement', []);
             $coaching = $session->get('coaching', []);
 
+            //Evenement
             $evenementWithData = [];
 
+            //Transforme Evenement en array
             foreach ($evenement as $id => $quantity) {
                 $evenementWithData[] = [
                     'product' => $evenementRepository->find($id),
@@ -37,16 +42,18 @@ class PanierController extends AbstractController
                 ];
             }
 
+            //Calcul total evenement
             $totalEvenement = 0;
             foreach ($evenementWithData as $item) {
-                $totalItem = $item['product']->getPrix() * $item['quantity'];
-                $totalEvenement += $totalItem;
+                $totalItem2 = $item['product']->getPrix() * $item['quantity'];
+                $totalEvenement += $totalItem2;
             }
 
+
+            //Coaching
             $coachingWithData = [];
 
-
-
+            //Transforme le panier en array
             foreach ($coaching as $id => $quantity) {
                 $coachingWithData[] = [
                     'product' => $coachingTarifRepository->find($id),
@@ -54,15 +61,7 @@ class PanierController extends AbstractController
                 ];
             }
 
-
-            foreach ( $coachingWithData as $data){
-               $coachingId = $data['product']->getId();
-                $coachId = $coachingTarifRepository->find($coachingId);
-            }
-
-
-
-
+          //Calcul total
             $totalCoaching = 0;
             foreach ($coachingWithData as $item) {
                 if ($item['quantity']['personne'] > 2) {
@@ -73,25 +72,68 @@ class PanierController extends AbstractController
                 $totalCoaching += $totalItem;
             }
 
-            if($coachingWithData) {
-                foreach ($coachingWithData as $data) {
-                    $coachingData = new ResaCoaching();
-                    $coachingData->setUser($this->getUser());
-                    $coachingData->setCoaching($coachId);
-                    $coachingData->setNbPersonne($data['quantity']['personne']);
-                    $coachingData->setResaConfirm(0);
-                    $coachingData->setPrix($totalCoaching);
-                    $entityManager->persist($coachingData);
-                    $entityManager->flush();
+            //Ref commande
+            $debut = new DateTime('now');
+            $uniq = $debut->format('dmY').'-'.uniqid();
+
+            //Inscription BDD réservation
+            if($coachingWithData or $evenementWithData) {
+                $now = new DateTime('now');
+                if($evenementWithData) {
+                    foreach ($evenementWithData as $evenement) {
+                        $evenementId = $evenement['product']->getId();
+                        $coachId = $evenementRepository->find($evenementId);
+                        $coachingData = new ResaCoaching();
+                        $coachingData->setUser($this->getUser());
+                        $coachingData->setDateResa($now);
+                        $coachingData->setNumeroDeCommande($uniq);
+                        $coachingData->setEvenement($coachId);
+                        $coachingData->setResaConfirm(0);
+                        $coachingData->setPrix($totalItem2/100);
+                        $entityManager->persist($coachingData);
+                        $entityManager->flush();
+                    }
+                }
+                if($coachingWithData) {
+                    foreach ($coachingWithData as $data) {
+                        $coachingId = $data['product']->getId();
+                        $coachId = $coachingTarifRepository->find($coachingId);
+                        $coachingData = new ResaCoaching();
+                        $coachingData->setUser($this->getUser());
+                        $coachingData->setDateResa($now);
+                        $coachingData->setNumeroDeCommande($uniq);
+                        $coachingData->setCoaching($coachId);
+                        $coachingData->setNbPersonne($data['quantity']['personne']);
+                        $coachingData->setResaConfirm(0);
+                        if ($data['quantity']['personne'] > 2) {
+                            $totalItem = $data['product']->getPriceForTwo() + $data['product']->getPriceForThree() * ($data['quantity']['personne'] - 2);
+                        } else {
+                            $totalItem = $data['product']->getPriceForTwo();
+                        }
+                        $coachingData->setPrix($totalItem);
+                        $entityManager->persist($coachingData);
+                        $entityManager->flush();
+                    }
                 }
             }
+
         }
 
         return $this->render('panier/index.html.twig', [
             'evenement' => $evenementWithData,
             'coaching' => $coachingWithData,
             'totalEvenement' => $totalEvenement,
-            'totalCoaching' => $totalCoaching
+            'totalCoaching' => $totalCoaching,
         ]);
     }
+
+    /**
+     * @Route("/attenteconfirmationcommande", name="attenteConfirmation")
+     */
+    public function detail(): Response
+    {
+        return $this->render('panier/confirmation.html.twig', [
+        ]);
+    }
+
 }

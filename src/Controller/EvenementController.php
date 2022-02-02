@@ -44,10 +44,7 @@ class EvenementController extends AbstractController
     public function detail($slug, EvenementRepository $evenementRepository): Response
     {
         $now = new DateTime('now');
-
         $evenementDetails = $evenementRepository->findOneBy(['slug' => $slug]);
-
-
 
         $street = $evenementDetails->getLieu();
         $city = $evenementDetails->getVille();

@@ -10,7 +10,7 @@
     </a>
 
     <section class="container">
-    <h1 class="text-center">Récapitulatif de votre commande</h1>
+    <h1 class="text-center">Confirmation de votre commande</h1>
 
 
 
@@ -48,7 +48,7 @@
     </table>
 </div>
 
-
+{% endif %}
     {% if coaching | length > 0%}
 
         <h3>Votre séance de coaching</h3>
@@ -82,18 +82,15 @@
                 <tfoot>
                 <tr>
                     <td colspan="3" class="text-right">Total coaching : </td>
-                    <td>{{ totalCoaching/100 }}€</td>
+                    <td>{{ totalCoaching }}€</td>
                 </tr>
                 </tfoot>
             </table>
         </div>
 
 {% endif %}
+        <a href="{{ path('attenteConfirmation')}}">  <button class="btn btn-dark" type="submit">Valider</button></a>
 
-{% endif %}
-
-
-    <button class="btn btn-dark" type="submit">Valider</button>
     </section>
 
 {% endblock %}
