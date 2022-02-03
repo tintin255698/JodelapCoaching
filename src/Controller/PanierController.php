@@ -159,7 +159,7 @@ class PanierController extends AbstractController
             $entityManager->persist($coach2);
             $entityManager->flush();
     }
-
+//Faire email client et jodelap
         $email = (new Email())
             ->from('jodelap.coaching@gmail.com')
             ->to('vivien.joly@hotmail.fr')
