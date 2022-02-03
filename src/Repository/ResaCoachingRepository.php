@@ -35,6 +35,21 @@ class ResaCoachingRepository extends ServiceEntityRepository
     }
 
 
+    public function derniereCommande($user)
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r.numeroDeCommande')
+            ->orderBy('r.numeroDeCommande', 'DESC')
+            ->andWhere('r.user = :num')
+            ->setParameter('num', $user)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getScalarResult()
+            ;
+    }
+
+
+
     /*
     public function findOneBySomeField($value): ?ResaCoaching
     {

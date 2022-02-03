@@ -5,6 +5,14 @@
 {% block body %}
 
 
+    {% for label, messages in app.flashes  %}
+        <div class="alert mb-5 alert-{{ label }} fade show text-center" role="alert" data-mdb-color="{{ label }}"   style="font-size: x-large">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor%}
+        </div>
+    {% endfor %}
+
     <!-- Carousel wrapper -->
     <div id="introCarousel" class="carousel slide carousel-fade shadow-2-strong" data-mdb-ride="carousel">
         <!-- Indicators -->

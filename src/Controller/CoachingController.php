@@ -26,10 +26,14 @@ class CoachingController extends AbstractController
 
 
     /**
-     * @Route("/coaching/ajouter/{id}", name="coaching_add")
+     * @Route("/coaching/ajouter/{slug}", name="coaching_add")
      */
-    public function commentaireAdd ($id, Request $request)
+    public function commentaireAdd ($slug, Request $request, CoachingTarifRepository $coaching)
     {
+        $coachingAdd = $coaching->findOneBy(['slug' => $slug]);
+
+        $id = $coachingAdd->getId();
+
         $form = $this->createForm(PersonneType::class);
 
         $form->handleRequest($request);
@@ -51,7 +55,8 @@ class CoachingController extends AbstractController
             return $this->redirectToRoute('panier');
         }
         return $this->render('coaching/coaching.html.twig', [
-            'form' =>$form->createView()
+            'form' =>$form->createView(),
+            'coaching' => $coachingAdd
         ]);
     }
 }

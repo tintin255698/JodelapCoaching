@@ -38,7 +38,7 @@ class CommentaireController extends AbstractController
             $commentaire->setBool(0);
             $this->entityManager->persist($commentaire);
             $this->entityManager->flush();
-            $this->addFlash('success', 'Nous vous remercions pour votre commentaire.');
+            $this->addFlash('success', "Je vous remercie d'avoir donné votre avis.");
             return $this->redirectToRoute('commentaire');
         }
 
@@ -66,7 +66,7 @@ class CommentaireController extends AbstractController
             $commentaire->setBool(0);
             $this->entityManager->persist($commentaire);
             $this->entityManager->flush();
-            $this->addFlash('success', 'Nous vous remercions pour votre commentaire.');
+            $this->addFlash('success', "Je vous remercie d'avoir donné votre avis.");
         }
 
         $commentaire = $commentRepository->findby(['bool' => 1], ['id'=>'DESC']);

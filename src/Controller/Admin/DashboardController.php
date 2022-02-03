@@ -8,6 +8,7 @@ use App\Entity\Commentaire;
 use App\Entity\Evenement;
 use App\Entity\Header;
 use App\Entity\Image;
+use App\Entity\ResaCoaching;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -43,6 +44,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Coaching', 'fas fa-chart-area', CoachingTarif::class);
         yield MenuItem::linkToCrud('Coffrets cadeaux', 'fas fa-gifts', Coffret::class);
         yield MenuItem::linkToCrud('Galerie', 'fa fa-images', Image::class);
-        yield MenuItem::linkToCrud('avis', 'fa fa-comment', Commentaire::class);
+        yield MenuItem::linkToCrud('Avis', 'fa fa-comment', Commentaire::class);
+        yield MenuItem::linkToCrud('Réservation', 'fas fa-book-open', ResaCoaching::class);
     }
 }

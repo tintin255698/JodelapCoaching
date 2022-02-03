@@ -9,10 +9,17 @@
     </a>
 
 
+    {% for label, messages in app.flashes  %}
+        <div class="alert mb-5 alert-{{ label }} fade show text-center" role="alert" data-mdb-color="{{ label }}"   style="font-size: x-large">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor%}
+        </div>
+    {% endfor %}
+
             <div class="container">
 
                 <!-- Button trigger modal -->
-
 
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -33,7 +40,7 @@
 
                             </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Annuler</button>
                                     {{ form_widget(form.Valider)}}
 
                                 </div>

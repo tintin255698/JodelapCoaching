@@ -3,16 +3,28 @@
 {% block title %}AttenteConfirmation{% endblock %}
 
 {% block body %}
+    <div class="container-fluid">
+    <a href="{{ path('home') }}">
+        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
+    </a>
+<div class="container text-center">
+    <h1 class="mb-5" style=" animation-duration: 3s;
+  animation-name: bounce;
+  animation-iteration-count: infinite;">Validation de votre commande, merci de patienter</h1>
+    <figure>
+        <img src="{{ asset('img/logo_panier.png') }}" alt="logo dession Jodelap Coaching" class="img-fluid displayed" style="width: 600px;
+    max-width: 100%;">
+        <figcaption class="text-center mt-2"><p>Réalisé par Jonathan Révillot-Tirot</p></figcaption>
+    </figure>
 
-
+</div>
 
     <script>
-        setTimeout('Redirect()', 1200);
+        setTimeout('Redirect()', 2000);
         function Redirect()
         {
-            window.location="https://stackoverflow.com";
+            window.location="{{ path('validationConfirmation', {'numeroDeCommande' : resa.numeroDeCommande} ) }}";
         }
     </script>
-
 
 {% endblock %}

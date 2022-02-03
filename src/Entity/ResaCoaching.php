@@ -58,6 +58,11 @@ class ResaCoaching
      */
     private $evenement;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $commentaire;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -155,6 +160,18 @@ class ResaCoaching
     public function setEvenement(?Evenement $evenement): self
     {
         $this->evenement = $evenement;
+
+        return $this;
+    }
+
+    public function getCommentaire(): ?string
+    {
+        return $this->commentaire;
+    }
+
+    public function setCommentaire(?string $commentaire): self
+    {
+        $this->commentaire = $commentaire;
 
         return $this;
     }

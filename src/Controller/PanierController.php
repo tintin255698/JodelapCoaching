@@ -3,13 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\ResaCoaching;
+use App\Form\CommentResaType;
 use App\Repository\CoachingTarifRepository;
 use App\Repository\EvenementRepository;
 use App\Repository\ResaCoachingRepository;
-
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Mailer\MailerInterface;
@@ -48,7 +49,6 @@ class PanierController extends AbstractController
                 $totalItem2 = $item['product']->getPrix() * $item['quantity'];
                 $totalEvenement += $totalItem2;
             }
-
 
             //Coaching
             $coachingWithData = [];
@@ -116,7 +116,6 @@ class PanierController extends AbstractController
                     }
                 }
             }
-
         }
 
         return $this->render('panier/index.html.twig', [
@@ -130,10 +129,65 @@ class PanierController extends AbstractController
     /**
      * @Route("/attenteconfirmationcommande", name="attenteConfirmation")
      */
-    public function detail(): Response
+    public function detail(ResaCoachingRepository $resaCoachingRepository): Response
     {
+        $user = $this->getUser();
+
+        $lastResa = $resaCoachingRepository->derniereCommande($user);
+
+        $commande = $lastResa[0]['numeroDeCommande'];
+
+        $resa = $resaCoachingRepository->findOneBy(['numeroDeCommande'=> $commande] );
+
         return $this->render('panier/confirmation.html.twig', [
+            'resa' => $resa
         ]);
     }
 
+
+    /**
+     * @Route("/validationreservation/{numeroDeCommande}", name="validationConfirmation")
+     */
+    public function validation($numeroDeCommande, ResaCoachingRepository $resaCoachingRepository, EntityManagerInterface $entityManager, Request $request, MailerInterface $mailer): Response
+    {
+        $this->get('session')->clear();
+
+        $coach = $resaCoachingRepository->findBy(['numeroDeCommande' => $numeroDeCommande]);
+
+        foreach($coach as $coach2){
+            $coach2->setResaConfirm(1);
+            $entityManager->persist($coach2);
+            $entityManager->flush();
+    }
+
+        $email = (new Email())
+            ->from('jodelap.coaching@gmail.com')
+            ->to('vivien.joly@hotmail.fr')
+            ->subject('Confirmation de votre réservation')
+            ->text('Salut'.'Je vous remercie pour votre confiance ');
+
+        $mailer->send($email);
+
+
+        $form = $this->createForm(CommentResaType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($coach as $comment) {
+                $commentaire = $form['commentaire']->getData();
+                $comment->setCommentaire($commentaire);
+                $entityManager->persist($comment);
+                $entityManager->flush();
+
+            }
+            $this->addFlash('success', 'Votre message a bien été envoyé');
+          return $this->redirectToRoute('home');
+        }
+
+        return $this->render('panier/validationreservation.html.twig', [
+            'form'=> $form->createView(),
+        ]);
+    }
 }
+

@@ -48,16 +48,18 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address('jodelap.coaching@gmail.com', 'Jodelap Coaching'))
                     ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
+                    ->subject('Merci de confirmer votre email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email
 
+            $this->addFlash('success', 'Vous vous êtes bien enregistrés. Bienvenue chez JodelapCoaching.com ! ');
             return $this->redirectToRoute('home');
 
         }

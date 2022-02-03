@@ -22,7 +22,8 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('FirstName', TextType::class, ['label' => 'Prénom', 'attr'=>['placeholder'=>'Votre prénom'] ])
             ->add('LastName', TextType::class, ['label' => 'Nom', 'attr'=>['placeholder'=>'Votre Nom'] ])
-            ->add('Email', EmailType::class, ['label' => 'Email',  'attr'=>['placeholder'=>'Votre email'] ] )
+            ->add('Email', EmailType::class, ['label' => 'Email',  'attr'=>['placeholder'=>'Votre email',
+                'pattern' => '/^[0-9]{10}$/', 'maxlength' => 10] ] )
             ->add('telephone', TextType::class, ['label' => 'Téléphone',  'attr'=>['placeholder'=>'Votre téléphone'] ])
             ->add('plainPassword', RepeatedType::class, array(
                 'first_name' => 'pass',

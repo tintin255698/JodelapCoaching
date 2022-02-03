@@ -6,6 +6,7 @@ use App\Repository\CoachingTarifRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=CoachingTarifRepository::class)
@@ -43,6 +44,17 @@ class CoachingTarif
      * @ORM\OneToMany(targetEntity=ResaCoaching::class, mappedBy="coaching", orphanRemoval=true)
      */
     private $resaCoachings;
+
+    /**
+     * @Gedmo\Slug(fields={"titre"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $titre;
 
     public function __construct()
     {
@@ -128,6 +140,30 @@ class CoachingTarif
                 $resaCoaching->setCoaching(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(string $titre): self
+    {
+        $this->titre = $titre;
 
         return $this;
     }

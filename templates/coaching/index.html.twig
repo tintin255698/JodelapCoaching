@@ -71,7 +71,7 @@
                         <li><b>{{ coachings.priceForTwo }}€</b>pour <strong>deux</strong> personnes</li>
                         <li><b>+ {{ coachings.priceForThree }}€</b>pour <strong>chaque</strong> personne supplémentaire</li>
                     </ul>
-                    <a href="{{ path('coaching_add', {'id':coachings.id}) }}">  <button type="button" class="btn  btn-dark  btn-lg btn-block  ">Réserver</button></a>
+                    <a href="{{ path('coaching_add', {'slug':coachings.slug}) }}">  <button type="button" class="btn  btn-dark  btn-lg btn-block  ">Réserver</button></a>
                 </div>
             </div>
 
