@@ -21,9 +21,12 @@
             Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
         </div>
     {% endif %}
-    <div class="container connexion mb-5">
+    <div class="container connexion mb-5" style="color: white; font-style: italic;">
 
-    <h1 class="text-center mb-5" style="color: white; font-style: italic;  margin-top: 10%!important; font-weight: bold" >Merci de saisir vos identifiants de connexion</h1>
+    <h1 class="text-center mb-3"   style="margin-top: 10%!important; font-weight: bold" >Merci de saisir vos identifiants de connexion </h1>
+    <h2 class="text-center mb-5">Ou enregistrez-vous en cliquant
+        <a href="{{ path('app_register') }}" style="color: #df8c3a; font-weight: bolder">ici</a> </h2>
+    
     <label class="mb-3" for="inputEmail" style="color: #ffa012 ">Votre email :</label>
     <input type="email" value="{{ last_username }}" placeholder="Votre email" name="Email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
     <label for="inputPassword" class="mt-3 mb-3" style="color: #ffa012; margin-top: 5%!important;">Votre mot de passe :</label>

@@ -14,7 +14,7 @@
 
     {% if evenement | length > 0%}
 
-<h3>Vos cours collectifs réservés</h3>
+<h3 class="mt-5">Vos cours collectifs réservés</h3>
 
 <div class="table-responsive mt-5">
     <table class="table table-hover text-center" style="width:100%">
@@ -31,7 +31,7 @@
             <tr>
                 <td>{{ evenements.product.titre }}</td>
                 <td>{{ evenements.product.prix/100 }}€</td>
-                <td>{{ evenements.quantity }}</td>
+                <td><a href="{{ path('evenement_less', {'id' : evenements.product.id }) }}"><i class='bx bxs-minus-circle' ></i></a> {{ evenements.quantity }} <a href="{{ path('evenement_add', {'id' : evenements.product.id }) }}"><i class='bx bxs-plus-circle'></i></a></td>
                 <td>{{ (evenements.product.prix/100) * evenements.quantity }}€</td>
             </tr>
         {% endfor %}
@@ -49,7 +49,7 @@
 {% endif %}
     {% if coaching | length > 0%}
 
-        <h3>Votre séance de coaching</h3>
+        <h3 class="mt-5">Votre séance de coaching</h3>
 
         <div class="table-responsive mt-5">
             <table class="table table-hover text-center" style="width:100%">
@@ -71,7 +71,7 @@
                             {{ coachings.product.priceForTwo }}€ pour 2 personnes + {{ coachings.product.priceForThree }}/personnes (dès la troisième)
                             {% endif %}
                         </td>
-                        <td>{{ coachings.quantity.personne }} personnes</td>
+                        <td data-tooltip="Cliquez sur le chiffre pour augmenter ou réduire le nombre de personnes" ><a href="{{ path('coaching_add', {'slug' : coachings.product.slug }) }}">{{ coachings.quantity.personne }} personnes</a></td>
                         <td>{{ totalCoaching }}€</td>
                     </tr>
                 {% endfor %}
@@ -92,7 +92,7 @@
 
         {% if coffret | length > 0%}
 
-            <h3>Votre coffret cadeau commandé</h3>
+            <h3 class="mt-5">Votre coffret cadeau commandé</h3>
 
             <div class="table-responsive mt-5">
                 <table class="table table-hover text-center" style="width:100%">
@@ -109,7 +109,9 @@
                         <tr>
                             <td>{{ coffrets.product.produit }}</td>
                             <td>{{ coffrets.product.prix/100 }}€</td>
-                            <td>{{ coffrets.quantity.heure }}</td>
+
+                            <td data-tooltip="Cliquez sur le chiffre pour augmenter ou réduire le nombre d'heures" > <a href="{{ path('coffret_add', {'titre' : coffrets.product.produit}) }}">{{ coffrets.quantity.heure }} </a></td>
+
                             <td>{{ (coffrets.product.prix/100) * coffrets.quantity.heure }}€</td>
                         </tr>
                     {% endfor %}

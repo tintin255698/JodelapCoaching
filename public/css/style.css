@@ -104,6 +104,26 @@ img.displayed {
     position: relative;
 }
 
+[data-tooltip]:before {
+    position : absolute;
+    content : attr(data-tooltip);
+    opacity : 0;
+}
+
+[data-tooltip]:hover:before {
+    opacity : 1;
+   background-color: #F6AF52;
+    margin-left: 1.7em;
+    margin-top: 20px;
+    color:black;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+[data-tooltip]:not([data-tooltip-persistent]):before {
+    pointer-events: none;
+}
+
 .testimonials::before {
     content: "";
     position: absolute;
