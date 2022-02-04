@@ -63,6 +63,16 @@ class ResaCoaching
      */
     private $commentaire;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Coffret::class, inversedBy="resaCoachings")
+     */
+    private $coffretProduit;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $heuresCoffret;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -172,6 +182,30 @@ class ResaCoaching
     public function setCommentaire(?string $commentaire): self
     {
         $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    public function getCoffretProduit(): ?coffret
+    {
+        return $this->coffretProduit;
+    }
+
+    public function setCoffretProduit(?coffret $coffretProduit): self
+    {
+        $this->coffretProduit = $coffretProduit;
+
+        return $this;
+    }
+
+    public function getHeuresCoffret(): ?int
+    {
+        return $this->heuresCoffret;
+    }
+
+    public function setHeuresCoffret(?int $heuresCoffret): self
+    {
+        $this->heuresCoffret = $heuresCoffret;
 
         return $this;
     }

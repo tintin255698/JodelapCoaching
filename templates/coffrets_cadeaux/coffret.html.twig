@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}JodelapCoaching - Nombre d'heures{% endblock %}
+
+{% block body %}
+
+    <a href="{{ path('home') }}">
+        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-5 mb-5" alt="Logo">
+    </a>
+    <div class="container">
+        <h3 class="text-center mt-3 mb-5">Merci d'indiquer le nombre d'heures que vous souhaitez offrir <small>- 45€/H -</small></h3>
+        {{ form(form) }}
+    </div>
+
+{% endblock %}

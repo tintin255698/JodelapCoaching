@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}JodelapCoaching - Confirmation de vos coordonnées{% endblock %}
+
+{% block body %}
+    <div class="container">
+    <a href="{{ path('home') }}">
+        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
+    </a>
+
+    <h1 class="text-center mb-5">Vérification de vos coordonnées</h1>
+
+    <p class="text-center mb-5">La prise de contact se faisant par téléphone (ou par mail en cas de tentative infructueuse de vous appeler), merci de valider vos coordonnées.</p>
+    {{ form(form) }}
+    </div>
+
+
+
+{% endblock %}

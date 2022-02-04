@@ -14,12 +14,8 @@ class CommentResaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('commentaire', TextType::class,  ['attr'=>['placeholder'=>"Renseignez ici votre niveau "],
-                'constraints' => [
-                    new Length(['max' => 255, 'maxMessage' => 'Votre message doit contenir au maximum 255 caractères.']),
-                ],
-            ])
-            ->add('Valider', SubmitType::class, [ 'attr' => [
+            ->add('commentaire', TextType::class,  ['attr'=>['placeholder'=>"Renseignez ici votre niveau "]])
+            ->add('Envoyer', SubmitType::class, [ 'attr' => [
                 'class' => 'btn btn-dark mt-3'
             ]] )
         ;

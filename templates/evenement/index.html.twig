@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Les évènements{% endblock %}
+{% block title %}JodelapCoaching - Mes cours collectifs{% endblock %}
 
 {% block body %}
 
@@ -9,7 +9,7 @@
             <a href="{{ path('home') }}">
                 <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
             </a>
-            <h1 class="mb-5 mt-5"><strong>Mes Événements du {{ debut|date("d/m/Y") }} au {{ fin|date("d/m/Y") }} </strong></h1>
+            <h1 class="mb-5 mt-5"><strong>Mes cours du {{ debut|date("d/m/Y") }} au {{ fin|date("d/m/Y") }} </strong></h1>
             {% if evenement|length > 0 %}
             <div class="row">
 

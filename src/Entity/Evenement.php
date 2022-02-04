@@ -108,6 +108,11 @@ class Evenement
      */
     private $resaCoachings;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $descriptionAccueil;
+
     public function __construct()
     {
         $this->resaCoachings = new ArrayCollection();
@@ -337,6 +342,18 @@ class Evenement
                 $resaCoaching->setEvenement(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescriptionAccueil(): ?string
+    {
+        return $this->descriptionAccueil;
+    }
+
+    public function setDescriptionAccueil(?string $descriptionAccueil): self
+    {
+        $this->descriptionAccueil = $descriptionAccueil;
 
         return $this;
     }

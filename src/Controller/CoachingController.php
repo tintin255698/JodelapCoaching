@@ -8,6 +8,7 @@ use App\Repository\CoachingTarifRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CoachingController extends AbstractController
@@ -42,7 +43,7 @@ class CoachingController extends AbstractController
 
             $personne = $form['personne']->getData();
 
-            $session = $request->getSession();
+            $session = new Session();
             $panier =$session->get('coaching',[]);
 
             $panier[$id] = [

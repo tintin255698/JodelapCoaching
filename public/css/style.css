@@ -82,6 +82,20 @@ img.displayed {
     max-width: 100%;
 }
 
+.ours:hover
+{-webkit-filter: brightness(80%); }
+
+.oursBtn{
+    background-color: #F6AF52;
+    padding: 25px;
+    border-radius: 10px;
+    border:  4px double black;
+}
+
+.oursBtn:hover
+{-webkit-filter: brightness(80%); }
+
+
 .testimonials {
     padding: 80px 0;
     background-image: url('../../img/photo1.jpg');

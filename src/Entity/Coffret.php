@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CoffretRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,12 +27,17 @@ class Coffret
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $image;
+    private $produit;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToMany(targetEntity=ResaCoaching::class, mappedBy="coffretProduit")
      */
-    private $produit;
+    private $resaCoachings;
+
+    public function __construct()
+    {
+        $this->resaCoachings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -49,18 +56,6 @@ class Coffret
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
     public function getProduit(): ?string
     {
         return $this->produit;
@@ -69,6 +64,36 @@ class Coffret
     public function setProduit(string $produit): self
     {
         $this->produit = $produit;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ResaCoaching[]
+     */
+    public function getResaCoachings(): Collection
+    {
+        return $this->resaCoachings;
+    }
+
+    public function addResaCoaching(ResaCoaching $resaCoaching): self
+    {
+        if (!$this->resaCoachings->contains($resaCoaching)) {
+            $this->resaCoachings[] = $resaCoaching;
+            $resaCoaching->setCoffretProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResaCoaching(ResaCoaching $resaCoaching): self
+    {
+        if ($this->resaCoachings->removeElement($resaCoaching)) {
+            // set the owning side to null (unless already changed)
+            if ($resaCoaching->getCoffretProduit() === $this) {
+                $resaCoaching->setCoffretProduit(null);
+            }
+        }
 
         return $this;
     }

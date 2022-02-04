@@ -18,7 +18,8 @@ class CommentaireType extends AbstractType
         $builder
             ->add('note',IntegerType::class, ['label' => 'Note', 'attr'=>['placeholder'=>'Votre note entre 0 (Mauvais) à 5 (Excellent)'] ])
             ->add('contenu', TextType::class, ['label' => 'Commentaire', 'attr'=>['placeholder'=>'Votre Commentaire'] ])
-            ->add('Valider', SubmitType::class, ['label' => 'Ajouter votre avis'] )
+            ->add('Valider', SubmitType::class, ['label' => 'Ajouter votre avis', 'attr' => [
+                'class' => 'btn btn-dark mt-3' ]] )
         ;
     }
 

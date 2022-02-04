@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\ResaCoaching;
 use App\Form\CommentResaType;
+use App\Form\contactType;
+use App\Form\CoordonneesType;
 use App\Repository\CoachingTarifRepository;
+use App\Repository\CoffretRepository;
 use App\Repository\EvenementRepository;
 use App\Repository\ResaCoachingRepository;
 use DateTime;
@@ -17,20 +20,42 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class PanierController extends AbstractController
 {
     /**
      * @Route("/panier", name="panier")
      */
-    public function index(EntityManagerInterface $entityManager, ResaCoachingRepository $resaCoachingRepository, MailerInterface $mailer,SessionInterface $session, EvenementRepository $evenementRepository, CoachingTarifRepository $coachingTarifRepository): Response
+    public function index(CoffretRepository $coffretRepository, EntityManagerInterface $entityManager, SessionInterface $session, EvenementRepository $evenementRepository, CoachingTarifRepository $coachingTarifRepository): Response
     {
        if (!$this->getUser()){
             $this->addFlash('info', "Vous devez être connecté pour accéder au récapitulatif de votre réservation");
             return  $this->redirectToRoute('app_login');
         } else {
-            //Récupère le panier
+            //Récupère les paniers
+           $coffret = $session->get('coffret', []);
             $evenement = $session->get('evenement', []);
             $coaching = $session->get('coaching', []);
+
+
+            //coffret
+
+           $coffretWithData = [];
+
+           //Transforme le panier en array
+           foreach ($coffret as $id => $quantity) {
+               $coffretWithData[] = [
+                   'product' => $coffretRepository->find($id),
+                   'quantity' => $quantity
+               ];
+           }
+
+               //Calcul total
+           $totalCoffret = 0;
+           foreach ($coffretWithData as $item3) {
+                   $totalItem = $item3['product']->getPrix() * $item3['quantity']['heure'];
+                    $totalCoffret += $totalItem;
+               }
 
             //Evenement
             $evenementWithData = [];
@@ -43,15 +68,15 @@ class PanierController extends AbstractController
                 ];
             }
 
-            //Calcul total evenement
-            $totalEvenement = 0;
-            foreach ($evenementWithData as $item) {
-                $totalItem2 = $item['product']->getPrix() * $item['quantity'];
-                $totalEvenement += $totalItem2;
-            }
+           //Calcul total evenement
+           $totalEvenement = 0;
+           foreach ($evenementWithData as $item) {
+               $totalItem2 = $item['product']->getPrix() * $item['quantity'];
+               $totalEvenement += $totalItem2;
+           }
 
-            //Coaching
-            $coachingWithData = [];
+           //Coaching
+           $coachingWithData = [];
 
             //Transforme le panier en array
             foreach ($coaching as $id => $quantity) {
@@ -77,7 +102,7 @@ class PanierController extends AbstractController
             $uniq = $debut->format('dmY').'-'.uniqid();
 
             //Inscription BDD réservation
-            if($coachingWithData or $evenementWithData) {
+            if($coachingWithData or $evenementWithData or $coffretWithData) {
                 $now = new DateTime('now');
                 if($evenementWithData) {
                     foreach ($evenementWithData as $evenement) {
@@ -89,11 +114,29 @@ class PanierController extends AbstractController
                         $coachingData->setNumeroDeCommande($uniq);
                         $coachingData->setEvenement($coachId);
                         $coachingData->setResaConfirm(0);
-                        $coachingData->setPrix($totalItem2/100);
+                        $coachingData->setPrix($totalEvenement);
                         $entityManager->persist($coachingData);
                         $entityManager->flush();
                     }
                 }
+
+                if($coffretWithData) {
+                    foreach ($coffretWithData as $coffret) {
+                        $coffretId = $coffret['product']->getId();
+                        $coachId = $coffretRepository->find($coffretId);
+                        $coachingData = new ResaCoaching();
+                        $coachingData->setUser($this->getUser());
+                        $coachingData->setDateResa($now);
+                        $coachingData->setNumeroDeCommande($uniq);
+                        $coachingData->setCoffretProduit($coachId);
+                        $coachingData->setResaConfirm(0);
+                        $coachingData->setPrix($totalCoffret / 100);
+                        $coachingData->setHeuresCoffret($coffret['quantity']['heure']);
+                        $entityManager->persist($coachingData);
+                        $entityManager->flush();
+                    }
+                }
+
                 if($coachingWithData) {
                     foreach ($coachingWithData as $data) {
                         $coachingId = $data['product']->getId();
@@ -123,8 +166,35 @@ class PanierController extends AbstractController
             'coaching' => $coachingWithData,
             'totalEvenement' => $totalEvenement,
             'totalCoaching' => $totalCoaching,
+            'coffret'=>$coffretWithData,
+            'totalCoffret' =>$totalCoffret
         ]);
     }
+
+
+    /**
+     * @Route("/confirmationdevoscoordonnees", name="confirmationCoordonee")
+     */
+    public function confirmationCoordonnee(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+
+        $form = $this->createForm(CoordonneesType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->persist($user);
+                $entityManager->flush();
+            return $this->redirectToRoute('attenteConfirmation');
+            }
+
+        return $this->render('panier/confirmationCoordonnee.html.twig', [
+                'form' => $form->createView(),
+        ]);
+    }
+
+
 
     /**
      * @Route("/attenteconfirmationcommande", name="attenteConfirmation")
@@ -144,31 +214,32 @@ class PanierController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/validationreservation/{numeroDeCommande}", name="validationConfirmation")
      */
     public function validation($numeroDeCommande, ResaCoachingRepository $resaCoachingRepository, EntityManagerInterface $entityManager, Request $request, MailerInterface $mailer): Response
     {
-        $this->get('session')->clear();
+        $this->get('session')->remove('coffret');
+        $this->get('session')->remove('evenement');
+        $this->get('session')->remove('coaching');
 
         $coach = $resaCoachingRepository->findBy(['numeroDeCommande' => $numeroDeCommande]);
 
+        $commandeEmail = $coach[0]->getNumeroDeCommande();
+/*
+        $email = (new Email())
+            ->from('jodelap.coaching@gmail.com')
+            ->to('jodelap.coaching@gmail.com')
+            ->subject('Confirmation de réservation'.' '.$commandeEmail)
+            ->text('Numéro de réservation :'.' '.$commandeEmail.' '.'Good Luck Chuck');
+
+        $mailer->send($email);
+*/
         foreach($coach as $coach2){
             $coach2->setResaConfirm(1);
             $entityManager->persist($coach2);
             $entityManager->flush();
     }
-//Faire email client et jodelap
-        $email = (new Email())
-            ->from('jodelap.coaching@gmail.com')
-            ->to('vivien.joly@hotmail.fr')
-            ->subject('Confirmation de votre réservation')
-            ->text('Salut'.'Je vous remercie pour votre confiance ');
-
-        $mailer->send($email);
-
-
         $form = $this->createForm(CommentResaType::class);
 
         $form->handleRequest($request);
@@ -182,9 +253,8 @@ class PanierController extends AbstractController
 
             }
             $this->addFlash('success', 'Votre message a bien été envoyé');
-          return $this->redirectToRoute('home');
+            return $this->redirectToRoute('home');
         }
-
         return $this->render('panier/validationreservation.html.twig', [
             'form'=> $form->createView(),
         ]);

@@ -25,6 +25,10 @@ class CommentaireController extends AbstractController
      */
     public function commentaireAdd (Request $request)
     {
+        if (!$this->getUser()){
+            $this->addFlash('info', "Vous devez être connecté pour ajouter un avis");
+            return  $this->redirectToRoute('app_login');}
+
         $user = $this->getUser();
 
         $commentaire = new Commentaire();

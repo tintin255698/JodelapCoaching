@@ -10,6 +10,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 class EvenementController extends AbstractController
@@ -75,9 +76,9 @@ class EvenementController extends AbstractController
     /**
      * @Route("/evenement/add/{id}", name="evenement_add")
      */
-    public function evenementAdd($id, Request $request)
+    public function evenementAdd($id)
     {
-        $session = $request->getSession();
+        $session = new Session();
 
         $panier = $session->get('evenement', []);
 

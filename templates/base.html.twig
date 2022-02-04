@@ -6,7 +6,7 @@
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <meta name="description" content="Formateur VTT à Besançon et Morzine l'été. Pivot, MCF, Ride Ability, RunniCycle, Mohaw's Cycle, Enve ">
             <meta name="author" content="Vivien JOLY">
-            <title>JodelapCoaching - Moniteur MCF - Formateur en VTT de descente - Franche-Comté et Morzine - Jeunes, Kids, Compétitions</title>
+            <title>{% block title %}JodelapCoaching - Moniteur MCF - Formateur en VTT{% endblock %}</title>
 
             {% block stylesheets %}
                 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
@@ -34,6 +34,7 @@
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
                 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
                 <link href="https://fonts.googleapis.com/css2?family=Comforter&family=Mochiy+Pop+P+One&family=Permanent+Marker&family=Satisfy&display=swap" rel="stylesheet">
+                <link rel="icon" href="{{ asset('img/favicon.ico') }}">
 
             {% endblock %}
 

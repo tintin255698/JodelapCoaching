@@ -20,11 +20,6 @@ class CoffretCrudController extends AbstractCrudController
     {
         return [
             MoneyField::new('prix')->setCurrency('EUR'),
-            ImageField::new('image')->setBasePath('public/uploads/coffret')
-                ->setUploadDir('public/uploads/coffret')
-                ->setUploadedFileNamePattern('[randomhash].[extension]')
-                ->setRequired(false),
-            TextField::new('produit', 'Descriptif du produit'),
         ];
     }
 

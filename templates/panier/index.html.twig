@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Commande{% endblock %}
+{% block title %}JodelapCoaching - Commandes{% endblock %}
 
 {% block body %}
 
@@ -12,11 +12,9 @@
     <section class="container">
     <h1 class="text-center">Confirmation de votre commande</h1>
 
-
-
     {% if evenement | length > 0%}
 
-<h3>Vos évènements réservés</h3>
+<h3>Vos cours collectifs réservés</h3>
 
 <div class="table-responsive mt-5">
     <table class="table table-hover text-center" style="width:100%">
@@ -41,7 +39,7 @@
         </tbody>
         <tfoot>
         <tr>
-            <td colspan="3" class="text-right">Total Évènements : </td>
+            <td colspan="3" class="text-right">Montant total des cours : </td>
             <td>{{ totalEvenement/100 }}€</td>
         </tr>
         </tfoot>
@@ -81,7 +79,7 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                    <td colspan="3" class="text-right">Total coaching : </td>
+                    <td colspan="3" class="text-right">Montant total de la leçon : </td>
                     <td>{{ totalCoaching }}€</td>
                 </tr>
                 </tfoot>
@@ -89,8 +87,46 @@
         </div>
 
 {% endif %}
-        <a href="{{ path('attenteConfirmation')}}">  <button class="btn btn-dark" type="submit">Valider</button></a>
 
+
+
+        {% if coffret | length > 0%}
+
+            <h3>Votre coffret cadeau commandé</h3>
+
+            <div class="table-responsive mt-5">
+                <table class="table table-hover text-center" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Prix</th>
+                        <th>Nombre d'heures</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for coffrets in coffret %}
+                        <tr>
+                            <td>{{ coffrets.product.produit }}</td>
+                            <td>{{ coffrets.product.prix/100 }}€</td>
+                            <td>{{ coffrets.quantity.heure }}</td>
+                            <td>{{ (coffrets.product.prix/100) * coffrets.quantity.heure }}€</td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="3">Montant total du coffret cadeau : </td>
+                        <td>{{ totalCoffret/100 }}€</td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        {% endif %}
+
+        <a href="{{ path('confirmationCoordonee')}}">  <button class="btn btn-dark" type="submit">Valider</button></a>
     </section>
 
 {% endblock %}

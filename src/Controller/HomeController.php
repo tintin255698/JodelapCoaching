@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\CommentRepository;
+use App\Repository\EvenementRepository;
 use App\Repository\HeaderRepository;
 use App\Repository\ImageRepository;
 use App\Form\contactType;
@@ -20,7 +21,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(Request $request, ImageRepository $imageRepository, CommentRepository $commentRepository, HeaderRepository $headerRepository, MailerInterface $mailer): Response
+    public function index(Request $request, ImageRepository $imageRepository, CommentRepository $commentRepository, HeaderRepository $headerRepository, MailerInterface $mailer, EvenementRepository $evenementRepository): Response
     {
         $image = $imageRepository->imageHome();
         $commentaire = $commentRepository->commentaire();
@@ -44,11 +45,14 @@ class HomeController extends AbstractController
             $mailer->send($email);
         }
 
+        $evenementStar = $evenementRepository->findBy([], ['id'=>'DESC'], [3]);
+
         return $this->render('home/index.html.twig', [
             'image' => $image,
             'commentaire' => $commentaire,
             'header' => $header,
-            'form' =>$form->createView()
+            'form' =>$form->createView(),
+            'event' =>$evenementStar,
         ]);
     }
 }

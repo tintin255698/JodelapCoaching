@@ -29,6 +29,11 @@
                             <li><a class="dropdown-item" href="{{ path('avis_ajouter') }}">Laisser un avis</a></li>
                         </ul>
                     </li>
+                    {% if  app.session.get('coaching')  or app.session.get('coffret')  or  app.session.get('evenement')   %}
+                    <li class="nav-item ml-5">
+                        <a class="nav-link active" href="{{ path('panier') }}">Panier</a>
+                    </li>
+                    {% endif %}
                 </ul>
                 <div class="d-flex active">
 
@@ -62,7 +67,6 @@
             </div>
         </div>
     </nav>
-
 
 
 </header>
