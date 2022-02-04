@@ -96,15 +96,109 @@ class PanierController extends AbstractController
                 }
                 $totalCoaching += $totalItem;
             }
+        }
+
+        return $this->render('panier/index.html.twig', [
+            'evenement' => $evenementWithData,
+            'coaching' => $coachingWithData,
+            'totalEvenement' => $totalEvenement,
+            'totalCoaching' => $totalCoaching,
+            'coffret'=>$coffretWithData,
+            'totalCoffret' =>$totalCoffret
+        ]);
+    }
+
+
+    /**
+     * @Route("/confirmationdevoscoordonnees", name="confirmationCoordonee")
+     */
+    public function confirmationCoordonnee(Request $request, EntityManagerInterface $entityManager, CoffretRepository $coffretRepository, SessionInterface $session, EvenementRepository $evenementRepository, CoachingTarifRepository $coachingTarifRepository): Response
+    {
+
+        $user = $this->getUser();
+
+        $form = $this->createForm(CoordonneesType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+
+            //Récupère les paniers
+            $coffret = $session->get('coffret', []);
+            $evenement = $session->get('evenement', []);
+            $coaching = $session->get('coaching', []);
+
+
+            //coffret
+
+            $coffretWithData = [];
+
+            //Transforme le panier en array
+            foreach ($coffret as $id => $quantity) {
+                $coffretWithData[] = [
+                    'product' => $coffretRepository->find($id),
+                    'quantity' => $quantity
+                ];
+            }
+
+            //Calcul total
+            $totalCoffret = 0;
+            foreach ($coffretWithData as $item3) {
+                $totalItem = $item3['product']->getPrix() * $item3['quantity']['heure'];
+                $totalCoffret += $totalItem;
+            }
+
+            //Evenement
+            $evenementWithData = [];
+
+            //Transforme Evenement en array
+            foreach ($evenement as $id => $quantity) {
+                $evenementWithData[] = [
+                    'product' => $evenementRepository->find($id),
+                    'quantity' => $quantity
+                ];
+            }
+
+            //Calcul total evenement
+            $totalEvenement = 0;
+            foreach ($evenementWithData as $item) {
+                $totalItem2 = $item['product']->getPrix() * $item['quantity'];
+                $totalEvenement += $totalItem2;
+            }
+
+            //Coaching
+            $coachingWithData = [];
+
+            //Transforme le panier en array
+            foreach ($coaching as $id => $quantity) {
+                $coachingWithData[] = [
+                    'product' => $coachingTarifRepository->find($id),
+                    'quantity' => $quantity
+                ];
+            }
+
+            //Calcul total
+            $totalCoaching = 0;
+            foreach ($coachingWithData as $item) {
+                if ($item['quantity']['personne'] > 2) {
+                    $totalItem = $item['product']->getPriceForTwo() + $item['product']->getPriceForThree() * ($item['quantity']['personne'] - 2);
+                } else {
+                    $totalItem = $item['product']->getPriceForTwo();
+                }
+                $totalCoaching += $totalItem;
+            }
 
             //Ref commande
             $debut = new DateTime('now');
-            $uniq = $debut->format('dmY').'-'.uniqid();
+            $uniq = $debut->format('dmY') . '-' . uniqid();
 
             //Inscription BDD réservation
-            if($coachingWithData or $evenementWithData or $coffretWithData) {
+            if ($coachingWithData or $evenementWithData or $coffretWithData) {
                 $now = new DateTime('now');
-                if($evenementWithData) {
+                if ($evenementWithData) {
                     foreach ($evenementWithData as $evenement) {
                         $evenementId = $evenement['product']->getId();
                         $coachId = $evenementRepository->find($evenementId);
@@ -120,7 +214,7 @@ class PanierController extends AbstractController
                     }
                 }
 
-                if($coffretWithData) {
+                if ($coffretWithData) {
                     foreach ($coffretWithData as $coffret) {
                         $coffretId = $coffret['product']->getId();
                         $coachId = $coffretRepository->find($coffretId);
@@ -137,7 +231,7 @@ class PanierController extends AbstractController
                     }
                 }
 
-                if($coachingWithData) {
+                if ($coachingWithData) {
                     foreach ($coachingWithData as $data) {
                         $coachingId = $data['product']->getId();
                         $coachId = $coachingTarifRepository->find($coachingId);
@@ -159,41 +253,14 @@ class PanierController extends AbstractController
                     }
                 }
             }
-        }
 
-        return $this->render('panier/index.html.twig', [
-            'evenement' => $evenementWithData,
-            'coaching' => $coachingWithData,
-            'totalEvenement' => $totalEvenement,
-            'totalCoaching' => $totalCoaching,
-            'coffret'=>$coffretWithData,
-            'totalCoffret' =>$totalCoffret
-        ]);
-    }
-
-
-    /**
-     * @Route("/confirmationdevoscoordonnees", name="confirmationCoordonee")
-     */
-    public function confirmationCoordonnee(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $user = $this->getUser();
-
-        $form = $this->createForm(CoordonneesType::class, $user);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-                $entityManager->persist($user);
-                $entityManager->flush();
             return $this->redirectToRoute('attenteConfirmation');
-            }
+        }
 
         return $this->render('panier/confirmationCoordonnee.html.twig', [
                 'form' => $form->createView(),
         ]);
     }
-
 
 
     /**
@@ -249,8 +316,6 @@ class PanierController extends AbstractController
                 $commentaire = $form['commentaire']->getData();
                 $comment->setCommentaire($commentaire);
                 $entityManager->persist($comment);
-                $entityManager->flush();
-
             }
             $this->addFlash('success', 'Votre message a bien été envoyé');
             return $this->redirectToRoute('home');
