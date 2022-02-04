@@ -92,5 +92,23 @@ class EvenementController extends AbstractController
         return $this->redirectToRoute('panier');
     }
 
+    /**
+     * @Route("/evenement/less/{id}", name="evenement_less")
+     */
+    public function evenementLess($id)
+    {
+        $session = new Session();
+
+        $panier = $session->get('evenement', []);
+
+        if(!empty($panier[$id] > 1)){
+            $panier[$id] -- ;
+        } else{
+            unset ($panier[$id]);
+        }
+        $session->set('evenement', $panier);
+        return $this->redirectToRoute('panier');
+    }
+
 }
 

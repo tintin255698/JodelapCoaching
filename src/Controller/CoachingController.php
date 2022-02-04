@@ -25,7 +25,6 @@ class CoachingController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/coaching/ajouter/{slug}", name="coaching_add")
      */
@@ -51,6 +50,10 @@ class CoachingController extends AbstractController
                 'personne' => $personne
             ];
 
+            if( $panier[$id]['personne'] < 1){
+                unset ($panier[$id]);
+            }
+
             $session->set('coaching', $panier);
 
             return $this->redirectToRoute('panier');
@@ -60,4 +63,5 @@ class CoachingController extends AbstractController
             'coaching' => $coachingAdd
         ]);
     }
+
 }

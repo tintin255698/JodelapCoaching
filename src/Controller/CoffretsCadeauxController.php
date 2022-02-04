@@ -44,12 +44,16 @@ class CoffretsCadeauxController extends AbstractController
             $heure = $form['heure']->getData();
 
             $session = new Session();
-            $panier =$session->get('coaching',[]);
+            $panier =$session->get('coffret',[]);
 
             $panier[$id] = [
                 'quantity' => 1,
                 'heure' => $heure
             ];
+
+            if( $panier[$id]['heure'] < 1){
+                unset ($panier[$id]);
+            }
 
             $session->set('coffret', $panier);
 

@@ -10,11 +10,13 @@
     </a>
 
     <section class="container">
+
+    {% if evenement or coaching or coffret %}
     <h1 class="text-center">Confirmation de votre commande</h1>
 
     {% if evenement | length > 0%}
 
-<h3>Vos cours collectifs réservés</h3>
+<h3 class="mt-5">Vos cours collectifs réservés</h3>
 
 <div class="table-responsive mt-5">
     <table class="table table-hover text-center" style="width:100%">
@@ -31,7 +33,7 @@
             <tr>
                 <td>{{ evenements.product.titre }}</td>
                 <td>{{ evenements.product.prix/100 }}€</td>
-                <td>{{ evenements.quantity }}</td>
+                <td><a href="{{ path('evenement_less', {'id' : evenements.product.id }) }}"><i class='bx bxs-minus-circle' ></i></a> {{ evenements.quantity }} <a href="{{ path('evenement_add', {'id' : evenements.product.id }) }}"><i class='bx bxs-plus-circle'></i></a></td>
                 <td>{{ (evenements.product.prix/100) * evenements.quantity }}€</td>
             </tr>
         {% endfor %}
@@ -39,7 +41,7 @@
         </tbody>
         <tfoot>
         <tr>
-            <td colspan="3" class="text-right">Montant total des cours : </td>
+            <td colspan="3" class="text-right">Total des cours : </td>
             <td>{{ totalEvenement/100 }}€</td>
         </tr>
         </tfoot>
@@ -49,7 +51,7 @@
 {% endif %}
     {% if coaching | length > 0%}
 
-        <h3>Votre séance de coaching</h3>
+        <h3 class="mt-5">Votre séance de coaching</h3>
 
         <div class="table-responsive mt-5">
             <table class="table table-hover text-center" style="width:100%">
@@ -59,40 +61,39 @@
                     <th>Prix</th>
                     <th>Nombre de personnes</th>
                     <th>Total</th>
+
                 </tr>
                 </thead>
                 <tbody>
                 {% for coachings in coaching %}
                     <tr>
                         <td>{{ coachings.product.heure }} heures</td>
-                        <td>{% if coachings.quantity.personne<=2 %}
+                        <td>{% if coachings.personne<=2 %}
                             {{ coachings.product.priceForTwo }}€ pour 2 personnes
                             {% else %}
                             {{ coachings.product.priceForTwo }}€ pour 2 personnes + {{ coachings.product.priceForThree }}/personnes (dès la troisième)
                             {% endif %}
                         </td>
-                        <td>{{ coachings.quantity.personne }} personnes</td>
-                        <td>{{ totalCoaching }}€</td>
+                        <td data-tooltip="Cliquez sur le chiffre pour augmenter ou réduire le nombre de personnes / 0 pour supprimer" ><a href="{{ path('coaching_add', {'slug' : coachings.product.slug }) }}"><i class='bx bxs-edit-alt'></i>{{ coachings.personne }} personnes</a></td>
+                        <td>{{ coachings.prix }}€</td>
                     </tr>
                 {% endfor %}
 
                 </tbody>
                 <tfoot>
                 <tr>
-                    <td colspan="3" class="text-right">Montant total de la leçon : </td>
-                    <td>{{ totalCoaching }}€</td>
+                    <td colspan="3" class="text-right">Total de la leçon : </td>
+                    <td>{{ sum }}€</td>
                 </tr>
                 </tfoot>
             </table>
         </div>
 
 {% endif %}
-
-
-
+        
         {% if coffret | length > 0%}
 
-            <h3>Votre coffret cadeau commandé</h3>
+            <h3 class="mt-5">Votre coffret cadeau commandé</h3>
 
             <div class="table-responsive mt-5">
                 <table class="table table-hover text-center" style="width:100%">
@@ -109,7 +110,9 @@
                         <tr>
                             <td>{{ coffrets.product.produit }}</td>
                             <td>{{ coffrets.product.prix/100 }}€</td>
-                            <td>{{ coffrets.quantity.heure }}</td>
+
+                            <td data-tooltip="Cliquez sur le chiffre pour augmenter ou réduire le nombre d'heures / 0 pour supprimer" > <a href="{{ path('coffret_add', {'titre' : coffrets.product.produit}) }}"><i class='bx bxs-edit-alt'></i>{{ coffrets.quantity.heure }} heures</a></td>
+
                             <td>{{ (coffrets.product.prix/100) * coffrets.quantity.heure }}€</td>
                         </tr>
                     {% endfor %}
@@ -117,7 +120,7 @@
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td colspan="3">Montant total du coffret cadeau : </td>
+                        <td colspan="3">Total du coffret cadeau : </td>
                         <td>{{ totalCoffret/100 }}€</td>
                     </tr>
                     </tfoot>
@@ -126,7 +129,27 @@
 
         {% endif %}
 
+        <div class="table-responsive mt-5">
+            <table class="table table-hover text-center" style="width:100%">
+                <tbody>
+                <tr>
+                    <td colspan="3">dont TVA : </td>
+                    <td>{{ tva/100 }}€</td>
+                </tr>
+                <tr>
+                    <td colspan="3">Montant total de votre commande : </td>
+                    <td>{{ total/100 }}€</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
         <a href="{{ path('confirmationCoordonee')}}">  <button class="btn btn-dark" type="submit">Valider</button></a>
+        {% else %}
+        <h1 class="text-center mt-5">Votre commande est vide !</h1>
+        <img src="{{ asset('img/panier.jpg') }}"  class="img-fluid displayed mt-5" alt="Jodelap Coaching moniteur MCF" style="max-width: 70%; border-radius: 20px">
+        {% endif %}
     </section>
 
 {% endblock %}

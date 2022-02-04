@@ -10,6 +10,7 @@ use App\Repository\CoachingTarifRepository;
 use App\Repository\CoffretRepository;
 use App\Repository\EvenementRepository;
 use App\Repository\ResaCoachingRepository;
+use App\Repository\UserRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,85 +27,24 @@ class PanierController extends AbstractController
     /**
      * @Route("/panier", name="panier")
      */
-    public function index(CoffretRepository $coffretRepository, EntityManagerInterface $entityManager, SessionInterface $session, EvenementRepository $evenementRepository, CoachingTarifRepository $coachingTarifRepository): Response
+    public function index(CoffretRepository $coffretRepository, EntityManagerInterface $entityManager, SessionInterface $session, EvenementRepository $evenementRepository, CoachingTarifRepository $coachingTarifRepository, UserRepository $userRepository): Response
     {
        if (!$this->getUser()){
             $this->addFlash('info', "Vous devez être connecté pour accéder au récapitulatif de votre réservation");
             return  $this->redirectToRoute('app_login');
         } else {
-            //Récupère les paniers
-           $coffret = $session->get('coffret', []);
-            $evenement = $session->get('evenement', []);
-            $coaching = $session->get('coaching', []);
-
-
-            //coffret
-
-           $coffretWithData = [];
-
-           //Transforme le panier en array
-           foreach ($coffret as $id => $quantity) {
-               $coffretWithData[] = [
-                   'product' => $coffretRepository->find($id),
-                   'quantity' => $quantity
-               ];
-           }
-
-               //Calcul total
-           $totalCoffret = 0;
-           foreach ($coffretWithData as $item3) {
-                   $totalItem = $item3['product']->getPrix() * $item3['quantity']['heure'];
-                    $totalCoffret += $totalItem;
-               }
-
-            //Evenement
-            $evenementWithData = [];
-
-            //Transforme Evenement en array
-            foreach ($evenement as $id => $quantity) {
-                $evenementWithData[] = [
-                    'product' => $evenementRepository->find($id),
-                    'quantity' => $quantity
-                ];
-            }
-
-           //Calcul total evenement
-           $totalEvenement = 0;
-           foreach ($evenementWithData as $item) {
-               $totalItem2 = $item['product']->getPrix() * $item['quantity'];
-               $totalEvenement += $totalItem2;
-           }
-
-           //Coaching
-           $coachingWithData = [];
-
-            //Transforme le panier en array
-            foreach ($coaching as $id => $quantity) {
-                $coachingWithData[] = [
-                    'product' => $coachingTarifRepository->find($id),
-                    'quantity' => $quantity
-                ];
-            }
-
-          //Calcul total
-            $totalCoaching = 0;
-            foreach ($coachingWithData as $item) {
-                if ($item['quantity']['personne'] > 2) {
-                    $totalItem = $item['product']->getPriceForTwo() + $item['product']->getPriceForThree() * ($item['quantity']['personne'] - 2);
-                } else {
-                    $totalItem = $item['product']->getPriceForTwo();
-                }
-                $totalCoaching += $totalItem;
-            }
+            require ('panier.php');
         }
 
         return $this->render('panier/index.html.twig', [
             'evenement' => $evenementWithData,
             'coaching' => $coachingWithData,
             'totalEvenement' => $totalEvenement,
-            'totalCoaching' => $totalCoaching,
+            'sum' => $sum,
             'coffret'=>$coffretWithData,
-            'totalCoffret' =>$totalCoffret
+            'totalCoffret' =>$totalCoffret,
+            'total' => $tot,
+            'tva'=>$tva
         ]);
     }
 
@@ -125,71 +65,7 @@ class PanierController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-
-            //Récupère les paniers
-            $coffret = $session->get('coffret', []);
-            $evenement = $session->get('evenement', []);
-            $coaching = $session->get('coaching', []);
-
-
-            //coffret
-
-            $coffretWithData = [];
-
-            //Transforme le panier en array
-            foreach ($coffret as $id => $quantity) {
-                $coffretWithData[] = [
-                    'product' => $coffretRepository->find($id),
-                    'quantity' => $quantity
-                ];
-            }
-
-            //Calcul total
-            $totalCoffret = 0;
-            foreach ($coffretWithData as $item3) {
-                $totalItem = $item3['product']->getPrix() * $item3['quantity']['heure'];
-                $totalCoffret += $totalItem;
-            }
-
-            //Evenement
-            $evenementWithData = [];
-
-            //Transforme Evenement en array
-            foreach ($evenement as $id => $quantity) {
-                $evenementWithData[] = [
-                    'product' => $evenementRepository->find($id),
-                    'quantity' => $quantity
-                ];
-            }
-
-            //Calcul total evenement
-            $totalEvenement = 0;
-            foreach ($evenementWithData as $item) {
-                $totalItem2 = $item['product']->getPrix() * $item['quantity'];
-                $totalEvenement += $totalItem2;
-            }
-
-            //Coaching
-            $coachingWithData = [];
-
-            //Transforme le panier en array
-            foreach ($coaching as $id => $quantity) {
-                $coachingWithData[] = [
-                    'product' => $coachingTarifRepository->find($id),
-                    'quantity' => $quantity
-                ];
-            }
-
-            //Calcul total
-            $totalCoaching = 0;
-            foreach ($coachingWithData as $item) {
-                if ($item['quantity']['personne'] > 2) {
-                    $totalItem = $item['product']->getPriceForTwo() + $item['product']->getPriceForThree() * ($item['quantity']['personne'] - 2);
-                } else {
-                    $totalItem = $item['product']->getPriceForTwo();
-                }
-                $totalCoaching += $totalItem;
-            }
+        require('panier.php');
 
             //Ref commande
             $debut = new DateTime('now');
@@ -207,6 +83,7 @@ class PanierController extends AbstractController
                         $coachingData->setDateResa($now);
                         $coachingData->setNumeroDeCommande($uniq);
                         $coachingData->setEvenement($coachId);
+                        $coachingData->setQuantityEvent($evenement['quantity']);
                         $coachingData->setResaConfirm(0);
                         $coachingData->setPrix($totalEvenement);
                         $entityManager->persist($coachingData);
@@ -224,7 +101,7 @@ class PanierController extends AbstractController
                         $coachingData->setNumeroDeCommande($uniq);
                         $coachingData->setCoffretProduit($coachId);
                         $coachingData->setResaConfirm(0);
-                        $coachingData->setPrix($totalCoffret / 100);
+                        $coachingData->setPrix($totalCoffret);
                         $coachingData->setHeuresCoffret($coffret['quantity']['heure']);
                         $entityManager->persist($coachingData);
                         $entityManager->flush();
@@ -240,14 +117,9 @@ class PanierController extends AbstractController
                         $coachingData->setDateResa($now);
                         $coachingData->setNumeroDeCommande($uniq);
                         $coachingData->setCoaching($coachId);
-                        $coachingData->setNbPersonne($data['quantity']['personne']);
+                        $coachingData->setNbPersonne($data['personne']);
                         $coachingData->setResaConfirm(0);
-                        if ($data['quantity']['personne'] > 2) {
-                            $totalItem = $data['product']->getPriceForTwo() + $data['product']->getPriceForThree() * ($data['quantity']['personne'] - 2);
-                        } else {
-                            $totalItem = $data['product']->getPriceForTwo();
-                        }
-                        $coachingData->setPrix($totalItem);
+                        $coachingData->setPrix($data['prix']);
                         $entityManager->persist($coachingData);
                         $entityManager->flush();
                     }

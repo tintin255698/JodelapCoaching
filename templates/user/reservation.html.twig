@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jodelap Coaching - Réservations cours VTT -{% endblock %}
+
+{% block body %}
+<section class="container mt-5 ">
+    <a href="{{ path('home') }}">
+        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
+    </a>
+    <div class="row">
+        <div class="col-lg-2">
+
+        </div>
+        <div class="col-lg-10">
+            <h1 class="text-center mt-3">Vos réservations</h1>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+    <div class="col-lg-2 col">
+        {% include 'navbar/navbarVertical.html.twig' %}
+    </div>
+
+        <div class="col-lg-10 col">
+
+
+    {% if coaching |length > 0 %}
+
+    <h3  class="mt-5">Vos leçons particulières réservées</h3>
+            <div class="table-responsive">
+    <table class="table text-center">
+        <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Numéro de commande</th>
+            <th scope="col">Nombre de personnes</th>
+            <th scope="col">Leçons particulières</th>
+            <th scope="col">Prix</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for coachings in coaching %}
+        <tr>
+            <th>Le {{ coachings.r_dateResa|date('d-m-Y') }}</th>
+            <td>{{ coachings.r_numeroDeCommande }}</td>
+            <td>{{ coachings.r_nbPersonne }} personnes</td>
+            <td>{{ coachings.titre }}</td>
+            <td>{{ coachings.r_prix }}€</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+            </div>
+    {% endif %}
+
+
+    {% if evenement |length > 0 %}
+
+        <h3 class="mt-5">Vos cours de VTT collectifs</h3>
+            <div class="table-responsive">
+        <table class="table text-center">
+            <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Numéro de commande</th>
+                <th scope="col">Quantités</th>
+                <th scope="col">Cours particuliers</th>
+                <th scope="col">Prix</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for evenements in evenement %}
+                <tr>
+                    <th>Le {{ evenements.r_dateResa|date('d-m-Y') }}</th>
+                    <td>{{ evenements.r_numeroDeCommande }}</td>
+                    <td>{{ evenements.r_quantityEvent }}</td>
+                    <td>{{ evenements.titre }}</td>
+                    <td>{{ evenements.r_prix /100 }}€</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </table>
+    {% endif %}
+
+    {% if coffret |length > 0 %}
+
+        <h3 class="mt-5">Vos coffrets cadeaux commandés</h3>
+                <div class="table-responsive">
+        <table class="table text-center">
+            <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Numéro de commande</th>
+                <th scope="col">Nombre d'heures</th>
+                <th scope="col">Coffrets cadeaux</th>
+                <th scope="col">Prix</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for coffrets in coffret %}
+                <tr>
+                    <th>Le {{ coffrets.r_dateResa|date('d-m-Y') }}</th>
+                    <td>{{ coffrets.r_numeroDeCommande }}</td>
+                    <td>{{ coffrets.r_heuresCoffret }}</td>
+                    <td>{{ coffrets.produit }}</td>
+                    <td>{{ coffrets.r_prix/100 }}€</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+                </div>
+
+    {% endif %}
+        </div>
+    </div>
+    </div>
+
+</section>
+
+{% endblock %}

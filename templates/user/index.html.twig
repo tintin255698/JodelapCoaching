@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jodelap Coaching - Profil personnel -{% endblock %}
+
+{% block body %}
+    <section class="container mt-5">
+        <a href="{{ path('home') }}">
+            <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
+        </a>
+
+        {% for label, messages in app.flashes  %}
+            <div class="alert mb-5 alert-{{ label }} fade show text-center" role="alert" data-mdb-color="{{ label }}"   style="font-size: x-large">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor%}
+            </div>
+        {% endfor %}
+
+        <div class="row">
+            <div class="col-2">
+
+            </div>
+            <div class="col-10">
+                <h1 class="text-center mt-3">Votre profil</h1>
+            </div>
+        </div>
+
+
+        <div class="row mt-5">
+            <div class="col-2">
+                {% include 'navbar/navbarVertical.html.twig' %}
+            </div>
+            <div class="col-4">
+                <p class="text"><strong>Votre prénom :</strong> {{ app.user.FirstName }}</p>
+                <p class="mt-5"><strong>Votre email :</strong> {{ app.user.Email }}</p>
+            </div>
+            <div class="col-6">
+                <p class="text-right"><strong>Votre nom :</strong> {{ app.user.LastName }}</p>
+                <p class="mt-5 text-right"><strong>Votre téléphone :</strong> {{ app.user.telephone }}</p>
+
+            </div>
+        </div>
+
+    </section>
+
+
+
+
+{% endblock %}

@@ -73,6 +73,11 @@ class ResaCoaching
      */
     private $heuresCoffret;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $quantityEvent;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -206,6 +211,18 @@ class ResaCoaching
     public function setHeuresCoffret(?int $heuresCoffret): self
     {
         $this->heuresCoffret = $heuresCoffret;
+
+        return $this;
+    }
+
+    public function getQuantityEvent(): ?int
+    {
+        return $this->quantityEvent;
+    }
+
+    public function setQuantityEvent(int $quantityEvent): self
+    {
+        $this->quantityEvent = $quantityEvent;
 
         return $this;
     }

@@ -48,6 +48,44 @@ class ResaCoachingRepository extends ServiceEntityRepository
             ;
     }
 
+    public function reservationCoaching($user)
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r,c.titre')
+            ->join('r.coaching', 'c')
+            ->andWhere('r.user = :user')
+            ->orderBy('r.numeroDeCommande', 'DESC')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getScalarResult()
+            ;
+    }
+
+    public function reservationEvenement($user)
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r,e.titre')
+            ->join('r.evenement', 'e')
+            ->andWhere('r.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('r.numeroDeCommande', 'DESC')
+            ->getQuery()
+            ->getScalarResult()
+            ;
+    }
+
+    public function reservationCoffret($user)
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r,c.produit')
+            ->join('r.coffretProduit', 'c')
+            ->andWhere('r.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('r.numeroDeCommande', 'DESC')
+            ->getQuery()
+            ->getScalarResult()
+            ;
+    }
 
 
     /*

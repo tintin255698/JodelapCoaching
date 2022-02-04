@@ -25,7 +25,7 @@ class EvenementCrudController extends AbstractCrudController
     {
         return [
             TextField::new('titre', 'Nom de la scéance'),
-            TextEditorField::new('descriptif', 'Description'),
+            TextField::new('descriptif', 'Description'),
             TextField::new('descriptionAccueil', "Description très très courte pour l'accueil"),
             TextField::new('niveau', 'Niveau'),
             TextField::new('lieu', 'Rue'),
