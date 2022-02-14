@@ -5,16 +5,16 @@
 {% block body %}
 
     <a href="{{ path('home') }}">
-        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-5 mb-5" alt="Logo">
+        <div class="parallax" style="background-image:url('{{ asset('../../img/coaching.jpg')}}')"></div>
     </a>
 
 
 
-    <h1 class="text-center">Coaching</h1>
+    <h1 class="text-center titre">Les leçons individuelles</h1>
 
-<h2 class="text-center border mt-5">OUVERT A TOUS LES PROFILS</h2>
+<h2 class="text-center border mt-5" style="font-weight: bolder;font-size: xxx-large ">OUVERT A TOUS LES PROFILS</h2>
 
-<h3 class="text-center mt-5">J'adapte la séance suivant votre niveau et vos attentes.</h3>
+<h3 class="text-center souligner mt-5">J'adapte la séance suivant votre niveau et vos attentes.</h3>
 
 
     <div class="container">
@@ -24,16 +24,16 @@
 
 
         <div class="row m-auto text-center mt-5">
-            <div class="col-lg-3 border-start border-end">
+            <div class="col-lg-3">
                 <p><i class="bx bxs-quote-alt-left quote-icon-left"></i>Je suis débutant et j'aimerais apprendre les bases du cyclisme, l'équilibre, pédaler, contrôler mes trajectoires.<i class="bx bxs-quote-alt-right quote-icon-right"></i> </p>
             </div>
-            <div class="col-lg-3  border-end">
+            <div class="col-lg-3 ">
                 <p><i class="bx bxs-quote-alt-left quote-icon-left"></i>J'ai investi dans un nouveau vélo et j'aimerais partir sur de bonnes bases pour profiter pleinement de mon VTT.<i class="bx bxs-quote-alt-right quote-icon-right"></i></p>
             </div>
-            <div class="col-lg-3  border-end">
+            <div class="col-lg-3 ">
                 <p><i class="bx bxs-quote-alt-left quote-icon-left"></i>Je pratique le VTT mais j'atteins rapidement mes limites, j'aimerais être à l'aise et gagner en confiance sur les sauts, dans les virages, en descente, en franchissement d'obstacles...<i class="bx bxs-quote-alt-right quote-icon-right"></i></p>
             </div>
-            <div class="col-lg-3  border-end">
+            <div class="col-lg-3 ">
                 <p><i class="bx bxs-quote-alt-left quote-icon-left"></i>Je suis à l'aise avec mon vélo, dans la pente, sur les sauts, dans la boue. Compétiteur dans l'âme, j'aimerais me challenger sur différentes compétitions et j'ai besoin de me perfectionner autant physiquement que techniquement.<i class="bx bxs-quote-alt-right quote-icon-right"></i></p>
             </div>
 
@@ -51,7 +51,7 @@
     <div class="container-fluid bg-gradient p-5">
         <div class="row m-auto text-center w-75">
             {% for coachings in coaching %}
-            <div class="col-lg-4 princing-item red">
+            <div class="col-lg-4  mt-3 princing-item red">
                 <div class="pricing-divider ">
                     <h3 class="text-light">{{ coachings.heure }} HEURES</h3>
                     <h4 class="my-0 display-4 text-light font-weight-normal mb-3"><span class="h3">A partir de</span> {{ coachings.priceForTwo}} <span class="h5">€</span></h4>

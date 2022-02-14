@@ -12,19 +12,20 @@
     {% endfor %}
 
 <form method="post">
+    <div class="container-fluid text-center mt-5">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
-
+    </div>
     {% if app.user %}
         <div class="mb-3">
             Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
         </div>
     {% endif %}
-    <div class="container connexion mb-5" style="color: white; font-style: italic;">
+    <div class="container connexion mb-3" style="color: white; font-style: italic;">
 
     <h1 class="text-center mb-3"   style="margin-top: 10%!important; font-weight: bold" >Merci de saisir vos identifiants de connexion </h1>
-    <h2 class="text-center mb-5">Ou enregistrez-vous en cliquant
+    <h2 class="text-center mb-5">Ou enregistrez-vous
         <a href="{{ path('app_register') }}" style="color: #df8c3a; font-weight: bolder">ici</a> </h2>
     
     <label class="mb-3" for="inputEmail" style="color: #ffa012 ">Votre email :</label>
@@ -39,8 +40,9 @@
     <button class="btn btn-lg btn-light mt-5 " type="submit">
         Connexion
     </button>
-
+        <h4 class="text-center mt-3">Vous vous ne souvenez plus de votre mot de passe cliquez <a href="{{ path('app_forgot_password_request') }} " style="color: #df8c3a">ici</a></h4>
     </div>
 
 </form>
+
 {% endblock %}

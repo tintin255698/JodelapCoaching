@@ -4,20 +4,21 @@
 
 {% block body %}
 
-<a href="{{ path('home') }}">
-    <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-5 mb-5" alt="Logo">
-</a>
+    <a href="{{ path('home') }}">
+        <div class="parallax" style="background-image:url('{{ asset('../../img/coffret.jpg')}}')"></div>
+    </a>
 
-<h1 class="text-center" style="font-weight: bolder">Coffrets cadeaux</h1>
+
+<h1 class="text-center titre" style="font-weight: bolder">Coffrets cadeaux</h1>
     
-<h3 class="text-center border mt-5" style="font-weight: bold">OUVERT A TOUS LES PROFILS</h3>
+<h3 class="text-center border mt-5" style="font-weight: bolder;font-size: xxx-large ">OUVERT A TOUS LES PROFILS</h3>
 
-<h4 class="text-center mt-5" style="font-weight: bold">Faites plaisir à ceux que vous aimez avec une leçon sur mesure !</h4>
+<h4 class="text-center mt-5 souligner" style="font-weight: bold">Faites plaisir à ceux que vous aimez avec une leçon sur mesure !</h4>
 
 
 <div class="container">
-    <p class="mt-5 mb-3 text-center">En privé ou avec un ami, 2H, Demi-journée, journée complète ou même sur plusieurs jours !
-        Session technique, randonnée découverte ou accompagnement en compétition... <br>
+    <p class="mt-5 mb-3">En privé ou avec un ami, 2H, Demi-journée, journée complète ou même sur plusieurs jours !
+        Session technique, randonnée découverte ou accompagnement en compétition...
         Tout est modulable, pour être sûr de faire plaisir !  </p>
 
     <h4 class="mt-5">Tous les coffrets comprennent pour <strong>45€/heure :</strong></h4>

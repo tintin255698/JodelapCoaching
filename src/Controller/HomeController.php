@@ -35,17 +35,13 @@ class HomeController extends AbstractController
             $email = (new Email())
                 ->from($form['email']->getData())
                 ->to('jodelap.coaching@gmail.com')
-                //->cc('cc@example.com')
-                //->bcc('bcc@example.com')
-                //->replyTo('fabien@example.com')
-                //->priority(Email::PRIORITY_HIGH)
                 ->subject($form['sujet']->getData())
                 ->text($form['message']->getData());
 
             $mailer->send($email);
         }
 
-        $evenementStar = $evenementRepository->findBy([], ['id'=>'DESC'], [3]);
+        $evenementStar = $evenementRepository->evenementAccueil();
 
         return $this->render('home/index.html.twig', [
             'image' => $image,

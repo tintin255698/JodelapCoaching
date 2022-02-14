@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Evenement;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -27,6 +28,7 @@ class EvenementCrudController extends AbstractCrudController
             TextField::new('titre', 'Nom de la scéance'),
             TextField::new('descriptif', 'Description'),
             TextField::new('descriptionAccueil', "Description très très courte pour l'accueil"),
+            BooleanField::new('boolean', "droite pour activer / gauche pour désactiver l'événement"),
             TextField::new('niveau', 'Niveau'),
             TextField::new('lieu', 'Rue'),
             TextField::new('ville', 'Ville'),

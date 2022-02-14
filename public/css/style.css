@@ -1,5 +1,5 @@
 
-img.displayed {
+img.displayed, dis {
     display: block;
     margin-left: auto;
     margin-right: auto }
@@ -77,6 +77,7 @@ img.displayed {
     justify-content: space-around;
 }
 
+
 .size{
     width: 200px;
     max-width: 100%;
@@ -151,6 +152,11 @@ img.displayed {
     color: #eee;
 }
 
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+}
+
 .testimonials .owl-nav, .testimonials .owl-dots {
     margin-top: 5px;
     text-align: center;
@@ -221,18 +227,37 @@ html, body {
 }
 
 body {
-    display: flex;
-    flex-direction: column;
     background-size: 100% auto;
     color: #444444;
 }
 
 p, button, li, a, label, select, input, i, table {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif; !important;
 }
 
-h1, h2, h3, h4, h5{
-    font-family: 'Permanent Marker', cursive;
+h1,h2,h3, h4, h5{
+    font-family: 'Bebas Neue', cursive;
+    letter-spacing: 2px;
+}
+
+.souligner{
+    text-transform:uppercase
+}
+
+.souligner:after {
+    display:block;
+    content: '';
+    border-bottom: solid 3px black;
+    transform: scaleX(0);
+    transition: transform 250ms ease-in-out;
+}
+
+.souligner:hover:after { transform: scaleX(1); }
+
+
+.reserve:hover{
+    font-size: x-large;
+    font-weight: bolder;
 }
 
 
@@ -260,10 +285,49 @@ body{
 .minuteur{
     margin-right: 2px;
     margin-left: 2px;
+
+}
+
+.parallax{
+
+    height: 60%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('../../img/photo3.jpg');
+}
+
+.titre{
+    background-color: black;
+    color: white;
+    padding: 20px
+}
+
+@media only screen and (max-device-width: 1366px) {
+    .parallax {
+        background-attachment: scroll;
+    }
 }
 
 .minuteur-top{
     margin-right: 2px;
+    text-align: center;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+    font-style: italic;
+    font-size: x-large;
+}
+
+@media (max-width: 800px) {
+    .flex {
+        flex-direction: column;
+    }
 }
 
 .section-title {
@@ -293,21 +357,17 @@ body{
     }
 }
 
-.contact .info-wrap {
+.info-wrap {
     box-shadow: 5px 2px 15px rgba(0, 0, 0, 0.1);
-    padding: 30px;
+    padding-bottom: 20px
 }
 
-.contact .info h4 {
-    padding: 0 0 0 60px;
-    font-weight: 600;
-    margin-bottom: 5px;
+.info-wrap h5 {
+    font-weight: 500;
     color: #433f39;
 }
 
-.contact .info p {
-    padding: 0 0 0 60px;
-    margin-bottom: 0;
+.info-wrap p {
     color: #7a7368;
 }
 
@@ -364,6 +424,7 @@ body{
 }
 
 
+
 #introCarousel,
 .carousel-inner,
 .carousel-item,
@@ -372,32 +433,26 @@ body{
 }
 
 .carousel-item:nth-child(1) {
-    background-image: url('../../img/photo1.jpg');
+    background-image: url('../../img/accueil2.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
 }
 
 .carousel-item:nth-child(2) {
-    background-image: url('../../img/photo3.jpg');
+    background-image: url('../../img/accueil3.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
 }
 
 .carousel-item:nth-child(3) {
-    background-image: url('../../img/photo2.jpg');
+    background-image: url('../../img/accueil1.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
 }
 
-.carousel-item:nth-child(4) {
-    background-image: url('../../img/photo5.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-}
 
 /* Height for devices larger than 576px */
 @media (min-width: 992px) {
@@ -418,10 +473,8 @@ body{
     height: 100%;
     background-color: black;
     border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     padding: 20px;
+    background-size: 100% auto;
    ;
 }
 
@@ -437,5 +490,19 @@ body{
     color:black;
 
     margin :10px
+}
+
+.reg{
+    color : white;
+}
+
+.reg:hover{
+    color : white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.register{
+    float:right
 }
 

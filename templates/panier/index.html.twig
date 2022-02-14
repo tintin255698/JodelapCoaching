@@ -145,7 +145,7 @@
         </div>
 
 
-        <a href="{{ path('confirmationCoordonee')}}">  <button class="btn btn-dark" type="submit">Valider</button></a>
+        <a href="{{ path('confirmationCoordonee')}}">  <button class="btn btn-dark" type="submit">Valider - {{ total/100 }}€ -</button></a>
         {% else %}
         <h1 class="text-center mt-5">Votre commande est vide !</h1>
         <img src="{{ asset('img/panier.jpg') }}"  class="img-fluid displayed mt-5" alt="Jodelap Coaching moniteur MCF" style="max-width: 70%; border-radius: 20px">

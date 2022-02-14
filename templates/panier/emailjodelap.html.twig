@@ -1,0 +1,80 @@
+<h1>Salut {{ user.firstName}} {{ user.lastName}} !</h1>
+
+
+<br>
+{% if evenement or coaching or coffret %}
+
+<h2>Voici la confirmation de ta commande {{ commande }}</h2>
+
+    <br>
+
+
+{% if evenement | length > 0%}
+
+    <h4>Tu as réservé le/les cours collectif(s) suivant(s) : </h4>
+
+            {% for evenements in evenement %}
+                <ul>
+                    <li>Titre de la session : {{ evenements.product.titre }}</li>
+                    <li>Prix : {{ evenements.product.prix/100 }}€</li>
+                    <li>Quantité : {{ evenements.quantity }}</li>
+                    <li>Total des cours : {{ totalEvenement/100 }}€ </li>
+                </ul>
+
+            {% endfor %}
+
+
+{% endif %}
+    {% if coaching | length > 0%}
+        <br>
+        <h4>Tu as réservé ce/ces leçons particulières(s) :</h4>
+
+                {% for coachings in coaching %}
+                 <ul>
+                     <li>Nombre d'heures : {{ coachings.product.heure }} heures</li>
+                     <li>{% if coachings.personne<=2 %}
+                             Prix : {{ coachings.product.priceForTwo }}€ pour 2 personnes
+                         {% else %}
+                             Prix : {{ coachings.product.priceForTwo }}€ pour 2 personnes + {{ coachings.product.priceForThree }}/personnes (dès la troisième)
+                         {% endif %}
+
+                     <li>Nombre de personnes : {{ coachings.personne }} personnes</li>
+                     <li>Total : {{ coachings.prix }}€</li>
+                 </ul>
+
+
+                {% endfor %}
+
+
+
+    {% endif %}
+        
+        {% if coffret | length > 0%}
+            <br>
+            <h4>Tu as commandés le/les coffret(s) cadeau(x) ci-dessous :</h4>
+
+                    {% for coffrets in coffret %}
+                        <ul>
+                            <li>Produit : {{ coffrets.product.produit }}</li>
+                            <li>Prix : {{ coffrets.product.prix/100 }}€</li>
+
+                            <li>Nombre d'heures : {{ coffrets.quantity.heure }} heures</li>
+
+                            <li>Total : {{ (coffrets.product.prix/100) * coffrets.quantity.heure }}€</li>
+                        </ul>
+                    {% endfor %}
+
+        {% endif %}
+{% endif %}
+
+<br>
+<h4>Montant total de ta commande : {{ total/100 }}€</h4>
+<h4>Dont TVA : {{ tva/100 }}€</h4>
+<br>
+
+<p>Je te remercie pour ta commande et bien sûr prépares-toi à progresser et à mieux connaître ton vélo !</p>
+
+<br>
+<p>Sportivement,</p>
+<br>
+<p>Jodelap Coaching</p>

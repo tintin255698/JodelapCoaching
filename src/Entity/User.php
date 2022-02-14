@@ -78,10 +78,6 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
     }
 
 
-
-
-
-
     public function getId(): ?int
     {
         return $this->id;

@@ -5,9 +5,10 @@
 {% block body %}
 
     <a href="{{ path('home') }}">
-        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
+        <div class="parallax" style="background-image:url('{{ asset('../../img/P1110107.JPG')}}')"></div>
     </a>
 
+        <h1 class="text-center titre">Vos avis comptent !</h1>
 
     {% for label, messages in app.flashes  %}
         <div class="alert mb-5 alert-{{ label }} fade show text-center" role="alert" data-mdb-color="{{ label }}"   style="font-size: x-large">
@@ -40,7 +41,7 @@
 
                             </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Annuler</button>
+                              
                                     {{ form_widget(form.Valider)}}
 
                                 </div>
@@ -61,19 +62,17 @@
                     </div>
                 </div>
 
-                <div class="mt-5">
-                    <h1 style="font-size: xxx-large;font-style: italic" class="text-center">Vos avis comptent !</h1>
-                </div>
+
 
                 {% if app.user %}
-                <button type="button" class="btn btn-dark top mb-5 btn-lg " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="btn btn-dark top mt-5 mb-5 btn-lg " data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Ajouter un avis
                 </button>
                 {% endif %}
 
                 {% if repo|length > 0 %}
 
-                    <div class="alert mt-5 ">
+                    <div class="alert alert-dark mt-5" data-mdb-color="dark" style="font-size: x-large; font-weight: bold">
                         <p class="alert-heading">
                         <div class="row">
                             <div class="col count">

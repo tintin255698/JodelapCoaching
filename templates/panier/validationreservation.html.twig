@@ -7,10 +7,12 @@
     <a href="{{ path('home') }}">
         <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
     </a>
-    <h1 class="mt-5 mb-5 text-center" >Votre réservation est bien validée</h1>
 
-    <p class="mb-5">Vous pouvez retourner sur la page d'accueil en cliquant sur ce lien : <a href="{{ path('home') }}"><small>Retourner à la page d'accueil</small></a> <br>
+        <h2 class="mt-5 mb-5 text-center" >Votre réservation <small> - {{commande.numeroDeCommande }} - </small> est bien validée</h2>
+
+    <p class="mb-5" style="font-weight: ">Vous pouvez retourner sur la page d'accueil en cliquant sur ce lien : <a href="{{ path('home') }}"><small>Retourner à la page d'accueil</small></a> <br>
     ou vous pouvez me laisser un message ci-dessous pour que j'en apprenne un peu plus sur votre niveau avant le début de notre session VTT.</p>
+
 
  {{ form(form) }}
     <figure>

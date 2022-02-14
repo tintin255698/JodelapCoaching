@@ -30,6 +30,7 @@ class CoachingController extends AbstractController
      */
     public function commentaireAdd ($slug, Request $request, CoachingTarifRepository $coaching)
     {
+
         $coachingAdd = $coaching->findOneBy(['slug' => $slug]);
 
         $id = $coachingAdd->getId();

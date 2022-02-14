@@ -43,6 +43,15 @@ class RegistrationFormType extends AbstractType
                 'first_options' => array('label' => 'Mot de passe', 'attr'=>['placeholder'=>'Entrer votre mot de passe']),
                 'second_options'=> array('label' => 'Confirmation de votre mot de passe', 'attr'=>['placeholder'=>'Confirmez votre mot de passe']),
             ))
+            ->add('agreeTerms', CheckboxType::class, [
+                'label'=>'Accepter les conditions : ',
+                'mapped' => false,
+                'constraints' => [
+                    new IsTrue([
+                        'message' => "Vous devez être d'accord avec nos conditions.",
+                    ]),
+                ],
+            ])
         ;
     }
 

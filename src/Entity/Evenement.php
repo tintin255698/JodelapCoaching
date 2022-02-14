@@ -113,6 +113,11 @@ class Evenement
      */
     private $descriptionAccueil;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $boolean;
+
     public function __construct()
     {
         $this->resaCoachings = new ArrayCollection();
@@ -354,6 +359,18 @@ class Evenement
     public function setDescriptionAccueil(?string $descriptionAccueil): self
     {
         $this->descriptionAccueil = $descriptionAccueil;
+
+        return $this;
+    }
+
+    public function getBoolean(): ?bool
+    {
+        return $this->boolean;
+    }
+
+    public function setBoolean(bool $boolean): self
+    {
+        $this->boolean = $boolean;
 
         return $this;
     }

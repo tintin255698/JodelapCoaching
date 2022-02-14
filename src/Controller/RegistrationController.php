@@ -43,25 +43,11 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            $user->setRoles(["ROLE_USER"]);
 
             $entityManager->persist($user);
             $entityManager->flush();
 
-
-            // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(new Address('jodelap.coaching@gmail.com', 'Jodelap Coaching'))
-                    ->to($user->getEmail())
-                    ->subject('Merci de confirmer votre email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
-            );
-            // do anything else you need here, like send an email
-
-            $this->addFlash('success', 'Vous vous êtes bien enregistrés. Bienvenue chez JodelapCoaching.com ! ');
-            return $this->redirectToRoute('home');
-
+            return $this->redirectToRoute('confirmation_inscription', ['id' => $user->getId()]);
         }
 
         return $this->render('registration/register.html.twig', [
@@ -86,8 +72,40 @@ class RegistrationController extends AbstractController
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Votre adresse email a bien été vérifiée');
+        $this->addFlash('success', 'Merci, bienvenue chez Jodelap Coaching ! Votre adresse email a bien été vérifiée ');
 
         return $this->redirectToRoute('home');
     }
+
+    /**
+     * @Route("/conditions-de-vente", name="condition")
+     */
+    public function index(): Response
+    {
+        return $this->render('registration/index.html.twig', [
+            'controller_name' => 'UserController',
+        ]);
+    }
+
+    /**
+     * @Route("/confirmation-inscription/{id}", name="confirmation_inscription")
+     */
+    public function confirmation(User $id): Response
+    {
+       if($this->getUser()){
+           return $this->redirectToRoute('home');
+       } else {
+           $this->emailVerifier->sendEmailConfirmation('app_verify_email', $id,
+               (new TemplatedEmail())
+                   ->from(new Address('jodelap.coaching@gmail.com', 'Jodelap Coaching'))
+                   ->to($id->getEmail())
+                   ->subject('Merci de confirmer votre email')
+                   ->htmlTemplate('registration/confirmation_email.html.twig')
+           );
+       }
+        return $this->render('registration/check_registration.html.twig', [
+            'controller_name' => 'UserController',
+        ]);
+    }
+
 }

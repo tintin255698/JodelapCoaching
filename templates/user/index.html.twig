@@ -16,27 +16,22 @@
             </div>
         {% endfor %}
 
-        <div class="row">
-            <div class="col-2">
 
-            </div>
-            <div class="col-10">
-                <h1 class="text-center mt-3">Votre profil</h1>
-            </div>
-        </div>
+                <h1 class="text-center mt-5">Votre profil</h1>
 
 
-        <div class="row mt-5">
-            <div class="col-2">
+
+        <div class="row mt-5" >
+            <div class="col">
                 {% include 'navbar/navbarVertical.html.twig' %}
             </div>
-            <div class="col-4">
-                <p class="text"><strong>Votre prénom :</strong> {{ app.user.FirstName }}</p>
-                <p class="mt-5"><strong>Votre email :</strong> {{ app.user.Email }}</p>
+            <div class="col-lg-4 col-12">
+                <p class="text-center mt-3"><strong>Votre prénom :</strong> {{ app.user.FirstName }}</p>
+                <p class="text-center mt-3"><strong>Votre nom :</strong> {{ app.user.LastName }}</p>
             </div>
-            <div class="col-6">
-                <p class="text-right"><strong>Votre nom :</strong> {{ app.user.LastName }}</p>
-                <p class="mt-5 text-right"><strong>Votre téléphone :</strong> {{ app.user.telephone }}</p>
+            <div class="col-lg-6 col-12">
+                <p class="text-center mt-3"><strong>Votre email :</strong> {{ app.user.Email }}</p>
+                <p class="text-center mt-3"><strong>Votre téléphone :</strong> {{ app.user.telephone }}</p>
 
             </div>
         </div>

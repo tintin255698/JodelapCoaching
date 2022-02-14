@@ -1,0 +1,76 @@
+<h1>N'oublie pas mon gateau</h1> - <p>Tu verras ce message à chaque commande ah ah ah !!!!!!!!!!!!!!!!!!!!!!</p>
+
+
+<h2>Commande de {{ user.firstName}} {{ user.lastName}} !</h2>
+
+
+
+{% if evenement or coaching or coffret %}
+
+    <h2>Commande {{ commande }}</h2>
+
+
+    {% if evenement | length > 0%}
+
+        <h4>Cours collectif(s) : </h4>
+
+        {% for evenements in evenement %}
+            <ul>
+                <li>Titre de la session : {{ evenements.product.titre }}</li>
+                <li>Prix : {{ evenements.product.prix/100 }}€</li>
+                <li>Quantité : {{ evenements.quantity }}</li>
+                <li>Total des cours : {{ totalEvenement/100 }}€ </li>
+            </ul>
+
+        {% endfor %}
+
+
+    {% endif %}
+    {% if coaching | length > 0%}
+
+        <h4>Leçons particulières(s) :</h4>
+
+        {% for coachings in coaching %}
+            <ul>
+                <li>Nombre d'heures : {{ coachings.product.heure }} heures</li>
+                <li>{% if coachings.personne<=2 %}
+                        Prix : {{ coachings.product.priceForTwo }}€ pour 2 personnes
+                    {% else %}
+                        Prix : {{ coachings.product.priceForTwo }}€ pour 2 personnes + {{ coachings.product.priceForThree }}/personnes (dès la troisième)
+                    {% endif %}
+
+                <li>Nombre de personnes : {{ coachings.personne }} personnes</li>
+                <li>Total : {{ coachings.prix }}€</li>
+            </ul>
+
+
+        {% endfor %}
+
+
+
+    {% endif %}
+
+    {% if coffret | length > 0%}
+
+        <h4>Coffret(s) cadeau(x) :</h4>
+
+        {% for coffrets in coffret %}
+            <ul>
+                <li>Produit : {{ coffrets.product.produit }}</li>
+                <li>Prix : {{ coffrets.product.prix/100 }}€</li>
+
+                <li>Nombre d'heures : {{ coffrets.quantity.heure }} heures</li>
+
+                <li>Total : {{ (coffrets.product.prix/100) * coffrets.quantity.heure }}€</li>
+            </ul>
+        {% endfor %}
+
+    {% endif %}
+{% endif %}
+
+<h4>Montant total de sa commande : {{ total/100 }}€</h4>
+
+
+<p>Sportivement et à plus sur la piste</p>
+
+<p>Bezak Design</p>
