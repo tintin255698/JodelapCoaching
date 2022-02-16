@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jodelap Coaching - Réinitialiser votre mot de passe -{% endblock %}
+
+{% block body %}
+
+<section class="container mt-5 ">
+    <a href="{{ path('home') }}">
+        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
+    </a>
+    <h1 class="text-center mt-5 mb-5">Réinitialiser votre mot de passe</h1>
+
+    {{ form_start(resetForm) }}
+        {{ form_row(resetForm.plainPassword) }}
+        <button class="btn btn-dark mt-5">Réinitialiser votre mot de passe</button>
+    {{ form_end(resetForm) }}
+</section>
+{% endblock %}

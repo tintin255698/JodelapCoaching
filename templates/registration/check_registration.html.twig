@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Email de confirmation d'inscription{% endblock %}
+
+{% block body %}
+    <section class="container mt-5 ">
+        <a href="{{ path('home') }}">
+            <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
+        </a>
+
+        <h1 class="text-center">Confirmation de ton inscription</h1>
+
+        <p class="mt-5">
+            Un e-mail vient de t'être envoyé contenant un lien pour confirmer ton profil.
+        </p>
+        <p class="mt-4">
+            Confirmer ton inscription te permettra : </p>
+            <ul>
+            <li>De t'inscrire aux cours collectifs,</li>
+            <li>De prendre des leçons particulières,</li>
+            <li>Et de commander des coffrets cadeaux pour toi ou tes amis.</li>
+        </ul>
+          <p>Tu pourras aussi me laisser un avis !</p>
+        <p class="mt-4">Le lien du mail expirera dans 1 heure.</p>
+        <hr>
+        <p class="mt-4">Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier spam ou merci de me contacter : <a href="{{ path('home')}}#contact">contact</a>.</p>
+    </section>
+{% endblock %}
