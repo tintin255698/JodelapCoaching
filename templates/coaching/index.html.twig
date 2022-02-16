@@ -10,7 +10,7 @@
 
 
 
-    <h1 class="text-center titre">Les leçons individuelles</h1>
+    <h1 class="text-center titre">Cours particuliers</h1>
 
 <h2 class="text-center border mt-5" style="font-weight: bolder;font-size: xxx-large ">OUVERT A TOUS LES PROFILS</h2>
 
@@ -22,6 +22,7 @@
             Tout au long de la session, je vous donnerai toutes les astuces pour vous surpasser et prendre confiance en votre pilotage. <br>
             Sauts, virages, dérapages, racines, rochers (...), plus rien ne vous fera hésiter !!!</p>
 
+        <p class="mt-5 text-center">En privé ou avec un ami, 2H, Demi-journée, journée complète ou même sur plusieurs jours ! Session technique, randonnée découverte ou accompagnement en compétition... Tout est modulable, pour être sûr de faire plaisir !</p>
 
         <div class="row m-auto text-center mt-5">
             <div class="col-lg-3">
@@ -68,8 +69,8 @@
                 </div>
                 <div class="card-body bg-white mt-0 shadow">
                     <ul class="list-unstyled mb-5 position-relative">
-                        <li><b>{{ coachings.priceForTwo }}€</b>pour <strong>deux</strong> personnes</li>
-                        <li><b>+ {{ coachings.priceForThree }}€</b>pour <strong>chaque</strong> personne supplémentaire</li>
+                        <li><b>{{ coachings.priceForTwo }}€</b> pour <strong>une ou deux</strong> personnes</li>
+                        <li><b>+ {{ coachings.priceForThree }}€</b> pour <strong>chaque</strong> personne supplémentaire</li>
                     </ul>
                     <a href="{{ path('coaching_add', {'slug':coachings.slug}) }}">  <button type="button" class="btn  btn-dark  btn-lg btn-block  ">Réserver</button></a>
                 </div>

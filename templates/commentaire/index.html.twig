@@ -4,8 +4,10 @@
 
 {% block body %}
 
+
+
     <a href="{{ path('home') }}">
-        <div class="parallax" style="background-image:url('{{ asset('../../img/P1110107.JPG')}}')"></div>
+        <div class="parallax" style="background-image:url('{{ asset('../../img/avis2.jpg')}}')"></div>
     </a>
 
         <h1 class="text-center titre">Vos avis comptent !</h1>
@@ -30,7 +32,7 @@
                                 <h5 class="modal-title" id="exampleModalLabel">Votre avis compte !</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            {% if app.user %}
+                            {% if app.user  %}
                                 {{ form_start(form) }}
                             <div class="modal-body">
 
@@ -42,16 +44,17 @@
                             </div>
                                 <div class="modal-footer">
                               
-                                    {{ form_widget(form.Valider)}}
+                                    {{ form_widget(form.valider)}}
 
                                 </div>
                                 {{ form_end(form) }}
+
                             {% else %}
                                 <div class="modal-body">
                                     <p>Vous devez être connecté pour donner votre avis !</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler
+                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Annuler
                                     </button>
                                     <a href="{{ path('app_login') }}">
                                         <button type="button" class="btn btn-dark">Se connecter</button>
@@ -62,9 +65,15 @@
                     </div>
                 </div>
 
+                {% if idUser is not null%}
+                {% if app.user and app.user.id == idUser.user.id  %}
 
-
-                {% if app.user %}
+                {% endif%}
+                {% elseif app.user %}
+                <button type="button" class="btn btn-dark top mt-5 mb-5 btn-lg " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Ajouter un avis
+                </button>
+                {% else %}
                 <button type="button" class="btn btn-dark top mt-5 mb-5 btn-lg " data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Ajouter un avis
                 </button>
@@ -72,13 +81,13 @@
 
                 {% if repo|length > 0 %}
 
-                    <div class="alert alert-dark mt-5" data-mdb-color="dark" style="font-size: x-large; font-weight: bold">
+                    <div class="alert alert-dark mt-5" data-mdb-color="dark" style="font-size: larger; font-weight: bold">
                         <p class="alert-heading">
                         <div class="row">
-                            <div class="col count">
+                            <div class="col-8">
                                 <p>Moyenne donnée par {{ count }} clients</p>
                             </div>
-                            <div class="col count">
+                            <div class="col-4">
                                 {% for moyennes in moyenne %}
 
         {% for i in 1..5 %}
@@ -115,7 +124,9 @@
                         </div>
                     {% endfor %}
                 {% else %}
-                    <h2 class="titre pb-3">En attente de commentaires</h2>
+    <div class="global-container">
+                    <h2 class="titre pb-3" style="margin-top: 8%">En attente de commentaires</h2>
+    </div>
                 {% endif %}
                 <div class="text-right">
                     <h3>{{ knp_pagination_render(repo) }}</h3>

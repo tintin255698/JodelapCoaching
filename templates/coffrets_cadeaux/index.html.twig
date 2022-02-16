@@ -24,10 +24,10 @@
     <h4 class="mt-5">Tous les coffrets comprennent pour <strong>45€/heure :</strong></h4>
     <ul class="mt-3">
         <li>
-            <p>Un ou plusieurs cours personnalisés</p>
+            <p>Un ou plusieurs cours dans un coffret design <i class='bx bxs-gift bx-tada' ></i></p>
         </li>
         <li>
-            <p>Un coffret cadeaux envoyé par voie postale </p>
+            <p>Un programme personnalisé définit entre vous et moi et selon le nombre d'heures commandés</p>
         </li>
     </ul>
 
@@ -38,10 +38,7 @@
             et à <strong>Morzine (74)</strong> en juillet-août chez RideAbility</p>
     </div>
 
-
-
-
-    <div class="row text-center mt-5" >
+    <div class="row text-center mt-5 mb-5" >
 
 {% for coffrets in coffret %}
         <div class="col" style="display: flex;  justify-content: center;
@@ -55,13 +52,13 @@
         <div class="col">
             <a href="{{ path('coffret_add', {'titre' : coffrets.produit} ) }}">
             <img src="{{ asset('img/coffret.png') }}" alt="Jodelap Coching - Jonathan Revillot Tirot" class="img-fluid ours" style="max-height: 100%" />
+
             </a>
+            <figcaption class="text-center mt-2"><p>Réalisé par Jonathan Révillot-Tirot</p></figcaption>
         </div>
 {% endfor %}
     </div>
 
-
     </div>
-
 
             {% endblock %}

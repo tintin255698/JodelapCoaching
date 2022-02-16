@@ -3,16 +3,18 @@
 {% block title %}JodelapCoaching - Validation de confirmation de la réservation{% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="global-container">
+
     <a href="{{ path('home') }}">
-        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
+        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-4" alt="Logo">
     </a>
 
-        <h2 class="mt-5 mb-5 text-center" >Votre réservation <small> - {{commande.numeroDeCommande }} - </small> est bien validée</h2>
+        <h1 class="mb-5 text-center titre" >Votre réservation <small> - {{commande.numeroDeCommande }} - </small> est bien validée</h1>
+
+    <div class="container">
 
     <p class="mb-5" style="font-weight: ">Vous pouvez retourner sur la page d'accueil en cliquant sur ce lien : <a href="{{ path('home') }}"><small>Retourner à la page d'accueil</small></a> <br>
     ou vous pouvez me laisser un message ci-dessous pour que j'en apprenne un peu plus sur votre niveau avant le début de notre session VTT.</p>
-
 
  {{ form(form) }}
     <figure>
@@ -23,5 +25,6 @@
 
 </div>
 
+</div>
 {% endblock %}
 

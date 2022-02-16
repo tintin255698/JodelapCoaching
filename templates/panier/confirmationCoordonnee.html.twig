@@ -3,17 +3,21 @@
 {% block title %}JodelapCoaching - Confirmation de vos coordonnées{% endblock %}
 
 {% block body %}
-    <div class="container">
+
+    <div class="global-container">
+
     <a href="{{ path('home') }}">
-        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
+        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-4" alt="Logo">
     </a>
+    <h1 class="text-center titre">Vérification de vos coordonnées</h1>
 
-    <h1 class="text-center mb-5">Vérification de vos coordonnées</h1>
+    <div class="container">
 
-    <p class="text-center mb-5">La prise de contact se faisant par téléphone (ou par mail en cas de tentative infructueuse de vous appeler), merci de valider vos coordonnées.</p>
+    <p class="text-center mb-5 mt-5">Faisant la prise de contact par téléphone (ou par mail en cas de tentative infructueuse de vous appeler), je vous remercie de valider vos coordonnées.
+    et de les modifier si besoin</p>
     {{ form(form) }}
     </div>
 
-
+    </div>
 
 {% endblock %}

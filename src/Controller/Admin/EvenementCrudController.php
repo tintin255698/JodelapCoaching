@@ -37,7 +37,7 @@ class EvenementCrudController extends AbstractCrudController
             TimeField::new('finSession', 'Heure fin de la session'),
             DateField::new('finResa', 'Date fin de la réservation'),
             MoneyField::new('prix')->setCurrency('EUR'),
-            ImageField::new('image')->setBasePath('public/uploads/evenement')
+            ImageField::new('image', 'Image (même proportion obligatoire sinon bug')->setBasePath('public/uploads/evenement')
                 ->setUploadDir('public/uploads/evenement')
                 ->setUploadedFileNamePattern('[randomhash].[extension]')
                 ->setRequired(false),

@@ -22,9 +22,9 @@ class ImageCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('image'),
+            TextField::new('image', 'Image (même proportion)'),
             TextareaField::new('imageFile', 'Image ou vidéo à télécharger')->setFormType(VichFileType::class),
-            ChoiceField::new('type', 'Type (vidéo/photo)')
+            ChoiceField::new('type', 'Type : video/photo')
                 ->setChoices([  'video' => 'video',
                         'image' => 'image',
                         ]

@@ -31,7 +31,7 @@ class EvenementRepository extends ServiceEntityRepository
             ->setParameter('val', 1)
             ->andWhere('e.dateTime > :date' )
             ->setParameter('date', $date)
-            ->orderBy('e.dateTime', 'DESC')
+            ->orderBy('e.dateTime', 'ASC')
             ->setMaxResults(3)
             ->getQuery()
             ->getResult()

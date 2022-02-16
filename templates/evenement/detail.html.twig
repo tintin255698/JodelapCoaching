@@ -58,11 +58,9 @@
     <div class="text-center mt-4">
             <a href="{{ path('evenement_add', {'id' : evenementDetail.id }) }}"> <button class="btn btn-dark" style="font-size: large">Réserver</button></a>
         {% else %}
-            <p class="mt-4">Vous ne pouvez plus réserver <i class='bx bx-sad' ></i></p>
+            <p class="mt-4 text-center">Vous ne pouvez plus réserver <i class='bx bx-sad' ></i></p>
         {% endif %}
     </div>
-
-
 
     <div class="container-fluid">
         <section id="matos" class="matos">
@@ -92,8 +90,13 @@
                     </div>
                 </div>
             </div>
-    <div id="map" style="height: 500px;">
-    </div>
+
+                {% if lat == 0 or long == 0 %}
+
+                {% else %}
+                    <h3 class="text-center souligner mb-5">Lieu de la session</h3>
+    <div id="map" style="height: 500px;"></div>
+                {% endif %}
             </div>
 
     <div class="parallax"></div>

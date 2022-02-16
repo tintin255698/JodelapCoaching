@@ -3,27 +3,23 @@
 {% block title %}Jodelap Coaching - Réservations cours VTT -{% endblock %}
 
 {% block body %}
-<section class="container mt-5 ">
+
+    <div class="global-container">
     <a href="{{ path('home') }}">
-        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
+        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-4" alt="Logo">
     </a>
+    <h1 class="text-center titre">Vos réservations</h1>
+
+    <section class="container mt-5 ">
+
     <div class="row">
-        <div class="col-lg-2">
-
-        </div>
-        <div class="col-lg-10">
-            <h1 class="text-center mt-3">Vos réservations</h1>
-        </div>
-    </div>
-
-    <div class="row mt-5">
     <div class="col-lg-2 col">
         {% include 'navbar/navbarVertical.html.twig' %}
     </div>
 
         <div class="col-lg-10 col">
 
-
+    {% if coaching |length > 0 or evenement |length > 0 or coffret |length > 0  %}
     {% if coaching |length > 0 %}
 
     <h3  class="mt-5">Vos leçons particulières réservées</h3>
@@ -112,10 +108,14 @@
                 </div>
 
     {% endif %}
+    {% else %}
+        <h2 class="text-center mt-5">Vous n'avez pas de cours de réservé ni de coffrets cadeaux commandés</h2>
+    {% endif %}
         </div>
     </div>
     </div>
 
 </section>
+    </div>
 
 {% endblock %}

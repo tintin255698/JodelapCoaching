@@ -23,27 +23,36 @@ class CommentaireController extends AbstractController
     /**
      * @Route("/avis/ajouter", name="avis_ajouter")
      */
-    public function commentaireAdd (Request $request)
+    public function commentaireAdd (Request $request, CommentRepository $commentRepository)
     {
+            $user = $this->getUser();
+
+            if($commentRepository->findOneBy(['user' => $user])){
+              if($this->getUser()->getId() == $commentRepository->findOneBy(['user' => $user])->getUser()->getId()){
+                $this->addFlash('info', "Vous avez déjà mis un commentaire");
+                return  $this->redirectToRoute('avis');}
+            }
+
         if (!$this->getUser()){
             $this->addFlash('info', "Vous devez être connecté pour ajouter un avis");
             return  $this->redirectToRoute('app_login');}
+        else {
+            $user = $this->getUser();
 
-        $user = $this->getUser();
+            $commentaire = new Commentaire();
 
-        $commentaire = new Commentaire();
+            $form = $this->createForm(CommentaireType::class, $commentaire);
 
-        $form = $this->createForm(CommentaireType::class, $commentaire);
+            $form->handleRequest($request);
 
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $commentaire->setUser($user);
-            $commentaire->setBool(0);
-            $this->entityManager->persist($commentaire);
-            $this->entityManager->flush();
-            $this->addFlash('success', "Je vous remercie d'avoir donné votre avis.");
-            return $this->redirectToRoute('commentaire');
+            if ($form->isSubmitted() && $form->isValid()) {
+                $commentaire->setUser($user);
+                $commentaire->setBool(0);
+                $this->entityManager->persist($commentaire);
+                $this->entityManager->flush();
+                $this->addFlash('success', "Je vous remercie d'avoir donné votre avis.");
+                return $this->redirectToRoute('avis');
+            }
         }
 
         return $this->render('commentaire/commentaire.html.twig', [
@@ -56,8 +65,9 @@ class CommentaireController extends AbstractController
      */
     public function commentaireVoir (PaginatorInterface $paginator, Request $request, CommentRepository $commentRepository)
     {
-
         $user = $this->getUser();
+
+        $userId = $commentRepository->findOneBy(['user' => $user]);
 
         $commentaire = new Commentaire();
 
@@ -88,7 +98,9 @@ class CommentaireController extends AbstractController
             'repo' => $repo,
             'count'=> $count,
             'moyenne' => $moyenne,
-            'form' =>$form->createView()
+            'form' =>$form->createView(),
+            'idUser' => $userId,
+            'user' => $user
             ]);
     }
 }

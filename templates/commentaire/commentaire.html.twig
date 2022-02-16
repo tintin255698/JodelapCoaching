@@ -4,18 +4,38 @@
 
 {% block body %}
 
- <div class="container">
-     <a href="{{ path('home') }}">
-         <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-5 mb-5" alt="Logo">
-     </a>
+    <div class="global-container">
 
-     <h1 class="top2 text-center" style="font-style: italic">Ajouter votre avis !</h1>
+     <a href="{{ path('home') }}">
+         <img src="{{ asset('img/capture1.png') }}"  class="img-fluid displayed mt-4" alt="Logo">
+     </a>
+     <h1 class="text-center titre mt-4">Ajouter votre avis</h1>
+    <div class="container mt-5">
      {%  if app.user %}
-     <div>
-         {{ form(form) }}
-     </div>
+         {{ form_start(form) }}
+         <div style="font-size: x-large; margin-top: 10%">
+             {{ form_label(form.note)}}
+             {{ form_errors(form.note) }}
+         </div>
+         <div class="mt-1">
+             {{ form_widget(form.note)}}
+         </div>
+
+        <div style="font-size: x-large" class="mt-5">
+             {{ form_label(form.contenu) }}
+         </div>
+         <div class="mt-1">
+             {{ form_widget(form.contenu)}}
+         </div>
+
+         <div class="mt-5 foot ">
+             {{ form_row(form.valider)}}
+         </div>
+
+
+         {{ form_end(form) }}
    {% else %}
-     <div class="text-center mt-3">
+     <div class="text-center mt-5">
         <p>Vous devez être  <a href="{{ path('app_login') }}">connecté</a> pour laisser un avis <br>
 
          <p>ou vous <a href="{{ path('app_register') }}">enregistrer</a> et vous connecter <i class='bx bx-laugh'></i></p>
@@ -23,4 +43,7 @@
      </div>
      {% endif %}
  </div>
+
+    </div>
+
 {% endblock %}

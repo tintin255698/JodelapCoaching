@@ -1,16 +1,13 @@
-
-<img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-5 mb-5" alt="Logo">
-
-<h1>Salut,</h1>
+<p>Hello,</p>
 
 <p>
-    Clique sur le lien ci-dessous pour valider ton inscription : <br><br>
+    Cliquez sur le lien ci-dessous et connectez-vous pour valider votre inscription : <br><br>
     <a href="{{ signedUrl }}">Validation de mon compte Jodelap Coaching</a>. <br><br>
-    Le lien expire dans : {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+    Ce lien expire dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
 </p>
 
 <p>
-    Sportivement,
+    Sportivement et à très bientôt sur le vélo,
 </p>
 <p>
     Jodelap Coaching

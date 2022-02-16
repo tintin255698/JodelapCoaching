@@ -8,11 +8,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @method string getUserIdentifier()
- * @UniqueEntity(fields={"Email"}, message="There is already an account with this Email")
+ * @UniqueEntity(fields={"Email"}, message="Il y a déjà un utilsateur avec cet email")
  */
 class User implements UserInterface, \Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface
 {
@@ -52,7 +53,6 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     *
      */
     private $password;
 

@@ -3,10 +3,13 @@
 {% block title %}Jodelap Coaching - Profil personnel -{% endblock %}
 
 {% block body %}
+<div class="global-container">
+    <a href="{{ path('home') }}">
+        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-4" alt="Logo">
+    </a>
+    <h1 class="text-center  titre">Votre profil</h1>
+
     <section class="container mt-5">
-        <a href="{{ path('home') }}">
-            <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
-        </a>
 
         {% for label, messages in app.flashes  %}
             <div class="alert mb-5 alert-{{ label }} fade show text-center" role="alert" data-mdb-color="{{ label }}"   style="font-size: x-large">
@@ -15,11 +18,6 @@
                 {% endfor%}
             </div>
         {% endfor %}
-
-
-                <h1 class="text-center mt-5">Votre profil</h1>
-
-
 
         <div class="row mt-5" >
             <div class="col">
@@ -39,6 +37,6 @@
     </section>
 
 
-
+</div>
 
 {% endblock %}

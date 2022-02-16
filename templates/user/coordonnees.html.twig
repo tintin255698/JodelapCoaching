@@ -3,18 +3,15 @@
 {% block title %}Jodelap Coaching - Changement coordonnées -{% endblock %}
 
 {% block body %}
-<section class="container mt-5 ">
-    <a href="{{ path('home') }}">
-        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
-    </a>
-    <div class="row">
-        <div class="col-lg-2">
 
-        </div>
-        <div class="col-lg-10">
-            <h1 class="text-center mt-3">Modifier vos coordonnées</h1>
-        </div>
-    </div>
+    <div class="global-container">
+
+    <a href="{{ path('home') }}">
+        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-4" alt="Logo">
+    </a>
+
+    <h1 class="text-center titre">Modifier vos coordonnées</h1>
+<section class="container mt-5 ">
 
     <div class="row mt-5">
         <div class="col-lg-2 col">
@@ -25,6 +22,8 @@
             {{ form(form) }}
         </div>
     </div>
+
 </section>
+    </div>
 
 {% endblock %}

@@ -19,6 +19,10 @@
             <priority>{{url.priority}}</priority>
         {% endif %}
 
+        {% if url.lastmod is defined %}
+            <lastmod>{{url.lastmod}}</lastmod>
+        {% endif %}
+
         {# Si il y a une image #}
         {% if url.image is defined and url.image is not empty %}
             <image:image>

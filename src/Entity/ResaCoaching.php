@@ -39,7 +39,7 @@ class ResaCoaching
     private $prix;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $nbPersonne;
 
@@ -74,7 +74,7 @@ class ResaCoaching
     private $heuresCoffret;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $quantityEvent;
 

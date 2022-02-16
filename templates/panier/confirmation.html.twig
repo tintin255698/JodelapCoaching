@@ -3,14 +3,15 @@
 {% block title %}JodelapCoaching - Attente de confirmation de la commande{% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
+    <div class="global-container">
+
     <a href="{{ path('home') }}">
-        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
+        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-4" alt="Logo">
     </a>
-<div class="container text-center">
-    <h1 class="mb-5" style=" animation-duration: 3s;
+    <h1 class="text-center titre" style="animation-duration: 3s;
   animation-name: bounce;
-  animation-iteration-count: infinite;">Validation de votre commande, merci de patienter</h1>
+  animation-iteration-count: infinite;">Validation de votre commande, merci de patienter ...</h1>
+<div class="container text-center">
     <figure>
         <img src="{{ asset('img/bike.jpg') }}" alt="logo dession Jodelap Coaching" class="img-fluid displayed" style="width: 600px;
     max-width: 100%;">
@@ -18,7 +19,7 @@
     </figure>
 
 </div>
-
+    </div>
 
     <script>
         setTimeout('Redirect()', 2000);

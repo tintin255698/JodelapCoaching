@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jodelap Coaching - Modifier le commentaire -{% endblock %}
+
+{% block body %}
+
+
+    <div class="global-container">
+
+    <a href="{{ path('home') }}">
+        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-4" alt="Logo">
+    </a>
+        <h1 class="text-center titre">Modifiez votre commentaire</h1>
+
+    <section class="container mt-5 ">
+
+        <div class="row mt-5">
+            <div class="col-lg-2 col">
+                {% include 'navbar/navbarVertical.html.twig' %}
+            </div>
+{% if comment %}
+            <div class="col-lg-10 col">
+                {{ form(form) }}
+            </div>
+{% else %}
+            <div class="col-lg-10 col">
+                <h2 class="mt-5 text-center">Vous n'avez pas mis de commentaire</h2>
+            </div>
+{% endif %}
+        </div>
+    </section>
+    </div>
+{% endblock %}

@@ -4,12 +4,15 @@
 
 {% block body %}
 
+    <div class="global-container">
+
     <a href="{{ path('home') }}">
-        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-5 mb-5" alt="Logo">
+        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-4" alt="Logo">
     </a>
-    <div class="container">
-        <h3 class="text-center mt-3 mb-5">Merci d'indiquer le nombre d'heures que vous souhaitez offrir <small>- 45€/H -</small></h3>
+        <h1 class="text-center mt-3 mb-5 titre">Merci d'indiquer le nombre d'heures que vous souhaitez offrir <small>- 45€/H -</small></h1>
+
+        <div class="container" style="margin-top: 7%">
         {{ form(form) }}
     </div>
-
+    </div>
 {% endblock %}

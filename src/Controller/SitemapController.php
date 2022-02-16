@@ -43,9 +43,12 @@ class SitemapController extends AbstractController
                     'slug' => $evenement->getSlug(),
                 ]),
                 'image' =>$images,
-                'priority'=>1
+                'priority'=>1,
+                'lastmod' => $evenement->getUpdatedAt()->format('Y-m-d'),
             ];
         }
+
+
 
         $response = new Response(
             $this->renderView('sitemap/index.html.twig', ['urls' => $urls,

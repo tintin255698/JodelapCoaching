@@ -3,26 +3,40 @@
 {% block title %}Email de confirmation d'inscription{% endblock %}
 
 {% block body %}
-    <section class="container mt-5 ">
-        <a href="{{ path('home') }}">
-            <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
-        </a>
+<div class="global-container">
 
-        <h1 class="text-center">Confirmation de ton inscription</h1>
+    <a href="{{ path('home') }}">
+        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-4" alt="Logo">
+    </a>
+    <h1 class="text-center titre">Confirmation de votre inscription</h1>
+
+    <section class="container mt-5 ">
+
+        {% for label, messages in app.flashes  %}
+            <div class="alert mt-5 alert-{{ label }} alert-dismissible fade show text-center">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor%}
+            </div>
+        {% endfor %}
+
+
 
         <p class="mt-5">
-            Un e-mail vient de t'être envoyé contenant un lien pour confirmer ton profil.
+            Un e-mail vient de vous être envoyé contenant un lien pour confirmer votre profil.
         </p>
         <p class="mt-4">
-            Confirmer ton inscription te permettra : </p>
+            Confirmer votre inscription vous permettra : </p>
             <ul>
-            <li>De t'inscrire aux cours collectifs,</li>
+            <li>De vous inscrire aux cours collectifs,</li>
             <li>De prendre des leçons particulières,</li>
-            <li>Et de commander des coffrets cadeaux pour toi ou tes amis.</li>
+            <li>De commander des coffrets cadeaux pour vous ou vos amis.</li>
+            <li>Et de consulter votre profil.</li>
         </ul>
-          <p>Tu pourras aussi me laisser un avis !</p>
-        <p class="mt-4">Le lien du mail expirera dans 1 heure.</p>
+          <p>Vous pourrais aussi me laisser un <a href="{{ path('avis') }}">avis</a> après la session ! </p>
+        <p class="mt-4">Votre lien dans dans le mail expirera dans 1 heure.</p>
         <hr>
         <p class="mt-4">Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier spam ou merci de me contacter : <a href="{{ path('home')}}#contact">contact</a>.</p>
     </section>
+</div>
 {% endblock %}

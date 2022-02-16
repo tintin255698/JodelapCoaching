@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Repository\CommentRepository;
 use App\Repository\EvenementRepository;
-use App\Repository\HeaderRepository;
 use App\Repository\ImageRepository;
 use App\Form\contactType;
 use App\Repository\UserRepository;
@@ -21,11 +20,11 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(Request $request, ImageRepository $imageRepository, CommentRepository $commentRepository, HeaderRepository $headerRepository, MailerInterface $mailer, EvenementRepository $evenementRepository): Response
+    public function index(Request $request, ImageRepository $imageRepository, CommentRepository $commentRepository, MailerInterface $mailer, EvenementRepository $evenementRepository): Response
     {
         $image = $imageRepository->imageHome();
         $commentaire = $commentRepository->commentaire();
-        $header= $headerRepository->findAll();
+
 
         $form = $this->createForm(contactType::class);
 
@@ -46,7 +45,7 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'image' => $image,
             'commentaire' => $commentaire,
-            'header' => $header,
+
             'form' =>$form->createView(),
             'event' =>$evenementStar,
         ]);

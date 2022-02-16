@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=EvenementRepository::class)
@@ -64,6 +65,7 @@ class Evenement
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\LessThan(propertyPath="dateTime")
      */
     private $finResa;
 
@@ -117,6 +119,12 @@ class Evenement
      * @ORM\Column(type="boolean")
      */
     private $boolean;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -371,6 +379,18 @@ class Evenement
     public function setBoolean(bool $boolean): self
     {
         $this->boolean = $boolean;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

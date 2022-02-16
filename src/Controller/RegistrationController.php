@@ -92,14 +92,16 @@ class RegistrationController extends AbstractController
      */
     public function confirmation(User $id): Response
     {
-       if($this->getUser()){
+       $user =  $id->isVerified();
+
+       if($user === 'true'){
            return $this->redirectToRoute('home');
        } else {
            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $id,
                (new TemplatedEmail())
                    ->from(new Address('jodelap.coaching@gmail.com', 'Jodelap Coaching'))
                    ->to($id->getEmail())
-                   ->subject('Merci de confirmer votre email')
+                   ->subject("Confirmation d'inscription")
                    ->htmlTemplate('registration/confirmation_email.html.twig')
            );
        }
