@@ -39,7 +39,7 @@ class ResaCoachingRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('r')
             ->select('r.numeroDeCommande')
-            ->orderBy('r.numeroDeCommande', 'DESC')
+            ->orderBy('r.id', 'DESC')
             ->andWhere('r.user = :num')
             ->setParameter('num', $user)
             ->setMaxResults(1)

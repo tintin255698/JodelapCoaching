@@ -38,6 +38,20 @@ class EvenementRepository extends ServiceEntityRepository
         ;
     }
 
+    public function evenementIndex()
+    {
+        $date =  new \DateTime('now');
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.boolean = :val')
+            ->setParameter('val', 1)
+            ->andWhere('e.dateTime > :date' )
+            ->setParameter('date', $date)
+            ->orderBy('e.dateTime', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 
     /*
     public function findOneBySomeField($value): ?Evenement

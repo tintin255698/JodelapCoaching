@@ -3,8 +3,11 @@
 {% block title %}JodelapCoaching - Galerie{% endblock %}
 
 {% block body %}
+
+    {% include 'navbar/navbar.html.twig' %}
+
     <a href="{{ path('home') }}">
-        <div class="parallax" style="background-image:url('{{ asset('../../img/avis.jpg')}}')"></div>
+        <div class="parallax4" style="background-image:url('{{ asset('../../img/avis.jpg')}}'); filter: brightness(70%)"></div>
     </a>
 
     <h1 class="text-center titre">Nos photos</h1>
@@ -15,7 +18,7 @@
     <div class="row">
         {% if image > 0 %}
             {%  for images in image %}
-                <div class="col-lg-3 col-4">
+                <div class="col-lg-4 col-6">
                     <div class="gallery-item">
                         <a href="{{ vich_uploader_asset(images, 'imageFile') }}" class="venobox" data-maxwidth="800px"  data-gall="gallery-item">
                             <img src="{{ vich_uploader_asset(images, 'imageFile')}}" alt="galerie VTT MCF" style="border-radius: 10px" class="img-fluid transition">
@@ -28,7 +31,9 @@
     {% if video |length > 0 %}
         <h1 class="text-center top2 titre">Nos vidéos</h1>
     {% for videos in video %}
-        <div class="col-lg-3 col" style="background-image: url('../../img/LOGO.png') ">
+        <div class="col-lg-3 col ml-2 mr-2" style="background-image: url('../../img/logo_panier.png');  background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 60% center; ">
             <div class="gallery-item">
         <video style="border-radius: 10px" class="mx-auto d-block transition" controls width="250">
             <source src="{{vich_uploader_asset(videos, 'imageFile') }}">
@@ -39,6 +44,8 @@
 {% endif %}
 </div>
     </div>
+
+    {% include 'navbar/footer.html.twig' %}
 
 <script>
     new VenoBox({

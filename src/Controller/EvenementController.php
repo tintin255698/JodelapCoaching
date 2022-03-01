@@ -22,10 +22,12 @@ class EvenementController extends AbstractController
     {
         $debutSemaine = new DateTime('now');
 
+        $debut = new DateTime('now');
+
         $finSemaine = new DateTime('now');
         $finSemaine->add(new DateInterval('P40D'));
 
-        $evenement = $evenementRepository->findBy(['boolean' => 1], ['id'=>'DESC']);
+        $evenement = $evenementRepository->evenementIndex();
 
 
         $repo = $paginator->paginate(
@@ -37,6 +39,7 @@ class EvenementController extends AbstractController
             'fin' => $finSemaine,
             'debut' => $debutSemaine,
             'evenement' => $repo,
+            'now' => $debut
         ]);
     }
 

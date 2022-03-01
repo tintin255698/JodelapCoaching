@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}JodelapCoaching - Page inaccessible{% endblock %}
+
+{% block body %}
+
+    {% include 'navbar/navbar.html.twig' %}
+
+    <div style="background-color: black; padding-top: 90px; padding-bottom: 40px">
+
+
+        <a href="{{ path('home') }}">
+            <img src="{{ asset('img/SITEBLANC.png') }}" style="filter: brightness(40%)"  class="img-fluid displayed mt-4" alt="Logo">
+        </a>
+    </div>
+
+    <div class="global-container">
+        <h1 class="text-center titre">Page inaccessible</h1>
+        <div class="container text-center">
+
+            <h2 class="alert alert-danger">Vous n'avez pas le droit d'accéder à cette page !</h2>
+
+            <a href="{{ path('home') }}" class="btn btn-dark mt-3">Accueil</a>
+            <a href="{{ path('evenement') }}" class="btn btn-dark mt-3">Mes cours collectifs</a>
+        </div>
+
+        <img src="{{ asset('img/panier.jpg') }}"  class="img-fluid displayed mt-5" alt="Jodelap Coaching moniteur MCF" style="max-width: 50%; border-radius: 20px">
+
+    </div>
+
+    {% include 'navbar/footer.html.twig' %}
+
+{% endblock %}

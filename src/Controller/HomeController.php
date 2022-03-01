@@ -42,6 +42,7 @@ class HomeController extends AbstractController
 
         $evenementStar = $evenementRepository->evenementAccueil();
 
+
         return $this->render('home/index.html.twig', [
             'image' => $image,
             'commentaire' => $commentaire,

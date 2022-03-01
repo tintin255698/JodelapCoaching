@@ -42,13 +42,15 @@ class CoffretsCadeauxController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $heure = $form['heure']->getData();
+            $information = $form['information']->getData();
 
             $session = new Session();
             $panier =$session->get('coffret',[]);
 
             $panier[$id] = [
                 'quantity' => 1,
-                'heure' => $heure
+                'heure' => $heure,
+                'information' => $information
             ];
 
             if( $panier[$id]['heure'] < 1){

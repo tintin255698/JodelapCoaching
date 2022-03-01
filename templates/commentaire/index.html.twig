@@ -4,13 +4,13 @@
 
 {% block body %}
 
-
+    {% include 'navbar/navbar.html.twig' %}
 
     <a href="{{ path('home') }}">
-        <div class="parallax" style="background-image:url('{{ asset('../../img/avis2.jpg')}}')"></div>
+        <div class="parallax" style="background-image:url('{{ asset('../../img/avis2.jpg')}}'); filter: brightness(70%)"></div>
     </a>
 
-        <h1 class="text-center titre">Vos avis comptent !</h1>
+        <h1 class="text-center titre mb-5">Vos avis</h1>
 
     {% for label, messages in app.flashes  %}
         <div class="alert mb-5 alert-{{ label }} fade show text-center" role="alert" data-mdb-color="{{ label }}"   style="font-size: x-large">
@@ -70,24 +70,24 @@
 
                 {% endif%}
                 {% elseif app.user %}
-                <button type="button" class="btn btn-dark top mt-5 mb-5 btn-lg " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="btn btn-dark top mt-5 mb-5 btn-lg " data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-left: -12px">
                     Ajouter un avis
                 </button>
                 {% else %}
-                <button type="button" class="btn btn-dark top mt-5 mb-5 btn-lg " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="btn btn-dark top mt-5 mb-5 btn-lg " data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-left: -12px">
                     Ajouter un avis
                 </button>
                 {% endif %}
 
                 {% if repo|length > 0 %}
 
-                    <div class="alert alert-dark mt-5" data-mdb-color="dark" style="font-size: larger; font-weight: bold">
-                        <p class="alert-heading">
-                        <div class="row">
-                            <div class="col-8">
-                                <p>Moyenne donnée par {{ count }} clients</p>
+                    <div class="alert alert-dark  row" data-mdb-color="dark" style="font-size: x-large; font-weight: bold">
+
+
+                            <div class="col-8 text-center" style="">
+                                Moyenne donnée par {{ count }} clients
                             </div>
-                            <div class="col-4">
+                            <div class="col-4 text-start">
                                 {% for moyennes in moyenne %}
 
         {% for i in 1..5 %}
@@ -100,8 +100,8 @@
 
                                 {% endfor %}
                             </div>
-                        </div>
-                        </p>
+
+
                     </div>
                     {% for repos in repo %}
 
@@ -132,4 +132,5 @@
                     <h3>{{ knp_pagination_render(repo) }}</h3>
                 </div>
             </div>
+    {% include 'navbar/footer.html.twig' %}
 {% endblock %}

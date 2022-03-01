@@ -17,6 +17,7 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
@@ -31,6 +32,7 @@ class PanierController extends AbstractController
      */
     public function index(CoffretRepository $coffretRepository, EntityManagerInterface $entityManager, SessionInterface $session, EvenementRepository $evenementRepository, CoachingTarifRepository $coachingTarifRepository, UserRepository $userRepository): Response
     {
+
        if (!$this->getUser()){
             $this->addFlash('info', "Vous devez être connecté pour accéder au récapitulatif de votre réservation");
             return  $this->redirectToRoute('app_login');
@@ -80,7 +82,6 @@ class PanierController extends AbstractController
 //Coaching
            $coachingWithData = [];
 
-
 //Transforme le panier en array
            foreach ($coaching as $id => $quantity) {
                $find = $coachingTarifRepository->find($id);
@@ -109,6 +110,10 @@ class PanierController extends AbstractController
 
            $tva = $tot*0.2;
 
+
+           $debut = new DateTime('now');
+           $uniq = $debut->format('dmY') . '-' . uniqid();
+
        }
 
         return $this->render('panier/index.html.twig', [
@@ -119,14 +124,15 @@ class PanierController extends AbstractController
             'coffret'=>$coffretWithData,
             'totalCoffret' =>$totalCoffret,
             'total' => $tot,
-            'tva'=>$tva
+            'tva'=>$tva,
+            'uniq'=> $uniq,
         ]);
     }
 
     /**
-     * @Route("/confirmationdevoscoordonnees", name="confirmationCoordonee")
+     * @Route("/confirmationdevoscoordonnees/{uniq}", name="confirmationCoordonee")
      */
-    public function confirmationCoordonnee(Request $request, EntityManagerInterface $entityManager, CoffretRepository $coffretRepository, SessionInterface $session, EvenementRepository $evenementRepository, CoachingTarifRepository $coachingTarifRepository): Response
+    public function confirmationCoordonnee($uniq, Request $request, EntityManagerInterface $entityManager, CoffretRepository $coffretRepository, SessionInterface $session, EvenementRepository $evenementRepository, CoachingTarifRepository $coachingTarifRepository): Response
     {
         if (!$this->getUser()) {
             $this->addFlash('info', "Vous devez être connecté");
@@ -139,6 +145,7 @@ class PanierController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                $info = $form['information']->getData();
                 $entityManager->persist($user);
                 $entityManager->flush();
 
@@ -146,6 +153,10 @@ class PanierController extends AbstractController
                 $coffret = $session->get('coffret', []);
                 $evenement = $session->get('evenement', []);
                 $coaching = $session->get('coaching', []);
+
+                $session = new Session();
+                $session->set('info', $info);
+                $session->get('info');
 
 //coffret
 
@@ -217,10 +228,6 @@ class PanierController extends AbstractController
                 $tva = $tot*0.2;
 
 
-                //Ref commande
-                $debut = new DateTime('now');
-                $uniq = $debut->format('dmY') . '-' . uniqid();
-
                 //Inscription BDD réservation
                 if ($coachingWithData or $evenementWithData or $coffretWithData) {
                     $now = new DateTime('now');
@@ -276,31 +283,32 @@ class PanierController extends AbstractController
                     }
                 }
 
-                return $this->redirectToRoute('attenteConfirmation');
+                return $this->redirectToRoute('attenteConfirmation', ['commande' => $uniq]);
             }
         }
 
+
+
         return $this->render('panier/confirmationCoordonnee.html.twig', [
                 'form' => $form->createView(),
+
         ]);
     }
 
     /**
-     * @Route("/attenteconfirmationcommande", name="attenteConfirmation")
+     * @Route("/attenteconfirmationcommande/{commande}", name="attenteConfirmation")
      */
-    public function detail(ResaCoachingRepository $resaCoachingRepository): Response
+    public function detail (ResaCoachingRepository $resaCoachingRepository): Response
     {
+        $user = $this->getUser();
+        $lastResa = $resaCoachingRepository->derniereCommande($user);
+        $commande = $lastResa[0]['numeroDeCommande'];
+
+
         if (!$this->getUser()) {
             $this->addFlash('info', "Vous devez être connecté");
             return $this->redirectToRoute('app_login');
         }else {
-
-            $user = $this->getUser();
-
-            $lastResa = $resaCoachingRepository->derniereCommande($user);
-
-            $commande = $lastResa[0]['numeroDeCommande'];
-
             $resa = $resaCoachingRepository->findOneBy(['numeroDeCommande' => $commande]);
         }
         return $this->render('panier/confirmation.html.twig', [
@@ -317,6 +325,7 @@ class PanierController extends AbstractController
 
         $numCommande = $resaCoachingRepository->findOneBy(['numeroDeCommande' => $numeroDeCommande]);
 
+
         if ($this->getUser()->getId() != $coach[0]->getUser()->getId()){
             return $this->redirectToRoute('panier');
         } else {
@@ -327,16 +336,20 @@ class PanierController extends AbstractController
             $coffret = $session->get('coffret', []);
             $evenement = $session->get('evenement', []);
             $coaching = $session->get('coaching', []);
+            $info = $session->get('info');
+
+
 
 //coffret
-
             $coffretWithData = [];
+
 
 //Transforme le panier en array
             foreach ($coffret as $id => $quantity) {
                 $coffretWithData[] = [
                     'product' => $coffretRepository->find($id),
-                    'quantity' => $quantity
+                    'quantity' => $quantity,
+                    'information'=>$quantity['information']
                 ];
             }
 
@@ -381,9 +394,12 @@ class PanierController extends AbstractController
                     'product' => $find,
                     'quantity' => $quantity['quantity'],
                     'personne' => $quantity['personne'],
-                    'prix' => $prix
+                    'prix' => $prix,
+                    'information'=>$quantity['information']
                 ];
             }
+
+
 
 //Calcul total
 
@@ -420,7 +436,7 @@ class PanierController extends AbstractController
 
             $email2 = (new TemplatedEmail())
                 ->from(new Address('jodelap.coaching@gmail.com', 'site internet Jodelap Coaching'))
-                ->to('jodelap.coaching@gmail.com')
+                ->to('vivien.joly@hotmail.fr')
                 ->subject('Confirmation de réservation'.' '.$commande)
                 ->context([
                     'evenement' => $evenementWithData,
@@ -432,40 +448,59 @@ class PanierController extends AbstractController
                     'total' => $tot,
                     'tva'=>$tva,
                     'commande'=>$commande,
-                    'user'=>$this->getUser()
+                    'user'=>$this->getUser(),
+                    'info' => $info
                 ])
                 ->htmlTemplate('panier/emailcoach.html.twig');
             $mailer->send($email2);
-
-
-if($mailer) {
-    $this->get('session')->remove('coffret');
-    $this->get('session')->remove('evenement');
-    $this->get('session')->remove('coaching');
-}
 
             foreach ($coach as $coach2) {
                 $coach2->setResaConfirm(1);
                 $entityManager->persist($coach2);
                 $entityManager->flush();
             }
-            $form = $this->createForm(CommentResaType::class);
 
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                foreach ($coach as $comment) {
-                    $commentaire = $form['commentaire']->getData();
-                    $comment->setCommentaire($commentaire);
-                    $entityManager->persist($comment);
+            if($info) {
+                foreach ($coach as $coach2) {
+                    $coach2->setCommentaire($info);
+                    $entityManager->persist($coach2);
                     $entityManager->flush();
                 }
-                $this->addFlash('success', 'Votre message a bien été envoyé');
-                return $this->redirectToRoute('home');
             }
+
+            if(isset($coachingWithData[0]['information'])) {
+                foreach ($coach as $coach2) {
+                    if ($coachingWithData[0]['information'] and isset($coachingWithData[1]['information']) and isset($coachingWithData[2])) {
+                        $coach2->setCommentCoaching($coachingWithData[0]['information'] . ' ' . $coachingWithData[1]['information'] . ' ' . $coachingWithData[2]['information']);
+                    } elseif ($coachingWithData[0]['information'] and isset($coachingWithData[1]['information'])) {
+                        $coach2->setCommentCoaching($coachingWithData[0]['information'] . ' ' . $coachingWithData[1]['information']);
+                    } else {
+                        $coach2->setCommentCoaching($coachingWithData[0]['information']);
+                    }
+                    $entityManager->persist($coach2);
+                    $entityManager->flush();
+                }
+            }
+
+
+            if(isset($coffretWithData[0]['information'])){
+                foreach ($coach as $coach2) {
+                    $coach2->setCommentCoffret($coffretWithData[0]['information']);
+                    $entityManager->persist($coach2);
+                    $entityManager->flush();
+                }
+            }
+
+            if($mailer) {
+                $this->get('session')->remove('coffret');
+                $this->get('session')->remove('evenement');
+                $this->get('session')->remove('coaching');
+            }
+
+
+
         }
         return $this->render('panier/validationreservation.html.twig', [
-            'form'=> $form->createView(),
             'commande' => $numCommande
         ]);
     }

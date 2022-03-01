@@ -12,48 +12,63 @@
 
 
 
-<div style="margin-top: 5%" class="container inscription">
+<div class="container inscription mb-5">
 
-    <h1 class="text-center" style="margin-bottom: 2%; color: #ffa012 ; font-weight: bold; font-size: xxx-large; margin-top: 20px">Inscription au site Jodelap Coaching</h1>
+
+
+    <div class="text-center" >
+        <img src="{{ asset('img/inscription.png') }}" alt="" style="max-width: 50%; margin-top: 3% " >
+    </div>
+    <div style="border:solid; border-radius: 10px; padding: 20px; margin-top: 50px ">
+
 
     {{ form_start(registrationForm) }}
-    <div class="row mt-5 ">
+    <div class="row mt-5">
         <div class="col-6" >
-            {{ form_widget(registrationForm.FirstName)}}
+            {{ form_row(registrationForm.FirstName)}}
         </div>
         <div class="col-6" >
-            {{ form_widget(registrationForm.LastName)}}
+            {{ form_row(registrationForm.LastName)}}
         </div>
     </div>
     <div class="row mt-3">
         <div class="col-12 mt-5">
-            {{ form_widget(registrationForm.telephone)}}
+            {{ form_row(registrationForm.telephone)}}
         </div>
         <div class="col-12 mt-5">
-            {{ form_widget(registrationForm.Email)}}
+            {{ form_row(registrationForm.Email)}}
         </div>
     </div>
     <div class="row mt-3">
-        <div class="col-12 mt-5">
-            {{ form_widget(registrationForm.plainPassword.pass)}}
+        <div class="col-6 mt-5">
+            {{ form_row(registrationForm.plainPassword.pass)}}
         </div>
-        <div class="col-12 mt-5">
-            {{ form_widget(registrationForm.plainPassword.confirm)}}
+        <div class="col-6 mt-5">
+            {{ form_row(registrationForm.plainPassword.confirm)}}
         </div>
     </div>
-    <div class=" mt-5 " style="color: white">
-            {{ form_row(registrationForm.agreeTerms)}}
 
-            <a class="reg" href="{{ path('condition') }}"><small style="color: #ffa012 ">Voir les conditions générales de ventes et d'utilisations</small></a>
+
+
+
+    <div class=" mt-5 " style="color: black; display: flex;    flex-direction: column;">
+        {{ form_row(registrationForm.agreeTerms)}}
+            <a class="reg" style="margin-left: 5px" href="{{ path('condition') }}"><small style="color:#A81616 "> (voir les conditions)</small></a>
+
 
     </div>
+<div class="text-end">
+    <button type="submit"  class="btn btn-dark btn-lg mt-5">S'inscrire</button>
+</div>
 
-        <button type="submit"  class="btn btn-light btn-lg mt-5">S'inscrire</button>
 
     {{ form_end(registrationForm) }}
 
 </div>
 
+
+
+</div>
 </div>
 
 {% endblock %}

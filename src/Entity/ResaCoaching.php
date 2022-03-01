@@ -78,6 +78,16 @@ class ResaCoaching
      */
     private $quantityEvent;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $commentCoaching;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $commentCoffret;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -223,6 +233,30 @@ class ResaCoaching
     public function setQuantityEvent(int $quantityEvent): self
     {
         $this->quantityEvent = $quantityEvent;
+
+        return $this;
+    }
+
+    public function getCommentCoaching(): ?string
+    {
+        return $this->commentCoaching;
+    }
+
+    public function setCommentCoaching(?string $commentCoaching): self
+    {
+        $this->commentCoaching = $commentCoaching;
+
+        return $this;
+    }
+
+    public function getCommentCoffret(): ?string
+    {
+        return $this->commentCoffret;
+    }
+
+    public function setCommentCoffret(?string $commentCoffret): self
+    {
+        $this->commentCoffret = $commentCoffret;
 
         return $this;
     }

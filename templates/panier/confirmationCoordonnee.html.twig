@@ -4,20 +4,55 @@
 
 {% block body %}
 
-    <div class="global-container">
 
-    <a href="{{ path('home') }}">
-        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-4" alt="Logo">
-    </a>
+
+    {% include 'navbar/navbar.html.twig' %}
+        <div style="background-color: black; padding-top: 90px; padding-bottom: 40px">
+
+
+            <a href="{{ path('home') }}">
+                <img src="{{ asset('img/SITEBLANC.png') }}" style="filter: brightness(40%)"  class="img-fluid displayed mt-4" alt="Logo">
+            </a>
+        </div>
+    <div class="global-container">
     <h1 class="text-center titre">Vérification de vos coordonnées</h1>
 
-    <div class="container">
+    <div class="container" style="margin-top: 5%">
 
-    <p class="text-center mb-5 mt-5">Faisant la prise de contact par téléphone (ou par mail en cas de tentative infructueuse de vous appeler), je vous remercie de valider vos coordonnées.
-    et de les modifier si besoin</p>
-    {{ form(form) }}
+
+    {{ form_start(form) }}
+        <div class="row mt-3">
+            <div class="col">
+            {{ form_row(form.FirstName)}}
+            </div>
+            <div class="col">
+                {{ form_row(form.LastName)}}
+            </div>
+        </div>
+        <div class="row mt-3">
+        <div class="col-12 col-lg">
+            {{ form_row(form.Email) }}
+        </div>
+        <div class="col-12 col-lg">
+            {{ form_row(form.telephone) }}
+        </div>
+        </div>
+
+        <div class="mt-3 mb-3">
+            {{ form_row(form.information) }}
+        </div>
+
+        <div class="text-end ">
+            {{ form_row(form.Valider) }}
+        </div>
+    {{ form_end(form) }}
+
+
     </div>
 
     </div>
+
+
+    {% include 'navbar/footer.html.twig' %}
 
 {% endblock %}

@@ -4,15 +4,21 @@
 
 {% block body %}
 
+    {% include 'navbar/navbar.html.twig' %}
 
-    <a href="{{ path('home') }}">
-        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed" alt="Logo">
-    </a>
+    <div style="background-color: black; padding-top: 90px; padding-bottom: 40px">
 
-    <section class="container">
+
+        <a href="{{ path('home') }}">
+            <img src="{{ asset('img/SITEBLANC.png') }}" style="filter: brightness(40%)"  class="img-fluid displayed mt-4" alt="Logo">
+        </a>
+    </div>
+
+    <h1 class="text-center titre">Confirmation de votre commande</h1>
+<div class="global-container">
+<div class="container" style="margin-top: 10%">
 
     {% if evenement or coaching or coffret %}
-    <h1 class="text-center">Confirmation de votre commande</h1>
 
     {% if evenement | length > 0%}
 
@@ -74,7 +80,7 @@
                             {{ coachings.product.priceForTwo }}€ pour 2 personnes + {{ coachings.product.priceForThree }}/personnes (dès la troisième)
                             {% endif %}
                         </td>
-                        <td data-tooltip="Cliquez sur le chiffre pour augmenter ou réduire le nombre de personnes / 0 pour supprimer" ><a href="{{ path('coaching_add', {'slug' : coachings.product.slug }) }}"><i class='bx bxs-edit-alt'></i>{{ coachings.personne }} personnes</a></td>
+                        <td data-tooltip="Cliquez sur le chiffre pour augmenter ou réduire le nombre de personnes / 0 pour supprimer" ><a href="{{ path('coaching_add', {'slug' : coachings.product.slug }) }}" style="color: #A81616"><i class='bx bxs-edit-alt'></i>{{ coachings.personne }} personnes</a></td>
                         <td>{{ coachings.prix }}€</td>
                     </tr>
                 {% endfor %}
@@ -82,7 +88,7 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                    <td colspan="3" class="text-right">Total de la leçon : </td>
+                    <td colspan="3" class="text-end">Total de la leçon : </td>
                     <td>{{ sum }}€</td>
                 </tr>
                 </tfoot>
@@ -111,7 +117,7 @@
                             <td>{{ coffrets.product.produit }}</td>
                             <td>{{ coffrets.product.prix/100 }}€</td>
 
-                            <td data-tooltip="Cliquez sur le chiffre pour augmenter ou réduire le nombre d'heures / 0 pour supprimer" > <a href="{{ path('coffret_add', {'titre' : coffrets.product.produit}) }}"><i class='bx bxs-edit-alt'></i>{{ coffrets.quantity.heure }} heures</a></td>
+                            <td data-tooltip="Cliquez sur le chiffre pour augmenter ou réduire le nombre d'heures / 0 pour supprimer" > <a style="color: #A81616" href="{{ path('coffret_add', {'titre' : coffrets.product.produit}) }}"><i class='bx bxs-edit-alt'></i>{{ coffrets.quantity.heure }} heures</a></td>
 
                             <td>{{ (coffrets.product.prix/100) * coffrets.quantity.heure }}€</td>
                         </tr>
@@ -131,26 +137,41 @@
 
         <div class="table-responsive mt-5">
             <table class="table table-hover text-center" style="width:100%">
+                <div class="table-responsive mt-5">
+                    <table class="table table-hover text-center" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+
                 <tbody>
                 <tr>
-                    <td colspan="3">dont TVA : </td>
+                    <td colspan="3" class="text-end">Dont TVA : </td>
                     <td>{{ tva/100 }}€</td>
                 </tr>
                 <tr>
-                    <td colspan="3">Montant total de votre commande : </td>
+                    <td colspan="3" class="text-end">Montant total : </td>
                     <td>{{ total/100 }}€</td>
                 </tr>
                 </tbody>
             </table>
         </div>
 
-
-        <a href="{{ path('confirmationCoordonee')}}">  <button class="btn btn-dark" type="submit">Valider - {{ total/100 }}€ -</button></a>
+<div class="text-end mt-5">
+        <a href="{{ path('confirmationCoordonee', {'uniq' : uniq} )}}">  <button class="btn btn-dark" type="submit">Valider - {{ total/100 }}€ -</button></a>
+</div>
         {% else %}
         <h1 class="text-center mt-5">Votre commande est vide !</h1>
         <img src="{{ asset('img/panier.jpg') }}"  class="img-fluid displayed mt-5" alt="Jodelap Coaching moniteur MCF" style="max-width: 70%; border-radius: 20px">
         {% endif %}
-    </section>
+</div>
+</div>
+    {% include 'navbar/footer.html.twig' %}
+
 
 {% endblock %}
 

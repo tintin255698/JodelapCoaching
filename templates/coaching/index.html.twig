@@ -4,15 +4,14 @@
 
 {% block body %}
 
+    {% include 'navbar/navbar.html.twig' %}
     <a href="{{ path('home') }}">
-        <div class="parallax" style="background-image:url('{{ asset('../../img/coaching.jpg')}}')"></div>
+        <div class="parallax3" style="filter: brightness(70%); background-image:url('{{ asset('../../img/coaching.jpg')}}')"></div>
     </a>
-
-
 
     <h1 class="text-center titre">Cours particuliers</h1>
 
-<h2 class="text-center border mt-5" style="font-weight: bolder;font-size: xxx-large ">OUVERT A TOUS LES PROFILS</h2>
+<h2 class="text-center border mt-5" style="font-weight: bolder;font-size: xxx-large; color: #A81616" >OUVERT A TOUS LES PROFILS</h2>
 
 <h3 class="text-center souligner mt-5">J'adapte la séance suivant votre niveau et vos attentes.</h3>
 
@@ -24,18 +23,18 @@
 
         <p class="mt-5 text-center">En privé ou avec un ami, 2H, Demi-journée, journée complète ou même sur plusieurs jours ! Session technique, randonnée découverte ou accompagnement en compétition... Tout est modulable, pour être sûr de faire plaisir !</p>
 
-        <div class="row m-auto text-center mt-5">
+        <div class="row m-auto text-center mt-5" >
             <div class="col-lg-3">
-                <p><i class="bx bxs-quote-alt-left quote-icon-left"></i>Je suis débutant et j'aimerais apprendre les bases du cyclisme, l'équilibre, pédaler, contrôler mes trajectoires.<i class="bx bxs-quote-alt-right quote-icon-right"></i> </p>
+                <p style="text-align: justify"><i class="bx bxs-quote-alt-left quote-icon-left"></i>Je suis débutant(e) et j'aimerais apprendre les bases du cyclisme, l'équilibre, pédaler, contrôler mes trajectoires.<i class="bx bxs-quote-alt-right quote-icon-right"></i> </p>
             </div>
             <div class="col-lg-3 ">
-                <p><i class="bx bxs-quote-alt-left quote-icon-left"></i>J'ai investi dans un nouveau vélo et j'aimerais partir sur de bonnes bases pour profiter pleinement de mon VTT.<i class="bx bxs-quote-alt-right quote-icon-right"></i></p>
+                <p style="text-align: justify"><i class="bx bxs-quote-alt-left quote-icon-left"></i>J'ai investi dans un nouveau vélo et j'aimerais partir sur de bonnes bases pour profiter pleinement de mon VTT.<i class="bx bxs-quote-alt-right quote-icon-right"></i></p>
             </div>
             <div class="col-lg-3 ">
-                <p><i class="bx bxs-quote-alt-left quote-icon-left"></i>Je pratique le VTT mais j'atteins rapidement mes limites, j'aimerais être à l'aise et gagner en confiance sur les sauts, dans les virages, en descente, en franchissement d'obstacles...<i class="bx bxs-quote-alt-right quote-icon-right"></i></p>
+                <p style="text-align: justify"><i class="bx bxs-quote-alt-left quote-icon-left"></i>Je pratique le VTT mais j'atteins rapidement mes limites, j'aimerais être à l'aise et gagner en confiance sur les sauts, dans les virages, en descente, en franchissement d'obstacles...<i class="bx bxs-quote-alt-right quote-icon-right"></i></p>
             </div>
             <div class="col-lg-3 ">
-                <p><i class="bx bxs-quote-alt-left quote-icon-left"></i>Je suis à l'aise avec mon vélo, dans la pente, sur les sauts, dans la boue. Compétiteur dans l'âme, j'aimerais me challenger sur différentes compétitions et j'ai besoin de me perfectionner autant physiquement que techniquement.<i class="bx bxs-quote-alt-right quote-icon-right"></i></p>
+                <p style="text-align: justify"><i class="bx bxs-quote-alt-left quote-icon-left"></i>Je suis à l'aise avec mon vélo, dans la pente, sur les sauts, dans la boue. Compétiteur dans l'âme, j'aimerais me challenger sur différentes compétitions et j'ai besoin de me perfectionner autant physiquement que techniquement.<i class="bx bxs-quote-alt-right quote-icon-right"></i></p>
             </div>
 
         </div>
@@ -45,6 +44,8 @@
             <p><strong>Horaires</strong> : 9h - 12h / 13h30 - 16h30 </p>
             <p>Basé dans le <strong>Doubs (25)</strong> de septembre à juin
                 et à <strong>Morzine (74)</strong> en juillet-août chez RideAbility</p>
+            <h5 class="mt-5">Ci-dessous, vous ajoutez les heures que vous souhaitez commander et le programme que vous voulez travailler ainsi que
+            votre niveau :</h5>
         </div>
 
     </div>
@@ -52,7 +53,8 @@
     <div class="container-fluid bg-gradient p-5">
         <div class="row m-auto text-center w-75">
             {% for coachings in coaching %}
-            <div class="col-lg-4  mt-3 princing-item red">
+            <div class="col-lg-4 princing-item red">
+                <a href="{{ path('coaching_add', {'slug':coachings.slug}) }}">
                 <div class="pricing-divider ">
                     <h3 class="text-light">{{ coachings.heure }} HEURES</h3>
                     <h4 class="my-0 display-4 text-light font-weight-normal mb-3"><span class="h3">A partir de</span> {{ coachings.priceForTwo}} <span class="h5">€</span></h4>
@@ -69,18 +71,19 @@
                 </div>
                 <div class="card-body bg-white mt-0 shadow">
                     <ul class="list-unstyled mb-5 position-relative">
-                        <li><b>{{ coachings.priceForTwo }}€</b> pour <strong>une ou deux</strong> personnes</li>
-                        <li><b>+ {{ coachings.priceForThree }}€</b> pour <strong>chaque</strong> personne supplémentaire</li>
+                        <li style="color: black"><b>{{ coachings.priceForTwo }}€</b> pour <strong style="color: #A81616">une ou deux</strong> personnes</li>
+                        <li style="color: black"><b>+ {{ coachings.priceForThree }}€</b> pour <strong style="color: #A81616">chaque</strong> personne supplémentaire</li>
                     </ul>
                     <a href="{{ path('coaching_add', {'slug':coachings.slug}) }}">  <button type="button" class="btn  btn-dark  btn-lg btn-block  ">Réserver</button></a>
                 </div>
+                </a>
             </div>
 
 {% endfor %}
 
         </div>
     </div>
-<div class="container-fluid">
-    <section id="contact" class="contact">
 
+
+    {% include 'navbar/footer.html.twig' %}
 {% endblock %}

@@ -50,6 +50,11 @@ class Image
      */
     private $type;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $ordre;
+
 
     public function getId(): ?int
     {
@@ -102,6 +107,18 @@ class Image
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getOrdre(): ?int
+    {
+        return $this->ordre;
+    }
+
+    public function setOrdre(int $ordre): self
+    {
+        $this->ordre = $ordre;
 
         return $this;
     }

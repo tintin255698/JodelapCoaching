@@ -39,7 +39,7 @@ class Evenement
     private $titre;
 
     /**
-     * @ORM\Column(type="text", length=255)
+     * @ORM\Column(type="text")
      */
     private $descriptif;
 

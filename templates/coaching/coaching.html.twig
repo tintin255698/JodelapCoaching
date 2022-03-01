@@ -4,15 +4,53 @@
 
 {% block body %}
 
-    <div class="global-container">
+    {% include 'navbar/navbar.html.twig' %}
+
+<div style="background-color: black; padding-top: 90px; padding-bottom: 40px">
+
 
     <a href="{{ path('home') }}">
-        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-4" alt="Logo">
+        <img src="{{ asset('img/SITEBLANC.png') }}" style="filter: brightness(40%)"  class="img-fluid displayed mt-4" alt="Logo">
     </a>
-        <h1 class="text-center mt-4 titre">Merci d'indiquer le nombre de personnes <strong>en vous comptant</strong> pour la session !</h1>
+    </div>
 
-        <div class="container" style="margin-top: 7%">
-    {{ form(form) }}
+    <div class="global-container">
+            <h1 class="text-center titre">Nombre de personnes avec vous pour la session</h1>
+
+
+            <div class="container" style="margin-top: 10%">
+                {{ form_start(form) }}
+                <p class="mt-5">Nombre de personnes <strong style="color: #A81616">en vous incluant</strong></p>
+                {{ form_widget(form.personne, {'attr': {'onkeyup': 'lecture()'}}) }}
+                <div style="display: none" id="info">
+                    <p class="mt-5">Vous avez ici la possibilité d'écrire le programme que vous voulez faire, votre niveau, ce que vous en attendez, ce que vous voulez travailler, apprendre ...</p>
+                    {{ form_widget(form.information) }}
+                </div>
+
+                <div class="text-end mt-5">
+                    {{ form_row(form.valider) }}
+                </div>
+
+                {{ form_end(form) }}
+
 </div>
     </div>
+
+
+    <script>
+        function lecture()
+        {
+            var valeur = document.getElementById('personne_personne').value;
+            console.log(valeur)
+            if (valeur > 0){
+                document.getElementById('info').style.display = "block"
+            }else (
+                document.getElementById('info').style.display = "none"
+            )
+        }
+    </script>
+
+    {% include 'navbar/footer.html.twig' %}
+
+
 {% endblock %}

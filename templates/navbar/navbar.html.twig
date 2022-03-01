@@ -2,75 +2,59 @@
 
 <header>
 
-    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"><i class='bx bx-cycling'>menu</i></span>
-            </button>
-            <div class="collapse  navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav    me-auto  mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ path('home') }}">Accueil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ path('evenement') }}">Cours collectifs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ path('coaching') }}">Cours particuliers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ path('coffret') }}">Coffrets cadeaux</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ path('galerie') }}">Galerie</a>
-                    </li>
-                    <li class="nav-item active dropdown">
-                        <a class="nav-link active dropdown-toggle" href="{{ path('avis') }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Avis</a>
-                        <ul class="dropdown-menu active drop" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item red" href="{{ path('avis') }}">Voir mes avis</a></li>
-                            <li><a class="dropdown-item" href="{{ path('avis_ajouter') }}">Laisser un avis</a></li>
-                        </ul>
-                    </li>
+
+    <nav class="nav" >
+        <div class="container-fluid"  >
+            <div class="logo">
+                <a href="{{ path('home') }}"><img src="{{ asset('img/navbar.png') }}" alt="Jodelap Coaching" style="width: 250px"></a>
+            </div>
+            <div id="mainListDiv" class="main_list" >
+
+                <ul class="navlinks" >
+                    <li><a class="nav-link active" href="{{ path('home') }}"><i class='bx bx-home-alt' ></i>Accueil</a></li>
+                    <li><a class="nav-link active" href="{{ path('evenement') }}">Cours collectifs</a></li>
+                    <li><a class="nav-link active" href="{{ path('coaching') }}">Cours particuliers</a></li>
+                    <li><a class="nav-link active" href="{{ path('coffret') }}">Coffrets cadeaux</a></li>
+                    <li><a class="nav-link active" href="{{ path('avis') }}">Mes avis</a></li>
+                    <li><a class="nav-link active" href="{{ path('galerie') }}">Galerie</a></li>
                     {% if  app.session.get('coaching')  or app.session.get('coffret')  or  app.session.get('evenement')   %}
-                    <li class="nav-item ml-5">
-                        <a class="nav-link active" href="{{ path('panier') }}"><i class='bx bx-cart-alt'></i>Commande</a>
-                    </li>
+                        <li><a class="nav-link active" href="{{ path('panier') }}"><i class='bx bx-cart-alt'></i>Commande</a></li>
+                    {% endif %}
+                    {% if app.user %}
+                        <li><a class="nav-link active" href="{{ path('user') }}"><i class='bx bx-male-female' ></i>Votre profil</a></li>
+                        <li><a class="nav-link active" href="{{ path('app_logout') }}"><i class='bx bx-log-out' ></i>Déconnexion</a></li>
+                    {% else%}
+                        <li><a class="nav-link active" href="{{ path('app_login') }}"><i class='bx bx-log-in'></i>Connexion/Inscription</a></li>
                     {% endif %}
                 </ul>
-                <div class="d-flex active">
 
-                    <ul class="navbar-nav me-auto active mr-5 mb-2 mb-lg-0">
-                            {% if app.user %}
-                        <li class="nav-item active dropdown">
-                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Salut {{ app.user.FirstName}} ! Ton compte :
-                            </a>
-                            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{{ path('user') }}">Votre profil</a></li>
-                                <li><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a></li>
-
-                            </ul>
-                        </li>
-                    </ul>
-                    {% else%}
-                    <ul class="navbar-nav me-auto active mr-5 mb-2 mb-lg-0">
-
-                                <li class="nav-item active dropdown">
-                                    <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Identifiez-vous
-                                    </a>
-                                    <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="{{ path('app_login') }}">Connexion</a></li>
-                                        <li><a class="dropdown-item" href="{{ path('app_register') }}">S'inscrire</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-{% endif %}
-                </div>
             </div>
+            <span class="navTrigger">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
         </div>
     </nav>
 
 
 </header>
 
+<script>
+    $('.navTrigger').click(function () {
+        $(this).toggleClass('active');
+        $("#mainListDiv").toggleClass("show_list");
+        $("#mainListDiv").fadeIn();
+
+    });
+
+</script>
+<script>
+    $(window).scroll(function() {
+        if ($(document).scrollTop() > 50) {
+            $('.nav').addClass('affix');
+        } else {
+            $('.nav').removeClass('affix');
+        }
+    });
+</script>

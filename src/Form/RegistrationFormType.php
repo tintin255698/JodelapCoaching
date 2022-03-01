@@ -44,7 +44,7 @@ class RegistrationFormType extends AbstractType
                 'second_options'=> array('label' => 'Confirmation de votre mot de passe', 'attr'=>['placeholder'=>'Confirmez votre mot de passe']),
             ))
             ->add('agreeTerms', CheckboxType::class, [
-                'label'=>'Accepter les conditions : ',
+                'label'=>'Accepter les conditions',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([

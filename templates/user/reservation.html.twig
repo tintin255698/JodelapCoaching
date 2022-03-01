@@ -4,10 +4,18 @@
 
 {% block body %}
 
+    {% include 'navbar/navbar.html.twig' %}
+
+    <div style="background-color: black; padding-top: 90px; padding-bottom: 40px">
+
+        <a href="{{ path('home') }}">
+            <img src="{{ asset('img/SITEBLANC.png') }}" style="filter: brightness(40%)"  class="img-fluid displayed mt-4" alt="Logo">
+        </a>
+    </div>
+
+
     <div class="global-container">
-    <a href="{{ path('home') }}">
-        <img src="{{ asset('img/capture1.PNG') }}"  class="img-fluid displayed mt-4" alt="Logo">
-    </a>
+
     <h1 class="text-center titre">Vos réservations</h1>
 
     <section class="container mt-5 ">
@@ -118,4 +126,5 @@
 </section>
     </div>
 
+    {% include 'navbar/footer.html.twig' %}
 {% endblock %}

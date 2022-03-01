@@ -14,8 +14,8 @@ class ImageController extends AbstractController
      */
     public function index(ImageRepository $imageRepository): Response
     {
-        $video = $imageRepository->findByType('video');
-        $image = $imageRepository->findByType('image');
+        $video = $imageRepository->findBy(['type'=>'video'],['ordre' =>'ASC'] );
+        $image = $imageRepository->findBy(['type'=>'image'],['ordre' =>'ASC']);
 
         return $this->render('image/index.html.twig', [
             'image' => $image,

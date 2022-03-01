@@ -27,7 +27,7 @@
 {% endif %}
     {% if coaching | length > 0%}
         <br>
-        <p>Tu as réservé ce/ces leçons particulières(s) :</p>
+        <p>Vous avez réservé ce/ces leçons particulières(s) :</p>
 
                 {% for coachings in coaching %}
                  <ul>
@@ -51,7 +51,7 @@
         
         {% if coffret | length > 0%}
             <br>
-            <p>Tu as commandés le/les coffret(s) cadeau(x) ci-dessous :</p>
+            <p>Vous avez commandés le/les coffret(s) cadeau(x) ci-dessous :</p>
 
                     {% for coffrets in coffret %}
                         <ul>
@@ -68,11 +68,11 @@
 {% endif %}
 
 <br>
-<p>Montant total de ta commande : {{ total/100 }}€</p>
+<p>Montant total de votre commande : {{ total/100 }}€</p>
 <p>Dont TVA : {{ tva/100 }}€</p>
 <br>
 
-<p>Je te remercie pour ta commande et bien sûr prépares-toi à progresser et à mieux connaître ton vélo !</p>
+<p>Je vous remercie pour votre commande et bien sûr préparez-vous à progresser et à mieux connaître votre vélo !</p>
 
 <br>
 <p>Sportivement,</p>

@@ -1,9 +1,4 @@
-<h1>N'oublie pas mon gateau</h1> - <p>Tu verras ce message à chaque commande ah ah ah !!!!!!!!!!!!!!!!!!!!!!</p>
-
-
-<h2>Commande de {{ user.firstName}} {{ user.lastName}} !</h2>
-
-
+<h2>Commande de {{ user.firstName}} {{ user.lastName}} {{ user.id }}</h2>
 
 {% if evenement or coaching or coffret %}
 
@@ -40,7 +35,17 @@
                     {% endif %}
 
                 <li>Nombre de personnes : {{ coachings.personne }} personnes</li>
+
                 <li>Total : {{ coachings.prix }}€</li>
+
+                {%  if coachings.information %}
+                <li>
+
+                        Message concernant la séance : {{ coachings.information }}
+
+                </li>
+                {% endif %}
+
             </ul>
 
 
@@ -62,6 +67,13 @@
                 <li>Nombre d'heures : {{ coffrets.quantity.heure }} heures</li>
 
                 <li>Total : {{ (coffrets.product.prix/100) * coffrets.quantity.heure }}€</li>
+                {%  if coffrets.information %}
+                <li>
+
+                        Message concernant la séance : {{ coffrets.information }}
+
+                </li>
+                {% endif %}
             </ul>
         {% endfor %}
 
@@ -69,6 +81,12 @@
 {% endif %}
 
 <h4>Montant total de sa commande : {{ total/100 }}€</h4>
+
+<hr>
+
+{% if info %}
+<h5>Info supplémentaire concernant la commande</h5> : {{ info }}
+{% endif %}
 
 
 <p>Sportivement et à plus sur la piste</p>

@@ -42,13 +42,15 @@ class CoachingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $personne = $form['personne']->getData();
+            $information = $form['information']->getData();
 
             $session = new Session();
             $panier =$session->get('coaching',[]);
 
             $panier[$id] = [
                 'quantity' => 1,
-                'personne' => $personne
+                'personne' => $personne,
+                'information' => $information,
             ];
 
             if( $panier[$id]['personne'] < 1){

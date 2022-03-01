@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,8 +21,10 @@ class CoordonneesType extends AbstractType
             ->add('LastName', \Symfony\Component\Form\Extension\Core\Type\TextType::class, ['label' => 'Nom', 'attr'=>['placeholder'=>'Votre email'] ])
             ->add('Email', EmailType::class, ['label' => 'Email', 'attr'=>['placeholder'=>'Votre email'] ] )
             ->add('telephone', TelType::class, ['label' => 'Téléphone', 'attr'=>['placeholder'=>'Votre numéro de téléphone'] ] )
-            ->add('Valider', SubmitType::class,  ['label' => 'Valider vos coordonnées', 'attr' => [
-                'class' => 'btn btn-dark mt-3' ]] )
+            ->add('information', TextareaType::class, ['label' => 'Informations supplémentaires avant de confirmer',  'mapped' =>false, 'required' => false, 'attr'=>['placeholder'=>'(Facultatif)'
+               ] ] )
+            ->add('Valider', SubmitType::class,  ['label' => 'Valider', 'attr' => [
+                'class' => 'btn btn-dark mt-4' ]] )
         ;
     }
 
