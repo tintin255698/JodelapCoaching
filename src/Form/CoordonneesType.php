@@ -21,8 +21,8 @@ class CoordonneesType extends AbstractType
             ->add('LastName', \Symfony\Component\Form\Extension\Core\Type\TextType::class, ['label' => 'Nom', 'attr'=>['placeholder'=>'Votre email'] ])
             ->add('Email', EmailType::class, ['label' => 'Email', 'attr'=>['placeholder'=>'Votre email'] ] )
             ->add('telephone', TelType::class, ['label' => 'Téléphone', 'attr'=>['placeholder'=>'Votre numéro de téléphone'] ] )
-            ->add('information', TextareaType::class, ['label' => 'Informations supplémentaires avant de confirmer',  'mapped' =>false, 'required' => false, 'attr'=>['placeholder'=>'(Facultatif)'
-               ] ] )
+            ->add('information', TextareaType::class, ['label' => 'Informations supplémentaires avant de confirmer<span class="badge badge-info badge-pill">Facultatif</span>', 'label_html'=>true,
+                'mapped' =>false, 'required' => false, 'attr'=>['placeholder'=>"Maximum 250 caractères", 'maxlength' => 250]] )
             ->add('Valider', SubmitType::class,  ['label' => 'Valider', 'attr' => [
                 'class' => 'btn btn-dark mt-4' ]] )
         ;

@@ -418,7 +418,7 @@ class PanierController extends AbstractController
             $email = (new TemplatedEmail())
                         ->from(new Address('jodelap.coaching@gmail.com', 'Jodelap Coaching'))
                         ->to($this->getUser()->getEmail())
-                        ->subject('Confirmation de réservation'.' '.$commande)
+                        ->subject('Confirmation de commande'.' '.$commande)
                         ->context([
                             'evenement' => $evenementWithData,
                             'coaching' => $coachingWithData,
@@ -435,8 +435,8 @@ class PanierController extends AbstractController
                     $mailer->send($email);
 
             $email2 = (new TemplatedEmail())
-                ->from(new Address('jodelap.coaching@gmail.com', 'site internet Jodelap Coaching'))
-                ->to('vivien.joly@hotmail.fr')
+                ->from(new Address('jodelap.coaching@gmail.com', 'Confirmation de commande'))
+                ->to('jodelap.coaching@gmail.com')
                 ->subject('Confirmation de réservation'.' '.$commande)
                 ->context([
                     'evenement' => $evenementWithData,

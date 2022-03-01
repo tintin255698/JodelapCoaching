@@ -18,8 +18,8 @@ class CoffretType extends AbstractType
             ->add('heure', IntegerType::class,['label' => "Nombre d'heures",'attr'=>['placeholder'=>"1 heure minimum pour commander/0 pour supprimer",
                 'error_bubbling' => true,
                 'min' => 0 ]])
-            ->add('information', TextareaType::class,['label' => "Informations complémentaires", 'attr'=>['placeholder'=>"Facultatif / 250 caractères maximum", 'maxlength' => 250],  'required' => false
-                ])
+            ->add('information', TextareaType::class,['label' => 'Informations supplémentaires (programmes, niveau, attente ...)<span class="badge badge-info badge-pill">Facultatif</span>', 'label_html'=>true,  'required' => false
+              , 'attr'=>['placeholder'=>"Maximum 250 caractères", 'maxlength' => 250] ])
             ->add('valider', SubmitType::class,['attr'=>['class'=>'btn btn-dark'] ])
         ;
     }

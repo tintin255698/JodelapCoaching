@@ -20,11 +20,10 @@
 
             <div class="container" style="margin-top: 10%">
                 {{ form_start(form) }}
-                <p class="mt-5">Nombre de personnes <strong style="color: #A81616">en vous incluant</strong></p>
-                {{ form_widget(form.personne, {'attr': {'onkeyup': 'lecture()'}}) }}
-                <div style="display: none" id="info">
-                    <p class="mt-5">Vous avez ici la possibilité d'écrire le programme que vous voulez faire, votre niveau, ce que vous en attendez, ce que vous voulez travailler, apprendre ...</p>
-                    {{ form_widget(form.information) }}
+
+                {{ form_row(form.personne, {'attr': {'onkeyup': 'lecture()'}}) }}
+                <div style="display: none" id="info" class="mt-5">
+                    {{ form_row(form.information) }}
                 </div>
 
                 <div class="text-end mt-5">

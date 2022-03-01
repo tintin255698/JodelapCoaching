@@ -14,8 +14,8 @@ class contactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email',EmailType::class, ['label' => 'Email', 'attr'=>['placeholder'=>'Votre email'] ])
-            ->add('sujet',ChoiceType::class, ['label' => 'Sujet',
+            ->add('email',EmailType::class, ['label' => 'Email :', 'attr'=>['placeholder'=>'Votre email'] ])
+            ->add('sujet',ChoiceType::class, ['label' => 'Sujet :',
                 'choices' => [
                     'Évènements' => 'Évènements',
                     'Coachings' => 'Coachings',
@@ -23,8 +23,8 @@ class contactType extends AbstractType
                     'Autre'=> 'Autre'
                 ],
             ])
-            ->add('message', TextareaType::class, ['label' => 'Message', 'attr'=>['placeholder'=>'Votre Message']])
-            ->add('Envoyer', SubmitType::class, ['label' => 'Envoyer le formulaire',
+            ->add('message', TextareaType::class, ['label' => 'Message :', 'attr'=>['placeholder'=>'Votre Message']])
+            ->add('Envoyer', SubmitType::class, ['label' => 'Envoyer',
                 'attr' => [
                     'class' => 'btn btn-dark mt-3'
                 ]
