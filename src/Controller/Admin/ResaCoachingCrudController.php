@@ -26,12 +26,15 @@ class ResaCoachingCrudController extends AbstractCrudController
             DateTimeField::new('dateResa', 'Date de réservation'),
             AssociationField::new('coaching', 'Session coaching'),
             IntegerField::new('nbPersonne', 'Nombre de personne pour le coaching'),
+            TextField::new('commentCoaching', 'Commentaire Coaching'),
             AssociationField::new('evenement', 'Evènements réservés'),
             AssociationField::new('coffretProduit', 'Coffrets commandés'),
             IntegerField::new('heuresCoffret', "Nombre d'heure prises dans le coffret"),
+            TextField::new('commentCoffret', "Commentaire coffret"),
             BooleanField::new('resaConfirm', 'Confirmation de réservation'),
             AssociationField::new('user', 'Utilisateur'),
             IntegerField::new('prix', 'Prix'),
+            TextField::new('commentaire', 'Commentaire global'),
         ];
     }
 }
